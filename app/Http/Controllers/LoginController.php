@@ -27,7 +27,7 @@ class LoginController extends Controller
             $request->session()->regenerate();
             return redirect()->intended('/');
         }
-        return back()->with('loginError', 'Login failed');
+        return back()->with('loginError', 'Login gagal');
     }
 
     public function logout()
