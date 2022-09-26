@@ -18,12 +18,12 @@
                 <i class="fas fa-fw fa-columns"></i>
                 <span>Dashboard</span></a>
         </li>
-        <li class="nav-item {{ Request::is('data-anggota') ? 'active' : '' }}">
+        <li class="nav-item {{ Request::is('data-anggota*') ? 'active' : '' }}">
             <a class="nav-link" href="/data-anggota">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Data Anggota</span></a>
         </li>
-        <li class="nav-item {{ Request::is('data-buku') ? 'active' : '' }}">
+        <li class="nav-item {{ Request::is('data-buku*') ? 'active' : '' }}">
             <a class="nav-link" href="/data-buku">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Data Buku</span></a>
@@ -43,7 +43,7 @@
             </div>
         </li>
 
-        <li class="nav-item {{ Request::is('laporan') ? 'active' : '' }}">
+        <li class="nav-item {{ Request::is('laporan*') ? 'active' : '' }}">
             <a class="nav-link" href="/laporan">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Laporan</span></a>

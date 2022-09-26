@@ -13,11 +13,11 @@ class MemberFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
+            'nama' => $this->faker->name(),
             'nis' => $this->faker->unique()->randomNumber(5, true),
-            'tempat-lahir' => $this->faker->word(),
-            'tanggal-lahir' => $this->faker->date(),
-            'jenis-kelamin' => $this->faker->word(),
+            'tempat_lahir' => $this->faker->word(),
+            'tanggal_lahir' => $this->faker->date(),
+            'jenis_kelamin' => $this->faker->word(),
             'kelas' => $this->faker->numberBetween(1, 6),
             'alamat' => $this->faker->address()
         ];

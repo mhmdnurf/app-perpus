@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Member extends Model
 {
@@ -12,9 +13,9 @@ class Member extends Model
     protected $fillable = [
         'nama',
         'nis',
-        'tempat-lahir',
-        'tanggal-lahir',
-        'jenis-kelamin',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'jenis_kelamin',
         'kelas',
         'alamat'
     ];

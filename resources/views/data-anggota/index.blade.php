@@ -1,66 +1,64 @@
-@extends('data-anggota.layouts.main')
+@extends('layouts.main')
 @section('container')
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            <h6 class="m-0 font-weight-bold text-primary">{{ $title }} Perpustakaan SD Negeri 017 Senayang</h6>
         </div>
         <div class="card-body">
+            @if (session()->has('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
             <div class="table-responsive">
+                <a href="/data-anggota/create" class="btn btn-primary mb-3">
+                    <span class="text">Tambah Data Anggota</span>
+                </a>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
+                            <th>No.</th>
+                            <th>Nama</th>
+                            <th>NIS</th>
+                            <th>Tempat Lahir</th>
+                            <th>Tanggal Lahir</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Kelas</th>
+                            <th>Alamat</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
-                        </tr>
-                        <tr>
-                            <td>Garrett Winters</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>63</td>
-                            <td>2011/07/25</td>
-                            <td>$170,750</td>
-                        </tr>
-                        <tr>
-                            <td>Ashton Cox</td>
-                            <td>Junior Technical Author</td>
-                            <td>San Francisco</td>
-                            <td>66</td>
-                            <td>2009/01/12</td>
-                            <td>$86,000</td>
-                        </tr>
-                        <tr>
-                            <td>Cedric Kelly</td>
-                            <td>Senior Javascript Developer</td>
-                            <td>Edinburgh</td>
-                            <td>22</td>
-                            <td>2012/03/29</td>
-                            <td>$433,060</td>
-                        </tr>
-                        <tr>
-                            <td>Airi Satou</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>33</td>
-                            <td>2008/11/28</td>
-                            <td>$162,700</td>
-                        </tr>
+                        @foreach ($members as $member)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $member->nama }}</td>
+                                <td>{{ $member->nis }}</td>
+                                <td>{{ $member->tempat_lahir }}</td>
+                                {{-- <td>{{ $member->tanggal_lahir }}</td> --}}
+                                <td>{{ \Carbon\Carbon::parse($member->tanggal_lahir)->isoFormat('D MMMM Y') }}</td>
+                                <td>{{ $member->jenis_kelamin }}</td>
+                                <td>{{ $member->kelas }}</td>
+                                <td>{{ $member->alamat }}</td>
+                                <td><a href="/data-anggota/{{ $member->id }}/edit" class="btn btn-primary mb-2"><i
+                                            class="fas fa-user-edit"></i></a>
+                                    <form action="/data-anggota/{{ $member->id }}" method="POST">
+                                        @method('delete')
+                                        @csrf
+                                        <button class="btn btn-danger mb-2"
+                                            onclick="return confirm('Data akan hilang ketika dihapus, apakah anda yakin?')"><i
+                                                class="fas fa-user-times"></i></button>
+                                    </form>
+                                    <a href="/print-anggota" class="btn btn-success" target="_blank"><i
+                                            class="fas fa-file-export"></i></a>
+                                </td>
+                            </tr>
+                        @endforeach
+
                     </tbody>
                 </table>
             </div>

@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\DashboardController;
 
 /*
@@ -15,21 +17,7 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('dashboard.index', [
-//         'title' => 'Dashboard',
-//         'active' => 'dashboard'
-//     ]);
-// })->middleware('auth');
-
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth');
-
-Route::get('/data-anggota', function () {
-    return view('data-anggota.index', [
-        'title' => 'Data Anggota',
-        'active' => 'data-anggota'
-    ]);
-})->middleware('auth');
 
 Route::get('/data-buku', function () {
     return view('data-buku.index', [
@@ -69,3 +57,6 @@ Route::get('/profile', function () {
         'active' => 'profile'
     ]);
 });
+
+Route::resource('/data-anggota', MemberController::class)->middleware('auth');
+Route::get('print-anggota', [MemberController::class, 'print'])->name('print');
