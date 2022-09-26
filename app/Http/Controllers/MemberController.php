@@ -66,7 +66,10 @@ class MemberController extends Controller
      */
     public function show($id)
     {
-        //
+        $member = Member::find($id);
+        view()->share('member', $member);
+        $pdf = PDF::loadview('data-anggota.print-anggota')->setPaper('a4', 'portrait');
+        return $pdf->stream('kartu-anggota.pdf');
     }
 
     /**
@@ -122,13 +125,5 @@ class MemberController extends Controller
     {
         Member::destroy($id);
         return redirect('/data-anggota')->with('success', 'Data anggota berhasil dihapus');
-    }
-
-    public function print()
-    {
-        $data = Member::all();
-        view()->share('data', $data);
-        $pdf = PDF::loadview('data-anggota.print-anggota');
-        return $pdf->stream('kartu-anggota.pdf');
     }
 }

@@ -59,4 +59,3 @@ Route::get('/profile', function () {
 });
 
 Route::resource('/data-anggota', MemberController::class)->middleware('auth');
-Route::get('print-anggota', [MemberController::class, 'print'])->name('print');

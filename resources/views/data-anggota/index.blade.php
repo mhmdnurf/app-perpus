@@ -22,14 +22,15 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Nama</th>
+                            <th class="col-4">Nama</th>
                             <th>NIS</th>
-                            <th>Tempat Lahir</th>
-                            <th>Tanggal Lahir</th>
+                            <th class="col-3">Tempat Lahir</th>
+                            <th class="col-6">Tanggal Lahir</th>
                             <th>Jenis Kelamin</th>
                             <th>Kelas</th>
                             <th>Alamat</th>
-                            <th>Aksi</th>
+                            <th class="col-6">Action</th>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,24 +45,25 @@
                                 <td>{{ $member->jenis_kelamin }}</td>
                                 <td>{{ $member->kelas }}</td>
                                 <td>{{ $member->alamat }}</td>
-                                <td><a href="/data-anggota/{{ $member->id }}/edit" class="btn btn-primary mb-2"><i
-                                            class="fas fa-user-edit"></i></a>
-                                    <form action="/data-anggota/{{ $member->id }}" method="POST">
+                                <td><a href="/data-anggota/{{ $member->id }}/edit" class="btn btn-primary mb-2"
+                                        class="btn btn-secondary"><i class="fas fa-user-edit"></i></a>
+                                    <form action="/data-anggota/{{ $member->id }}" method="POST" class="d-inline">
                                         @method('delete')
                                         @csrf
-                                        <button class="btn btn-danger mb-2"
+                                        <button class="btn btn-danger mb-2" class="btn btn-secondary"
                                             onclick="return confirm('Data akan hilang ketika dihapus, apakah anda yakin?')"><i
                                                 class="fas fa-user-times"></i></button>
                                     </form>
-                                    <a href="/print-anggota" class="btn btn-success" target="_blank"><i
-                                            class="fas fa-file-export"></i></a>
+                                    <a href="/data-anggota/{{ $member->id }}" class="btn btn-success"
+                                        class="btn btn-secondary" target="_blank"><i class="fas fa-file-export"></i></a>
                                 </td>
-                            </tr>
-                        @endforeach
-
-                    </tbody>
-                </table>
             </div>
+            </tr>
+            @endforeach
+
+            </tbody>
+            </table>
         </div>
+    </div>
     </div>
 @endsection
