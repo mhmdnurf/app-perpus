@@ -59,4 +59,5 @@ Route::resource('data-anggota', MemberController::class)->middleware('auth');
 Route::resource('data-buku', BookController::class)->middleware('auth');
 Route::resource('kategori', CategoryController::class)->middleware('auth');
 Route::get('/kategori/checkSlug', [CategoryController::class, 'checkSlug'])->middleware('auth');
+Route::get('/rak/checkSlug', [RackController::class, 'checkSlug'])->middleware('auth');
 Route::resource('rak', RackController::class)->middleware('auth');

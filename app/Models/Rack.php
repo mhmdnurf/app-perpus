@@ -4,11 +4,12 @@ namespace App\Models;
 
 use App\Models\Book;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Rack extends Model
 {
-    use HasFactory;
+    use HasFactory, Sluggable;
 
     public $guarded = ['id'];
 

@@ -15,29 +15,28 @@
                 </div>
             @endif
             <div class="table-responsive">
-                <a href="/kategori/create" class="btn btn-primary mb-3">
-                    <span class="text">Tambah Kategori</span>
+                <a href="/rak/create" class="btn btn-primary mb-3">
+                    <span class="text">Tambah Rak</span>
                 </a>
-
                 <table class="table table-bordered ml-auto mr-auto" id="dataTable" width="70%" cellspacing="0">
                     <thead class="text-center">
                         <tr>
                             <th width='15px'>No.</th>
-                            <th>Nama Kategori</th>
+                            <th>Nama Rak</th>
                             <th>Keterangan</th>
                             <th width='120px'>Aksi</th>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($categories as $category)
+                        @foreach ($racks as $rack)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $category->name }}</td>
-                                <td>{{ $category->keterangan }}</td>
-                                <td><a href="/kategori/{{ $category->id }}/edit" class="btn btn-primary mb-2"
+                                <td>{{ $rack->name }}</td>
+                                <td>{{ $rack->keterangan }}</td>
+                                <td><a href="/rak/{{ $rack->id }}/edit" class="btn btn-primary mb-2"
                                         class="btn btn-secondary"><i class="fas fa-edit"></i></a>
-                                    <form action="/kategori/{{ $category->id }}" method="POST" class="d-inline">
+                                    <form action="/rak/{{ $rack->id }}" method="POST" class="d-inline">
                                         @method('delete')
                                         @csrf
                                         <button class="btn btn-danger mb-2" class="btn btn-secondary"

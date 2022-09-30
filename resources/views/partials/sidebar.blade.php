@@ -31,7 +31,7 @@
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="/data-buku">Data Buku</a>
                     <a class="collapse-item" href="/kategori">Kategori</a>
-                    <a class="collapse-item" href="#">Rak Buku</a>
+                    <a class="collapse-item" href="/rak">Rak Buku</a>
                 </div>
             </div>
         </li>

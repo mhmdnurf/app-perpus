@@ -96,7 +96,7 @@ class CategoryController extends Controller
 
         $category->update($request->validate($rules));
 
-        return redirect('/kategori')->with('success', 'Data Anggota berhasil diubah');
+        return redirect('/kategori')->with('success', 'Data Kategori berhasil diubah');
     }
 
     /**
