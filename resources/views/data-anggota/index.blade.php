@@ -19,17 +19,16 @@
                     <span class="text">Tambah Data Anggota</span>
                 </a>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
+                    <thead class="text-center">
                         <tr>
                             <th>No.</th>
-                            <th class="col-4">Nama</th>
+                            <th class="col-2">Nama</th>
                             <th>NIS</th>
-                            <th class="col-3">Tempat Lahir</th>
-                            <th class="col-6">Tanggal Lahir</th>
+                            <th>Tempat Lahir</th>
+                            <th class="col-2">Tanggal Lahir</th>
                             <th>Jenis Kelamin</th>
-                            <th>Kelas</th>
-                            <th>Alamat</th>
-                            <th class="col-6">Action</th>
+                            <th class="col-6">Alamat</th>
+                            <th>Aksi</th>
                             </th>
                         </tr>
                     </thead>
@@ -41,13 +40,17 @@
                                 <td>{{ $member->nis }}</td>
                                 <td>{{ $member->tempat_lahir }}</td>
                                 {{-- <td>{{ $member->tanggal_lahir }}</td> --}}
-                                <td>{{ \Carbon\Carbon::parse($member->tanggal_lahir)->isoFormat('D MMMM Y') }}</td>
-                                <td>{{ $member->jenis_kelamin }}</td>
-                                <td>{{ $member->kelas }}</td>
+                                <td>{{ \Carbon\Carbon::parse($member->tanggal_lahir)->Format('d-m-Y') }}</td>
+                                @if ($member->jenis_kelamin == 'Laki-laki')
+                                    <td class="text-center">L</td>
+                                @endif
+                                @if ($member->jenis_kelamin == 'Perempuan')
+                                    <td class="text-center">P</td>
+                                @endif
                                 <td>{{ $member->alamat }}</td>
                                 <td><a href="/data-anggota/{{ $member->id }}/edit" class="btn btn-primary mb-2"
                                         class="btn btn-secondary"><i class="fas fa-user-edit"></i></a>
-                                    <form action="/data-anggota/{{ $member->id }}" method="POST" class="d-inline">
+                                    <form action="/data-anggota/{{ $member->id }}" method="POST">
                                         @method('delete')
                                         @csrf
                                         <button class="btn btn-danger mb-2" class="btn btn-secondary"

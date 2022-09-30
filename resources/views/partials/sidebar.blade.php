@@ -21,24 +21,30 @@
         <li class="nav-item {{ Request::is('data-anggota*') ? 'active' : '' }}">
             <a class="nav-link" href="/data-anggota">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Data Anggota</span></a>
+                <span>Anggota</span></a>
         </li>
         <li class="nav-item {{ Request::is('data-buku*') ? 'active' : '' }}">
-            <a class="nav-link" href="/data-buku">
+            <a class="nav-link collapsed" href="/data-buku" data-toggle="collapse" data-target="#collapseThree">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Data Buku</span></a>
+                <span>Buku</span></a>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="/data-buku">Data Buku</a>
+                    <a class="collapse-item" href="/kategori">Kategori</a>
+                    <a class="collapse-item" href="#">Rak Buku</a>
+                </div>
+            </div>
         </li>
         <li class="nav-item {{ Request::is('data-transaksi*') ? 'active' : '' }}">
             <a class="nav-link collapsed" href="/data-peminjaman" data-toggle="collapse" data-target="#collapseTwo"
                 aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Data Transaksi</span>
+                <span>Transaksi</span>
             </a>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Transaksi:</h6>
-                    <a class="collapse-item" href="/data-transaksi/data-peminjaman">Data Peminjaman</a>
-                    <a class="collapse-item" href="/data-transaksi/data-pengembalian">Data Pengembalian</a>
+                    <a class="collapse-item" href="/data-transaksi/data-peminjaman">Peminjaman</a>
+                    <a class="collapse-item" href="/data-transaksi/data-pengembalian"> Pengembalian</a>
                 </div>
             </div>
         </li>

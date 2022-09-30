@@ -20,7 +20,6 @@ class CreateMembersTable extends Migration
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir')->nullable();
             $table->string('jenis_kelamin');
-            $table->string('kelas');
             $table->string('alamat');
             $table->rememberToken();
             $table->timestamps();

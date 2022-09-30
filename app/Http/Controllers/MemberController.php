@@ -16,10 +16,9 @@ class MemberController extends Controller
      */
     public function index()
     {
-        $members = DB::table('members')->get();
         return view('data-anggota.index', [
             'title' => 'Data Anggota',
-            'members' => $members,
+            'members' => Member::all()
         ]);
     }
 

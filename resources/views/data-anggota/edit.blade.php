@@ -68,21 +68,6 @@
         </div>
 
         <div class="form-group">
-            <label for="kelas" class="mt-2">Kelas</label>
-            <select name="kelas" id="kelas"
-                class="form-control @error('kelas')
-                is-invalid
-            @enderror">
-                <option value="1" {{ $member->kelas == '1' ? 'selected' : '' }}>1</option>
-                <option value="2"{{ $member->kelas == '2' ? 'selected' : '' }}>2</option>
-                <option value="3"{{ $member->kelas == '3' ? 'selected' : '' }}>3</option>
-                <option value="4"{{ $member->kelas == '4' ? 'selected' : '' }}>4</option>
-                <option value="5"{{ $member->kelas == '5' ? 'selected' : '' }}>5</option>
-                <option value="6"{{ $member->kelas == '6' ? 'selected' : '' }}>6</option>
-            </select>
-        </div>
-
-        <div class="form-group">
             <label for="alamat">Alamat</label>
             <textarea id="alamat" name="alamat" rows="2"
                 class="form-control @error('alamat')

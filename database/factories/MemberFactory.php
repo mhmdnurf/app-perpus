@@ -15,10 +15,9 @@ class MemberFactory extends Factory
         return [
             'nama' => $this->faker->name(),
             'nis' => $this->faker->unique()->randomNumber(5, true),
-            'tempat_lahir' => $this->faker->word(),
+            'tempat_lahir' => 'Tanjungpinang',
             'tanggal_lahir' => $this->faker->date(),
-            'jenis_kelamin' => $this->faker->word(),
-            'kelas' => $this->faker->numberBetween(1, 6),
+            'jenis_kelamin' => 'Perempuan',
             'alamat' => $this->faker->address()
         ];
     }

@@ -2,9 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\RackController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Models\Category;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,13 +22,6 @@ use App\Http\Controllers\DashboardController;
 */
 
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth');
-
-Route::get('/data-buku', function () {
-    return view('data-buku.index', [
-        'title' => 'Data Buku',
-        'active' => 'data-buku'
-    ]);
-})->middleware('auth');
 
 Route::get('/data-transaksi/data-peminjaman', function () {
     return view('data-transaksi.data-peminjaman.index', [
@@ -58,4 +55,8 @@ Route::get('/profile', function () {
     ]);
 });
 
-Route::resource('/data-anggota', MemberController::class)->middleware('auth');
+Route::resource('data-anggota', MemberController::class)->middleware('auth');
+Route::resource('data-buku', BookController::class)->middleware('auth');
+Route::resource('kategori', CategoryController::class)->middleware('auth');
+Route::get('/kategori/checkSlug', [CategoryController::class, 'checkSlug'])->middleware('auth');
+Route::resource('rak', RackController::class)->middleware('auth');

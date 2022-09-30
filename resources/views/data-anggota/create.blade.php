@@ -47,21 +47,6 @@
         </div>
 
         <div class="form-group">
-            <label for="kelas" class="mt-2">Kelas</label>
-            <select name="kelas" id="kelas"
-                class="form-control @error('kelas')
-                is-invalid
-            @enderror">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-            </select>
-        </div>
-
-        <div class="form-group">
             <label for="alamat">Alamat</label>
             <textarea id="alamat" name="alamat" rows="2"
                 class="form-control @error('alamat')
