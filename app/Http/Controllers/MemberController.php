@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Member;
 use PDF;
+use App\Models\Member;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class MemberController extends Controller
 {
@@ -50,7 +51,6 @@ class MemberController extends Controller
             'tempat_lahir' => 'required|max:255',
             'tanggal_lahir' => 'required',
             'jenis_kelamin' => 'required',
-            'kelas' => 'required',
             'alamat' => 'required|max:255'
         ]);
         Member::create($validatedData);
@@ -102,7 +102,6 @@ class MemberController extends Controller
             'tempat_lahir' => 'required|max:255',
             'tanggal_lahir' => 'required',
             'jenis_kelamin' => 'required',
-            'kelas' => 'required',
             'alamat' => 'required|max:255'
         ];
         if ($request->nis != $member->nis) {

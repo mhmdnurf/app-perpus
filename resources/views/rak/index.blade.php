@@ -18,7 +18,7 @@
                 <a href="/rak/create" class="btn btn-primary mb-3">
                     <span class="text">Tambah Rak</span>
                 </a>
-                <table class="table table-bordered ml-auto mr-auto" id="dataTable" width="70%" cellspacing="0">
+                <table class="table table-bordered ml-auto mr-auto" id="dataTable" width="100%" cellspacing="0">
                     <thead class="text-center">
                         <tr>
                             <th width='15px'>No.</th>

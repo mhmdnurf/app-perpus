@@ -9,6 +9,7 @@ use App\Http\Controllers\MemberController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Models\Category;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 /*
 |--------------------------------------------------------------------------

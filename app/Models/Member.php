@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Member extends Model
 {
     use HasFactory;
-
     protected $fillable = [
         'nama',
         'nis',
@@ -19,4 +19,6 @@ class Member extends Model
         'kelas',
         'alamat'
     ];
+
+    public $incrementing = false;
 }

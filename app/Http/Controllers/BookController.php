@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Rack;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class BookController extends Controller
 {
@@ -15,7 +18,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        // $books = DB::table('books')->get();
+
         return view('data-buku.index', [
             'title' => 'Data Buku',
             'books' => Book::all()
@@ -29,7 +32,11 @@ class BookController extends Controller
      */
     public function create()
     {
-        // 
+        return view('data-buku.create', [
+            'title' => 'Tambah Buku',
+            'categories' => Category::all(),
+            'racks' => Rack::all()
+        ]);
     }
 
     /**
@@ -40,7 +47,19 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'isbn' => 'unique:books',
+            'category_id' => 'required',
+            'rack_id' => 'required',
+            'penerbit' => 'required|max:255',
+            'pengarang' => 'required|max:255',
+            'tahun' => 'required|max:255',
+            'stok' => 'required'
+        ]);
+        Book::create($validatedData);
+
+        return redirect('/data-buku')->with('success', 'Buku berhasil ditambah!');
     }
 
     /**
@@ -62,7 +81,13 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-        //
+        $book = Book::find($id);
+
+        return view('/data-buku.edit', [
+            'title' => 'Edit Data Buku',
+            'categories' => Category::all(),
+            'racks' => Rack::all()
+        ], compact('book'));
     }
 
     /**
@@ -74,7 +99,23 @@ class BookController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $book = Book::find($id);
+        $rules = [
+            'title' => 'required|max:255',
+            'category_id' => 'required',
+            'rack_id' => 'required',
+            'penerbit' => 'required|max:255',
+            'pengarang' => 'required|max:255',
+            'tahun' => 'required|max:255',
+            'stok' => 'required'
+        ];
+        if ($request->isbn != $book->isbn) {
+            $rules['isbn'] = 'unique:books';
+        }
+
+        $book->update($request->validate($rules));
+
+        return redirect('/data-buku')->with('success', 'Data Buku berhasil diubah');
     }
 
     /**
@@ -85,6 +126,7 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Book::destroy($id);
+        return redirect('/data-buku')->with('success', 'Data buku berhasil dihapus');
     }
 }

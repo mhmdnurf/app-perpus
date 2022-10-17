@@ -19,7 +19,7 @@
                     <span class="text">Tambah Kategori</span>
                 </a>
 
-                <table class="table table-bordered ml-auto mr-auto" id="dataTable" width="70%" cellspacing="0">
+                <table class="table table-bordered ml-auto mr-auto" id="dataTable" width="100%" cellspacing="0">
                     <thead class="text-center">
                         <tr>
                             <th width='15px'>No.</th>

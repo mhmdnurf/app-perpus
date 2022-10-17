@@ -15,7 +15,7 @@
                 </div>
             @endif
             <div class="table-responsive">
-                <a href="/data-anggota/create" class="btn btn-primary mb-3">
+                <a href="/data-buku/create" class="btn btn-primary mb-3">
                     <span class="text">Tambah Data Buku</span>
                 </a>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -55,10 +55,6 @@
                                             onclick="return confirm('Data akan hilang ketika dihapus, apakah anda yakin?')"><i
                                                 class="fas fa-user-times"></i></button>
                                     </form>
-                                    <a href="/data-buku/{{ $book->id }}" class="btn btn-success"
-                                        class="btn btn-secondary" target="_blank"><i class="fas fa-file-export"></i></a>
-                                </td>
-
                             </tr>
                         @endforeach
 
