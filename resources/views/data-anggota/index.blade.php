@@ -22,20 +22,23 @@
                     <thead class="text-center">
                         <tr>
                             <th>No.</th>
-                            <th class="col-2">Nama</th>
+                            <th>No. Anggota</th>
+                            <th>Nama</th>
                             <th>NIS</th>
                             <th>Tempat Lahir</th>
-                            <th class="col-2">Tanggal Lahir</th>
+                            <th>Tanggal Lahir</th>
                             <th>Jenis Kelamin</th>
-                            <th class="col-6">Alamat</th>
-                            <th>Aksi</th>
-                            </th>
+                            <th>Alamat</th>
+                            <th>Ubah</th>
+                            <th>Hapus</th>
+                            <th>Cetak</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($members as $member)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                <td>{{ $member->member_id }}</td>
                                 <td>{{ $member->nama }}</td>
                                 <td>{{ $member->nis }}</td>
                                 <td>{{ $member->tempat_lahir }}</td>
@@ -49,7 +52,8 @@
                                 @endif
                                 <td>{{ $member->alamat }}</td>
                                 <td><a href="/data-anggota/{{ $member->id }}/edit" class="btn btn-primary mb-2"
-                                        class="btn btn-secondary"><i class="fas fa-user-edit"></i></a>
+                                        class="btn btn-secondary"><i class="fas fa-user-edit"></i></a></td>
+                                <td>
                                     <form action="/data-anggota/{{ $member->id }}" method="POST">
                                         @method('delete')
                                         @csrf
@@ -57,6 +61,8 @@
                                             onclick="return confirm('Data akan hilang ketika dihapus, apakah anda yakin?')"><i
                                                 class="fas fa-user-times"></i></button>
                                     </form>
+                                </td>
+                                <td>
                                     <a href="/data-anggota/{{ $member->id }}" class="btn btn-success"
                                         class="btn btn-secondary" target="_blank"><i class="fas fa-file-export"></i></a>
                                 </td>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Rack;
 use Illuminate\Http\Request;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class RackController extends Controller
 {
@@ -41,13 +42,29 @@ class RackController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|max:255',
-            'slug' => 'unique:categories',
-            'keterangan' => 'max:255'
+
+        $request->validate([
+            'name' => 'required|max:255'
         ]);
-        Rack::create($validatedData);
-        return redirect('/rak')->with('success', 'Rak Buku berhasil ditambah!');
+        $rack = Rack::create([
+            'name' => $request->name,
+            'keterangan' => $request->keterangan
+        ]);
+
+        if ($rack) {
+            return redirect()
+                ->route('rak.index')
+                ->with([
+                    'success' => 'New data has been created successfully'
+                ]);
+        } else {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with([
+                    'error' => 'Some problem occurred, please try again'
+                ]);
+        }
     }
 
     /**

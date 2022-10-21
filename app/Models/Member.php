@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Borrow;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
@@ -11,6 +12,8 @@ class Member extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'id',
+        'member_id',
         'nama',
         'nis',
         'tempat_lahir',
@@ -19,6 +22,11 @@ class Member extends Model
         'kelas',
         'alamat'
     ];
-
     public $incrementing = false;
+    public $keyType = 'string';
+
+    public function borrows()
+    {
+        $this->belongsTo(Borrow::class);
+    }
 }

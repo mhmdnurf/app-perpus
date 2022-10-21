@@ -45,7 +45,16 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $config = [
+            'table' => 'members',
+            'field' => 'member_id',
+            'length' => 12,
+            'prefix' => 'APSD017-'
+        ];
+
+        $id = IdGenerator::generate($config);
+
+        $request->validate([
             'nama' => 'required|max:255',
             'nis' => 'unique:members',
             'tempat_lahir' => 'required|max:255',
@@ -53,8 +62,32 @@ class MemberController extends Controller
             'jenis_kelamin' => 'required',
             'alamat' => 'required|max:255'
         ]);
-        Member::create($validatedData);
-        return redirect('/data-anggota')->with('success', 'Data berhasil ditambah!');
+        $member = Member::create([
+            'member_id' => $id,
+            'nama' => $request->nama,
+            'nis' => $request->nis,
+            'tempat_lahir' => $request->tempat_lahir,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'alamat' => $request->alamat
+        ]);
+
+        if ($member) {
+            return redirect()
+                ->route('data-anggota.index')
+                ->with([
+                    'success' => 'New data has been created successfully'
+                ]);
+        } else {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with([
+                    'error' => 'Some problem occurred, please try again'
+                ]);
+        }
+
+        // Member::create($validatedData, $id);
+        // return redirect('/data-anggota')->with('success', 'Data berhasil ditambah!');
     }
 
     /**

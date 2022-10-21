@@ -4,12 +4,11 @@ namespace App\Models;
 
 use App\Models\Book;
 use Illuminate\Database\Eloquent\Model;
-use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Rack extends Model
 {
-    use HasFactory, Sluggable;
+    use HasFactory;
 
     public $guarded = ['id'];
 
@@ -18,12 +17,5 @@ class Rack extends Model
         return $this->hasMany(Book::class);
     }
 
-    public function sluggable(): array
-    {
-        return [
-            'slug' => [
-                'source' => 'name'
-            ]
-        ];
-    }
+    public $incrementing = false;
 }

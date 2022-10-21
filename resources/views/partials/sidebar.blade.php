@@ -36,15 +36,15 @@
             </div>
         </li>
         <li class="nav-item {{ Request::is('data-transaksi*') ? 'active' : '' }}">
-            <a class="nav-link collapsed" href="/data-peminjaman" data-toggle="collapse" data-target="#collapseTwo"
+            <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseTwo"
                 aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Transaksi</span>
             </a>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="/data-transaksi/data-peminjaman">Peminjaman</a>
-                    <a class="collapse-item" href="/data-transaksi/data-pengembalian"> Pengembalian</a>
+                    <a class="collapse-item" href="/data-peminjaman">Peminjaman</a>
+                    <a class="collapse-item" href="/data-pengembalian"> Pengembalian</a>
                 </div>
             </div>
         </li>

@@ -14,9 +14,8 @@ class CreateRacksTable extends Migration
     public function up()
     {
         Schema::create('racks', function (Blueprint $table) {
-            $table->id();
+            $table->id('id');
             $table->string('name')->unique();
-            $table->string('slug')->unique();
             $table->string('keterangan')->nullable();
             $table->timestamps();
         });

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Rack;
+use App\Models\Borrow;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,5 +24,10 @@ class Book extends Model
     public function rack()
     {
         return $this->belongsTo(Rack::class);
+    }
+
+    public function borrows()
+    {
+        return $this->hasMany(Borrow::class);
     }
 }

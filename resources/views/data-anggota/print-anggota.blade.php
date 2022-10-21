@@ -39,6 +39,10 @@
                 <th colspan="2" class="text-center">Kartu Anggota</th>
             </tr>
             <tr>
+                <th>Nomor</th>
+                <td>{{ $member->member_id }}</td>
+            </tr>
+            <tr>
                 <th>Nama</th>
                 <td>{{ $member->nama }}</td>
             </tr>
@@ -61,7 +65,7 @@
         <ol>
             <li>Siswa wajib menunjukkan kartu anggota perpustakaan kepada petugas perpustakaan.</li>
             <li>Kartu anggota tidak boleh dipinjamkan/dipergunakan/diwakilkan oleh siswa lain.</li>
-            <li>Peminjaman buku maksimal sebanyak 2 eksemplar selama 1 minggu (7 hari) dengan waktu pengembalian yang
+            <li>Peminjaman buku maksimal sebanyak 1 eksemplar selama 1 minggu (7 hari) dengan waktu pengembalian yang
                 sama.</li>
             <li>Keterlambatan pengembalian akan dikenakan denda sebesar Rp.1000,00 per buku per jumlah hari
                 keterlambatan.</li>
