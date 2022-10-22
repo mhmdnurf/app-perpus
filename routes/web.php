@@ -64,3 +64,5 @@ Route::get('/kategori/checkSlug', [CategoryController::class, 'checkSlug'])->mid
 Route::resource('rak', RackController::class)->middleware('auth');
 
 Route::resource('data-peminjaman', BorrowController::class)->middleware('auth');
+Route::post('/data-peminjaman/getMember/', [BorrowController::class, 'getMember'])->name('member.getMember');
+Route::post('/data-peminjaman/getBook/', [BorrowController::class, 'getBook'])->name('book.getBook');

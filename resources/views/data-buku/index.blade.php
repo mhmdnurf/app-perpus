@@ -40,8 +40,8 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $book->title }}</td>
                                 <td>{{ $book->isbn }}</td>
-                                <td>{{ $book->rack->name }}</td>
-                                <td>{{ $book->category->name }}</td>
+                                {{-- <td>{{ $book->rack->name }}</td> --}}
+                                {{-- <td>{{ $book->category->name }}</td> --}}
                                 <td>{{ $book->penerbit }}</td>
                                 <td>{{ $book->pengarang }}</td>
                                 <td>{{ $book->tahun }}</td>

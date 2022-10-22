@@ -44,7 +44,6 @@ class CategoryController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',
-            'slug' => 'unique:categories',
             'keterangan' => 'max:255'
         ]);
         Category::create($validatedData);
@@ -90,7 +89,6 @@ class CategoryController extends Controller
 
         $rules = [
             'name' => 'required|max:255',
-            'slug' => 'unique:categories',
             'keterangan' => 'max:255'
         ];
 

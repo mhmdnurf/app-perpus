@@ -32,22 +32,21 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('admin')
         ]);
 
-        // Book::create([
-        //     'category_id' => '1',
-        //     'rack_id' => '2',
-        //     'isbn' => '123-4243-32323-132',
-        //     'title' => 'Filosofi Teras',
-        //     'penerbit' => 'Gramedia',
-        //     'pengarang' => 'Muhammad Zakaria',
-        //     'tahun' => '2018',
-        //     'stok' => '10'
-        // ]);
+        Book::create([
+            'category_id' => '1',
+            'rack_id' => '1',
+            'isbn' => '123424332323132',
+            'title' => 'Filosofi Teras',
+            'penerbit' => 'Gramedia',
+            'pengarang' => 'Muhammad Zakaria',
+            'tahun' => '2018',
+            'stok' => '10'
+        ]);
 
-        // Rack::create([
-        //     'name' => 'RAK 1',
-        //     'slug' => 'rak-1',
-        //     'keterangan' => '-'
-        // ]);
+        Rack::create([
+            'name' => 'RAK 1',
+            'keterangan' => '-'
+        ]);
 
         // Rack::create([
         //     'name' => 'RAK 2',
@@ -57,13 +56,11 @@ class DatabaseSeeder extends Seeder
 
         Category::create([
             'name' => 'Filsafat',
-            'slug' => 'filsafat',
             'keterangan' => '-'
         ]);
 
         Category::create([
             'name' => 'Ilmu Sosial',
-            'slug' => 'ilmu-sosial',
             'keterangan' => '-'
         ]);
 

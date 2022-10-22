@@ -26,9 +26,9 @@
                             <th>No. Anggota</th>
                             <th>Nama</th>
                             <th>Judul Buku</th>
-                            <th>ISBN</th>
                             <th>Tanggal Pinjam</th>
                             <th>Tanggal Kembali</th>
+                            <th>Kembalikan</th>
                             <th>Ubah</th>
                             <th>Hapus</th>
                             </th>
@@ -38,13 +38,13 @@
                         @foreach ($borrows as $borrow)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                <td>{{ $borrow->borrow_id }}</td>
                                 <td>{{ $borrow->member->member_id }}</td>
-                                <td>{{ $borrow->member->name }}</td>
-                                <td>{{ $borrow->rack->name }}</td>
+                                <td>{{ $borrow->member->nama }}</td>
                                 <td>{{ $borrow->book->title }}</td>
-                                <td>{{ $borrow->book->isbn }}</td>
-                                <td>{{ $borrow->tgl_pinjam }}</td>
-                                <td>{{ $borrow->tgl_kembali }}</td>
+                                <td>{{ \Carbon\Carbon::parse($borrow->tgl_pinjam)->Format('d-m-Y') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($borrow->tgl_kembali)->Format('d-m-Y') }}</td>
+                                <td>Kembalikan</td>
                                 <td>
                                     <a href="/data-buku/{{ $borrow->id }}/edit" class="btn btn-primary mb-2"
                                         class="btn btn-secondary"><i class="fas fa-user-edit"></i></a>
