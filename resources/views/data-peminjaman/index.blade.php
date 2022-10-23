@@ -39,18 +39,18 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $borrow->borrow_id }}</td>
-                                <td>{{ $borrow->member->member_id }}</td>
+                                <td>{{ $borrow->member->no_anggota }}</td>
                                 <td>{{ $borrow->member->nama }}</td>
                                 <td>{{ $borrow->book->title }}</td>
                                 <td>{{ \Carbon\Carbon::parse($borrow->tgl_pinjam)->Format('d-m-Y') }}</td>
                                 <td>{{ \Carbon\Carbon::parse($borrow->tgl_kembali)->Format('d-m-Y') }}</td>
                                 <td>Kembalikan</td>
                                 <td>
-                                    <a href="/data-buku/{{ $borrow->id }}/edit" class="btn btn-primary mb-2"
+                                    <a href="/data-peminjaman/{{ $borrow->id }}/edit" class="btn btn-primary mb-2"
                                         class="btn btn-secondary"><i class="fas fa-user-edit"></i></a>
                                 </td>
                                 <td>
-                                    <form action="/data-buku/{{ $borrow->id }}" method="POST">
+                                    <form action="/data-peminjaman/{{ $borrow->id }}" method="POST">
                                         @method('delete')
                                         @csrf
                                         <button class="btn btn-danger mb-2" class="btn btn-secondary"

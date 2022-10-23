@@ -16,8 +16,8 @@ class CreateBorrowsTable extends Migration
         Schema::create('borrows', function (Blueprint $table) {
             $table->id('id');
             $table->string('borrow_id')->references('id');
-            $table->string('member_id');
-            $table->string('book_name');
+            $table->foreignId('member_id');
+            $table->foreignId('book_id');
             $table->date('tgl_pinjam')->nullable();
             $table->date('tgl_kembali')->nullable();
             $table->timestamps();

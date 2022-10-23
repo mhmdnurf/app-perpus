@@ -2,29 +2,27 @@
 @section('container')
     <form action="/data-peminjaman" method="POST">
         @csrf
-        <label for="member">Nomor Anggota</label>
-        <input type="text" id="member_search" class="form-control">
-
-        <label for="member_id">Nama Anggota</label>
-        <input id="member_id" type="text" name="member_id" readonly
-            class="form-control @error('member_id')
-        is-invalid
-    @enderror">
-        @error('member_id')
+        <label for="member">Data Anggota</label>
+        <select class="form-control" aria-label="Default select example" name="member_id" id="member_id">
+            @foreach ($members as $member)
+                <option></option>
+                <option value="{{ $member->id }}">{{ $member->no_anggota }} | {{ $member->nama }}</option>
+            @endforeach
+        </select>
+        @error('member')
             <div class="invalid-feedback">
                 {{ $message }}
             </div>
         @enderror
 
-        <label for="book">Judul Buku</label>
-        <input type="text" id="book_search" class="form-control">
-
-        <label for="book_id">ISBN</label>
-        <input id="book_id" type="text" name="book_id" readonly
-            class="form-control @error('book_id')
-        is-invalid
-    @enderror">
-        @error('book_id')
+        <label for="book">Data Buku</label>
+        <select class="form-control" aria-label="Default select example" name="book_id" id="book_id">
+            @foreach ($books as $book)
+                <option></option>
+                <option value="{{ $book->id }}">{{ $book->title }} | {{ $book->isbn }}</option>
+            @endforeach
+        </select>
+        @error('book')
             <div class="invalid-feedback">
                 {{ $message }}
             </div>

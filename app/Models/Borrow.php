@@ -17,11 +17,11 @@ class Borrow extends Model
 
     public function book()
     {
-        return $this->belongsTo(Book::class, 'id');
+        return $this->belongsTo(Book::class);
     }
 
     public function member()
     {
-        return $this->belongsTo(Member::class, 'id');
+        return $this->belongsTo(Member::class);
     }
 }

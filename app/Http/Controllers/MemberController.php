@@ -47,7 +47,7 @@ class MemberController extends Controller
     {
         $config = [
             'table' => 'members',
-            'field' => 'member_id',
+            'field' => 'no_anggota',
             'length' => 12,
             'prefix' => 'APSD017-'
         ];
@@ -63,10 +63,11 @@ class MemberController extends Controller
             'alamat' => 'required|max:255'
         ]);
         $member = Member::create([
-            'member_id' => $id,
+            'no_anggota' => $id,
             'nama' => $request->nama,
             'nis' => $request->nis,
             'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
             'alamat' => $request->alamat
         ]);

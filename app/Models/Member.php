@@ -13,7 +13,7 @@ class Member extends Model
     use HasFactory;
     protected $fillable = [
         'id',
-        'member_id',
+        'no_anggota',
         'nama',
         'nis',
         'tempat_lahir',
@@ -27,6 +27,6 @@ class Member extends Model
 
     public function borrows()
     {
-        $this->belongsTo(Borrow::class);
+        $this->hasMany(Borrow::class);
     }
 }

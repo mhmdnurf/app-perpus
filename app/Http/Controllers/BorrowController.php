@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use App\Models\Rack;
 use App\Models\Borrow;
 use App\Models\Member;
-use App\Models\Category;
 use Illuminate\Http\Request;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
@@ -60,7 +58,7 @@ class BorrowController extends Controller
 
         $request->validate([
             'member_id' => 'required|max:255',
-            'book_name' => 'required',
+            'book_id' => 'required',
             'tgl_pinjam' => 'required',
             'tgl_kembali' => 'required',
         ]);
@@ -68,7 +66,7 @@ class BorrowController extends Controller
         $borrow = Borrow::create([
             'borrow_id' => $id,
             'member_id' => $request->member_id,
-            'book_name' => $request->book_name,
+            'book_id' => $request->book_id,
             'tgl_pinjam' => $request->tgl_pinjam,
             'tgl_kembali' => $request->tgl_kembali
         ]);
@@ -87,9 +85,6 @@ class BorrowController extends Controller
                     'error' => 'Some problem occurred, please try again'
                 ]);
         }
-
-
-
         return redirect('/data-peminjaman')->with('success', 'Peminjaman berhasil dilakukan!');
     }
 
@@ -135,50 +130,7 @@ class BorrowController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
-
-    /*
-        AJAX request
-   */
-    public function getMember(Request $request)
-    {
-
-        $search = $request->search;
-
-        if ($search == '') {
-            $members = Member::orderby('member_id', 'asc')->select('nama', 'member_id')->limit(100)->get();
-        } else {
-            $members = Member::orderby('member_id', 'asc')->select('nama', 'member_id')->where('member_id', 'like', '%' . $search . '%')->limit(100)->get();
-        }
-
-        $response = array();
-        foreach ($members as $member) {
-            $response[] = array("value" => $member->nama, "label" => $member->member_id);
-        }
-
-        return response()->json($response);
-    }
-
-    /*
-        AJAX request
-   */
-    public function getBook(Request $request)
-    {
-
-        $search = $request->search;
-
-        if ($search == '') {
-            $members = Book::orderby('title', 'asc')->select('isbn', 'title')->limit(100)->get();
-        } else {
-            $members = Book::orderby('title', 'asc')->select('isbn', 'title')->where('title', 'like', '%' . $search . '%')->limit(100)->get();
-        }
-
-        $response = array();
-        foreach ($members as $member) {
-            $response[] = array("value" => $member->isbn, "label" => $member->title);
-        }
-
-        return response()->json($response);
+        Borrow::destroy($id);
+        return redirect('/data-peminjaman')->with('success', 'Data peminjaman berhasil dihapus');
     }
 }
