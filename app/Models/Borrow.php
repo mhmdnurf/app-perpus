@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Book;
 use App\Models\Member;
+use App\Models\Returned;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -23,5 +24,10 @@ class Borrow extends Model
     public function member()
     {
         return $this->belongsTo(Member::class);
+    }
+
+    public function returned()
+    {
+        return $this->belongsTo(Returned::class);
     }
 }

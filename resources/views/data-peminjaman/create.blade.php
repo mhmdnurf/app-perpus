@@ -50,6 +50,28 @@
             </div>
         @enderror
 
+        <label for="status" hidden>Status</label>
+        <input id="status" type="hidden" name="status" value="Dipinjam"
+            class="form-control @error('status')
+        is-invalid
+    @enderror">
+        @error('status')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
+
+        <label for="keterangan" hidden>Status</label>
+        <input id="keterangan" type="hidden" name="keterangan" value=""
+            class="form-control @error('keterangan')
+        is-invalid
+    @enderror">
+        @error('keterangan')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
+
         <button type="submit" class="btn btn-primary mb-2 mt-2">Submit</button>
         <a href="/data-peminjaman" class="btn btn-danger">Cancel</a>
     </form>

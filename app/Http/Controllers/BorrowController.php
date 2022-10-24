@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Borrow;
 use App\Models\Member;
+use App\Models\Returned;
+use DateTime;
 use Illuminate\Http\Request;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
@@ -61,17 +63,20 @@ class BorrowController extends Controller
             'book_id' => 'required',
             'tgl_pinjam' => 'required',
             'tgl_kembali' => 'required',
+            'status' => 'required',
         ]);
 
-        $borrow = Borrow::create([
+        $returned = Borrow::create([
             'borrow_id' => $id,
             'member_id' => $request->member_id,
             'book_id' => $request->book_id,
             'tgl_pinjam' => $request->tgl_pinjam,
-            'tgl_kembali' => $request->tgl_kembali
+            'tgl_kembali' => $request->tgl_kembali,
+            'status' => 'Dipinjam',
+            'keterangan' => $request->keterangan
         ]);
 
-        if ($borrow) {
+        if ($returned) {
             return redirect()
                 ->route('data-peminjaman.index')
                 ->with([
@@ -85,6 +90,7 @@ class BorrowController extends Controller
                     'error' => 'Some problem occurred, please try again'
                 ]);
         }
+
         return redirect('/data-peminjaman')->with('success', 'Peminjaman berhasil dilakukan!');
     }
 
@@ -119,7 +125,21 @@ class BorrowController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $borrow = Borrow::find($id);
+        $rules = [
+            'borrow_id' => 'required',
+            'member_id' => 'required',
+            'book_id' => 'required',
+            'tgl_pinjam' => 'required',
+            'tgl_kembali' => 'required',
+            'tgl_kembalikan' => 'required',
+            'keterlambatan' => 'required',
+            'status' => 'required',
+            'keterangan' => 'required'
+        ];
+        dd($request->all());
+        $borrow->update($request->validate($rules));
+        return redirect('/data-peminjaman')->with('success', 'Proses Pengembalian Berhasil');
     }
 
     /**
