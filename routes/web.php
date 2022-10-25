@@ -9,6 +9,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BorrowController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ReturnedController;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use App\Http\Controllers\DashboardController;
 
@@ -64,3 +65,4 @@ Route::get('/kategori/checkSlug', [CategoryController::class, 'checkSlug'])->mid
 Route::resource('rak', RackController::class)->middleware('auth');
 
 Route::resource('data-peminjaman', BorrowController::class)->middleware('auth');
+Route::resource('data-pengembalian', ReturnedController::class)->middleware('auth');

@@ -129,10 +129,8 @@
                                             Kembalikan
                                         </button>
                                     @else
-                                        <button type="button" class="btn btn-success" data-toggle="modal"
-                                            data-target="#ModalDetail">
-                                            Selesai
-                                        </button>
+                                        <a href="/data-peminjaman/{{ $borrow->id }}" class="btn btn-success"
+                                            class="btn btn-secondary" target="_blank">Selesai</a>
                                     @endif
                                 </td>
                                 <td>
@@ -157,5 +155,5 @@
     </div>
 @endsection
 @include('data-peminjaman.partials.returnModal')
-@include('data-peminjaman.partials.detailModal')
 @endif
+`

@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Borrow;
 use App\Models\Member;
-use App\Models\Returned;
-use DateTime;
+use PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+use function GuzzleHttp\Promise\all;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class BorrowController extends Controller
@@ -100,9 +102,19 @@ class BorrowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Borrow $borrow, Member $member, Book $book, $id)
     {
-        //
+        $borrow = Borrow::find($id);
+        // view()->share('borrow', $borrow);
+        // $pdf = PDF::loadview('data-peminjaman.show')->setPaper('a4', 'portrait');
+        // return $pdf->stream('detail-transaksi.pdf');
+
+        return view('data-peminjaman.show', [
+            'title' => 'Detail Pengembalian Buku',
+            'borrow' => $borrow,
+            'member' => $member,
+            'book' => $book
+        ]);
     }
 
     /**
@@ -137,7 +149,7 @@ class BorrowController extends Controller
             'status' => 'required',
             'keterangan' => 'required'
         ];
-        dd($request->all());
+        // dd($request->all());
         $borrow->update($request->validate($rules));
         return redirect('/data-peminjaman')->with('success', 'Proses Pengembalian Berhasil');
     }
@@ -152,5 +164,10 @@ class BorrowController extends Controller
     {
         Borrow::destroy($id);
         return redirect('/data-peminjaman')->with('success', 'Data peminjaman berhasil dihapus');
+    }
+
+    public function detail($id)
+    {
+        Borrow::find($id);
     }
 }

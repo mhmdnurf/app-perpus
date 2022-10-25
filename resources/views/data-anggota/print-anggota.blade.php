@@ -16,7 +16,7 @@
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 </head>
 
 <body id="page-top">
@@ -40,7 +40,7 @@
             </tr>
             <tr>
                 <th>Nomor</th>
-                <td>{{ $member->member_id }}</td>
+                <td>{{ $member->no_anggota }}</td>
             </tr>
             <tr>
                 <th>Nama</th>

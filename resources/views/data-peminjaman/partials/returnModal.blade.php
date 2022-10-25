@@ -3,14 +3,14 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Proses Pengembalian</h5>
+                <h5 class="modal-title" id="ModalEdit">Proses Pengembalian</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <form action="/data-peminjaman/{{ $borrow->id }}" method="POST">
-                    @method('put')
+                    @method('patch')
                     @csrf
                     <label for="borrow_id">Nomor Peminjaman</label>
                     <input id="borrow_id" type="text" name="borrow_id" required readonly class="form-control"
@@ -49,11 +49,11 @@
                         value="{{ $borrow->tgl_kembali }}">
 
                     <label for="tgl_kembalikan">Tanggal Dikembalikan</label>
-                    <input id="tgl_kembalikan" type="date" name="tgl_kembalikan" required class="form-control"
-                        value="{{ \Carbon\Carbon::parse($borrow->tgl_kembalikan)->Format('d-m-Y') }}">
+                    <input id="tgl_kembalikan" type="date" name="tgl_kembalikan" required class="form-control">
 
-                    <label for="keterlambatan">Keterlambatan</label>
-                    <input id="keterlambatan" type="number" name="keterlambatan" required class="form-control">
+                    <label for="keterlambatan" hidden>Keterlambatan</label>
+                    <input id="keterlambatan" type="hidden" name="keterlambatan" required class="form-control"
+                        value="{{ \Carbon\Carbon::parse($borrow->tgl_kembalikan)->diffInDays($borrow->updated_at) }}">
 
                     <label for="status">Status</label>
                     <input id="status" type="text" name="status" required readonly class="form-control"

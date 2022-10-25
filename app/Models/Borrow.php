@@ -25,9 +25,4 @@ class Borrow extends Model
     {
         return $this->belongsTo(Member::class);
     }
-
-    public function returned()
-    {
-        return $this->belongsTo(Returned::class);
-    }
 }
