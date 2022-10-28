@@ -40,7 +40,7 @@ class DatabaseSeeder extends Seeder
             'penerbit' => 'Gramedia',
             'pengarang' => 'Muhammad Zakaria',
             'tahun' => '2018',
-            'stok' => '10'
+            'jumlah' => '10'
         ]);
 
         Rack::create([

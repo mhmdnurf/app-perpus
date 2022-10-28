@@ -88,13 +88,13 @@
             </div>
         @enderror
 
-        <label for="stok" class="mt-2">Stok</label>
-        <input type="text" id="stok" name="stok" required
-            class="form-control @error('stok')
+        <label for="jumlah" class="mt-2">Jumlah</label>
+        <input type="text" id="jumlah" name="jumlah" required
+            class="form-control @error('jumlah')
         is-invalid
     @enderror">
 
-        @error('stok')
+        @error('jumlah')
             <div class="invalid-feedback">
                 {{ $message }}
             </div>

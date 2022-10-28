@@ -22,7 +22,7 @@ class CreateBooksTable extends Migration
             $table->string('penerbit');
             $table->string('pengarang');
             $table->string('tahun');
-            $table->string('stok');
+            $table->string('jumlah');
             $table->timestamps();
         });
     }

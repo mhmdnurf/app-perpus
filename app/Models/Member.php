@@ -27,6 +27,6 @@ class Member extends Model
 
     public function borrows()
     {
-        $this->hasMany(Borrow::class);
+        return $this->hasMany(Borrow::class);
     }
 }

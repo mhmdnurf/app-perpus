@@ -44,7 +44,7 @@
                     <input id="tgl_pinjam" type="text" name="tgl_pinjam" required readonly class="form-control"
                         value="{{ $borrow->tgl_pinjam }}">
 
-                    <label for="tgl_kembali">Tanggal Pengembalian</label>
+                    <label for="tgl_kembali">Batas Pengembalian</label>
                     <input id="tgl_kembali" type="text" name="tgl_kembali" required readonly class="form-control"
                         value="{{ $borrow->tgl_kembali }}">
 

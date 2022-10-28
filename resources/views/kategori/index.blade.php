@@ -22,27 +22,31 @@
                 <table class="table table-bordered ml-auto mr-auto" id="dataTable" width="100%" cellspacing="0">
                     <thead class="text-center">
                         <tr>
-                            <th width='15px'>No.</th>
+                            <th width='10px'>No.</th>
                             <th>Nama Kategori</th>
                             <th>Keterangan</th>
-                            <th width='120px'>Aksi</th>
+                            <th width='10px'>Edit</th>
+                            <th width='10px'>Hapus</th>
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="text-center">
                         @foreach ($categories as $category)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $category->name }}</td>
-                                <td>{{ $category->keterangan }}</td>
-                                <td><a href="/kategori/{{ $category->id }}/edit" class="btn btn-primary mb-2"
-                                        class="btn btn-secondary"><i class="fas fa-edit"></i></a>
-                                    <form action="/kategori/{{ $category->id }}" method="POST" class="d-inline">
+                                <td class="align-middle">{{ $loop->iteration }}</td>
+                                <td class="align-middle">{{ $category->name }}</td>
+                                <td class="align-middle">{{ $category->keterangan }}</td>
+                                <td class="align-middle"><a href="/kategori/{{ $category->id }}/edit"
+                                        class="btn btn-default text-primary"><i class="fas fa-user-edit fa-lg"></i></a>
+                                </td>
+                                <td class="align-middle">
+                                    <form action="/kategori/{{ $category->id }}" method="POST" class="d-inline"
+                                        class="text-center">
                                         @method('delete')
                                         @csrf
-                                        <button class="btn btn-danger mb-2" class="btn btn-secondary"
+                                        <button class="text-danger border-0 bg-transparent"
                                             onclick="return confirm('Data akan hilang ketika dihapus, apakah anda yakin?')"><i
-                                                class="fas fa-trash-alt"></i></button>
+                                                class="fas fa-trash-alt fa-lg"></i></button>
                                     </form>
                                 </td>
 

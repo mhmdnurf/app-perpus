@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use PDF;
 use App\Models\Member;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class MemberController extends Controller
@@ -76,7 +75,7 @@ class MemberController extends Controller
             return redirect()
                 ->route('data-anggota.index')
                 ->with([
-                    'success' => 'New data has been created successfully'
+                    'success' => 'Data Anggota berhasil ditambah'
                 ]);
         } else {
             return redirect()
@@ -86,9 +85,6 @@ class MemberController extends Controller
                     'error' => 'Some problem occurred, please try again'
                 ]);
         }
-
-        // Member::create($validatedData, $id);
-        // return redirect('/data-anggota')->with('success', 'Data berhasil ditambah!');
     }
 
     /**
@@ -101,7 +97,7 @@ class MemberController extends Controller
     {
         $member = Member::find($id);
         view()->share('member', $member);
-        $pdf = PDF::loadview('data-anggota.print-anggota')->setPaper('a4', 'portrait');
+        $pdf = PDF::loadview('data-anggota.kartu-anggota')->setPaper('a4', 'portrait');
         return $pdf->stream('kartu-anggota.pdf');
     }
 

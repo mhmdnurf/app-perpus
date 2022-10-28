@@ -32,7 +32,6 @@
 
     {{-- CSS for AutoComplete --}}
     <link rel="stylesheet" type="text/css" href="/jqueryui/jquery-ui.min.css">
-
 </head>
 
 <body id="page-top">

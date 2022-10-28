@@ -33,7 +33,7 @@
         style="color: black; border: 1px solid black;">
         <tbody>
             <tr>
-                <th colspan="2" class="text-center" style="border-bottom: none;">Perpustakaan SDN 017 Senayang</th>
+                <th colspan="2" class="text-center">Perpustakaan SDN 017 Senayang</th>
             </tr>
             <tr>
                 <th colspan="2" class="text-center">Kartu Anggota</th>
@@ -107,12 +107,6 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-
-    <script>
-        $(function() {
-            $("#date").datepicker();
-        });
-    </script>
 </body>
 
 </html>

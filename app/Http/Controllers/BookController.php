@@ -55,7 +55,7 @@ class BookController extends Controller
             'penerbit' => 'required|max:255',
             'pengarang' => 'required|max:255',
             'tahun' => 'required|max:255',
-            'stok' => 'required'
+            'jumlah' => 'required'
         ]);
         Book::create($validatedData);
 
@@ -107,7 +107,7 @@ class BookController extends Controller
             'penerbit' => 'required|max:255',
             'pengarang' => 'required|max:255',
             'tahun' => 'required|max:255',
-            'stok' => 'required'
+            'jumlah' => 'required'
         ];
         if ($request->isbn != $book->isbn) {
             $rules['isbn'] = 'unique:books';

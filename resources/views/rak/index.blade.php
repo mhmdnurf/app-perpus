@@ -21,33 +21,34 @@
                 <table class="table table-bordered ml-auto mr-auto" id="dataTable" width="100%" cellspacing="0">
                     <thead class="text-center">
                         <tr>
-                            <th width='15px'>No.</th>
+                            <th width="10px">No.</th>
                             <th>Nama Rak</th>
                             <th>Keterangan</th>
-                            <th width='120px'>Aksi</th>
-                            </th>
+                            <th width="10px">Edit</th>
+                            <th width="10px">Hapus</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="text-center">
                         @foreach ($racks as $rack)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $rack->name }}</td>
-                                <td>{{ $rack->keterangan }}</td>
-                                <td><a href="/rak/{{ $rack->id }}/edit" class="btn btn-primary mb-2"
-                                        class="btn btn-secondary"><i class="fas fa-edit"></i></a>
-                                    <form action="/rak/{{ $rack->id }}" method="POST" class="d-inline">
+                                <td class="align-middle">{{ $loop->iteration }}</td>
+                                <td class="align-middle">{{ $rack->name }}</td>
+                                <td class="align-middle">{{ $rack->keterangan }}</td>
+                                <td class="align-middle"><a href="/rak/{{ $rack->id }}/edit"
+                                        class="btn btn-default text-primary"><i class="fas fa-user-edit fa-lg"></i></a>
+                                </td>
+                                <td class="align-middle">
+                                    <form action="/rak/{{ $rack->id }}" method="POST" class="d-inline"
+                                        class="text-center">
                                         @method('delete')
                                         @csrf
-                                        <button class="btn btn-danger mb-2" class="btn btn-secondary"
+                                        <button class="text-danger border-0 bg-transparent"
                                             onclick="return confirm('Data akan hilang ketika dihapus, apakah anda yakin?')"><i
-                                                class="fas fa-trash-alt"></i></button>
+                                                class="fas fa-trash-alt fa-lg"></i></button>
                                     </form>
                                 </td>
-
                             </tr>
                         @endforeach
-
                     </tbody>
                 </table>
             </div>

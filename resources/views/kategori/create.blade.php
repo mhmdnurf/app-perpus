@@ -16,7 +16,7 @@
             @enderror"></textarea>
         </div>
 
-        <button type="submit" class="btn btn-primary mb-2 mt-2">Submit</button>
-        <a href="/kategori" class="btn btn-danger">Cancel</a>
+        <a href="/kategori" class="btn btn-danger float-right">Cancel</a>
+        <button type="submit" class="btn btn-primary float-right mr-2">Submit</button>
     </form>
 @endsection

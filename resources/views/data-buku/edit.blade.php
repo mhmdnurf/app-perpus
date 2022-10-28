@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('container')
-<form action="/data-buku/{{ $book->id }}" method="POST">
+    <form action="/data-buku/{{ $book->id }}" method="POST">
         @method('put')
         @csrf
         <label for="title">Judul Buku</label>
@@ -95,7 +95,7 @@
         <input type="text" id="stok" name="stok" required
             class="form-control @error('stok')
         is-invalid
-    @enderror" value="{{ old('stok', $book->stok) }}">
+    @enderror" value="{{ old('stok', $book->jumlah) }}">
 
         @error('stok')
             <div class="invalid-feedback">
@@ -103,7 +103,7 @@
             </div>
         @enderror
 
-        <button type="submit" class="btn btn-primary mb-2 mt-2">Update</button>
-        <a href="/data-buku" class="btn btn-danger">Cancel</a>
+        <a href="/data-buku" class="btn btn-danger float-right">Cancel</a>
+        <button type="submit" class="btn btn-primary float-right mr-2">Update</button>
     </form>
 @endsection

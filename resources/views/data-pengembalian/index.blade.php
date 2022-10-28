@@ -14,6 +14,9 @@
                     </button>
                 </div>
             @endif
+            <a href="/pengembalian/report" class="btn btn-success mb-3">
+                <span class="text">Cetak Laporan</span>
+            </a>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead class="text-center">
@@ -31,20 +34,36 @@
                     </thead>
                     <tbody>
                         @foreach ($borrows as $borrow)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $borrow->borrow_id }}</td>
-                                <td>{{ $borrow->member->no_anggota }}</td>
-                                <td>{{ $borrow->member->nama }}</td>
-                                <td>{{ $borrow->book->title }}</td>
-                                <td>{{ $borrow->book->isbn }}</td>
-                                <td>{{ \Carbon\Carbon::parse($borrow->tanggal_kembalikan)->Format('d-m-Y') }}</td>
-                                <td>{{ $borrow->keterangan }}</td>
-                                <td>
-                                    @if (\Carbon\Carbon::parse($borrow->tgl_pinjam)->diffInDays($borrow->tgl_kembalikan) <= 7)
-                                        Rp.0,-
+                            <tr class="text-center">
+                                <td class="align-middle">{{ $loop->iteration }}</td>
+                                <td class="align-middle">{{ $borrow->borrow_id }}</td>
+                                <td class="align-middle">{{ $borrow->member->no_anggota }}</td>
+                                <td class="align-middle">{{ $borrow->member->nama }}</td>
+                                <td class="align-middle">{{ $borrow->book->title }}</td>
+                                <td class="align-middle">{{ $borrow->book->isbn }}</td>
+                                <td class="align-middle">
+                                    @if ($borrow->tgl_kembalikan == null)
+                                        <p class="text-white text-center bg-warning rounded">Belum dikembalikan</p>
                                     @else
+                                        {{ \Carbon\Carbon::parse($borrow->tgl_kembalikan)->Format('d-m-Y') }}
+                                    @endif
+                                </td>
+                                <td class="align-middle">
+                                    @if ($borrow->status == 'Dipinjam')
+                                        <p class="text-white text-center bg-danger rounded">Belum selesai</p>
+                                    @else
+                                        {{ $borrow->keterangan }}
+                                    @endif
+                                </td>
+                                <td class="align-middle">
+                                    @if (\Carbon\Carbon::parse($borrow->tgl_pinjam)->diffInDays($borrow->tgl_kembalikan) <= 7 &&
+                                        $borrow->status == 'Selesai')
+                                        Rp.0,-
+                                    @elseif(\Carbon\Carbon::parse($borrow->tgl_pinjam)->diffInDays($borrow->tgl_kembalikan) > 7 &&
+                                        $borrow->status == 'Selesai')
                                         {{ 'Rp.' . (\Carbon\Carbon::parse($borrow->tgl_pinjam)->diffInDays($borrow->tgl_kembalikan) - 7) * 1000 }},-
+                                    @else
+                                        <p class="text-center">-</p>
                                     @endif
                                 </td>
             </div>

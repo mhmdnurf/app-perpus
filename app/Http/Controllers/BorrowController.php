@@ -105,10 +105,6 @@ class BorrowController extends Controller
     public function show(Borrow $borrow, Member $member, Book $book, $id)
     {
         $borrow = Borrow::find($id);
-        // view()->share('borrow', $borrow);
-        // $pdf = PDF::loadview('data-peminjaman.show')->setPaper('a4', 'portrait');
-        // return $pdf->stream('detail-transaksi.pdf');
-
         return view('data-peminjaman.show', [
             'title' => 'Detail Pengembalian Buku',
             'borrow' => $borrow,
