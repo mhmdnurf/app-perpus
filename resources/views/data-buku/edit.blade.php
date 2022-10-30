@@ -3,12 +3,12 @@
     <form action="/data-buku/{{ $book->id }}" method="POST">
         @method('put')
         @csrf
-        <label for="title">Judul Buku</label>
-        <input id="title" type="text" name="title" required autofocus
-            class="form-control @error('title')
+        <label for="judul">Judul Buku</label>
+        <input id="judul" type="text" name="judul" required autofocus
+            class="form-control @error('judul')
         is-invalid
-    @enderror" value="{{ old('title', $book->title) }}">
-        @error('title')
+    @enderror" value="{{ old('judul', $book->judul) }}">
+        @error('judul')
             <div class="invalid-feedback">
                 {{ $message }}
             </div>
@@ -29,9 +29,9 @@
         <select class="form-control" name="category_id">
             @foreach ($categories as $category)
                 @if (old('category_id') == $category->id)
-                    <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                    <option value="{{ $category->id }}" selected>{{ $category->nama }}</option>
                 @else
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    <option value="{{ $category->id }}">{{ $category->nama }}</option>
                 @endif
             @endforeach
 
@@ -41,9 +41,9 @@
         <select class="form-control" aria-label="Default select example" name="rack_id">
             @foreach ($racks as $rack)
                 @if (old('rack_id') == $rack->id)
-                    <option value="{{ $rack->id }}" selected>{{ $rack->name }}</option>
+                    <option value="{{ $rack->id }}" selected>{{ $rack->nama }}</option>
                 @else
-                    <option value="{{ $rack->id }}">{{ $rack->name }}</option>
+                    <option value="{{ $rack->id }}">{{ $rack->nama }}</option>
                 @endif
             @endforeach
 

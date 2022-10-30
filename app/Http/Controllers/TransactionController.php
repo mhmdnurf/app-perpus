@@ -3,16 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use App\Models\Borrow;
 use App\Models\Member;
-use PDF;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-
-use function GuzzleHttp\Promise\all;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
-class BorrowController extends Controller
+class TransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,7 +19,7 @@ class BorrowController extends Controller
     {
         return view('data-peminjaman.index', [
             'title' => 'Data Peminjaman',
-            'borrows' => Borrow::all(),
+            'transactions' => Transaction::all(),
             'members' => Member::all(),
             'books' => Book::all()
         ]);
@@ -53,9 +49,9 @@ class BorrowController extends Controller
     {
         $config = [
             'table' => 'borrows',
-            'field' => 'borrow_id',
+            'field' => 'transaction_id',
             'length' => 8,
-            'prefix' => 'PNJ-'
+            'prefix' => 'TRS-'
         ];
 
         $id = IdGenerator::generate($config);
@@ -68,8 +64,8 @@ class BorrowController extends Controller
             'status' => 'required',
         ]);
 
-        $returned = Borrow::create([
-            'borrow_id' => $id,
+        $returned = Transaction::create([
+            'transaction_id' => $id,
             'member_id' => $request->member_id,
             'book_id' => $request->book_id,
             'tgl_pinjam' => $request->tgl_pinjam,
@@ -102,12 +98,12 @@ class BorrowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Borrow $borrow, Member $member, Book $book, $id)
+    public function show(Transaction $transaction, Member $member, Book $book, $id)
     {
-        $borrow = Borrow::find($id);
+        $transaction = Transaction::find($id);
         return view('data-peminjaman.show', [
             'title' => 'Detail Pengembalian Buku',
-            'borrow' => $borrow,
+            'transaction' => $transaction,
             'member' => $member,
             'book' => $book
         ]);
@@ -133,9 +129,9 @@ class BorrowController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $borrow = Borrow::find($id);
+        $transaction = Transaction::find($id);
         $rules = [
-            'borrow_id' => 'required',
+            'transaction_id' => 'required',
             'member_id' => 'required',
             'book_id' => 'required',
             'tgl_pinjam' => 'required',
@@ -146,7 +142,7 @@ class BorrowController extends Controller
             'keterangan' => 'required'
         ];
         // dd($request->all());
-        $borrow->update($request->validate($rules));
+        $transaction->update($request->validate($rules));
         return redirect('/data-peminjaman')->with('success', 'Proses Pengembalian Berhasil');
     }
 
@@ -158,12 +154,7 @@ class BorrowController extends Controller
      */
     public function destroy($id)
     {
-        Borrow::destroy($id);
+        Transaction::destroy($id);
         return redirect('/data-peminjaman')->with('success', 'Data peminjaman berhasil dihapus');
-    }
-
-    public function detail($id)
-    {
-        Borrow::find($id);
     }
 }

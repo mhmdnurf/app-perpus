@@ -26,8 +26,8 @@ class Book extends Model
         return $this->belongsTo(Rack::class);
     }
 
-    public function borrows()
+    public function transactions()
     {
-        return $this->hasMany(Borrow::class);
+        return $this->hasMany(Transaction::class);
     }
 }

@@ -9,51 +9,51 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/data-peminjaman/{{ $borrow->id }}" method="POST">
+                <form action="/data-peminjaman/{{ $transaction->id }}" method="POST">
                     @method('patch')
                     @csrf
-                    <label for="borrow_id">Nomor Peminjaman</label>
-                    <input id="borrow_id" type="text" name="borrow_id" required readonly class="form-control"
-                        value="{{ $borrow->borrow_id }}">
+                    <label for="transaction_id">Nomor Peminjaman</label>
+                    <input id="transaction_id" type="text" name="transaction_id" required readonly
+                        class="form-control" value="{{ $transaction->transaction_id }}">
 
                     <label for="member_id" hidden>ID Anggota</label>
                     <input type="hidden" name="member_id" required readonly class="form-control"
-                        value="{{ $borrow->member_id }}">
+                        value="{{ $transaction->member_id }}">
 
                     <label for="no_anggota">Nomor Anggota</label>
                     <input id="no_anggota" type="text" name="no_anggota" required readonly class="form-control"
-                        value="{{ $borrow->member->no_anggota }}">
+                        value="{{ $transaction->member->no_anggota }}">
 
                     <label for="nama">Nama Anggota</label>
                     <input id="nama" type="text" name="nama" required readonly class="form-control"
-                        value="{{ $borrow->member->nama }}">
+                        value="{{ $transaction->member->nama }}">
 
                     <label for="book_id" hidden>ID Buku</label>
                     <input type="hidden" name="book_id" required readonly class="form-control"
-                        value="{{ $borrow->book_id }}">
+                        value="{{ $transaction->book_id }}">
 
-                    <label for="title">Judul Buku</label>
-                    <input id="title" type="text" name="title" required readonly class="form-control"
-                        value="{{ $borrow->book->title }}">
+                    <label for="judul">Judul Buku</label>
+                    <input id="judul" type="text" name="judul" required readonly class="form-control"
+                        value="{{ $transaction->book->judul }}">
 
                     <label for="isbn">ISBN</label>
                     <input id="isbn" type="text" name="isbn" required readonly class="form-control"
-                        value="{{ $borrow->book->isbn }}">
+                        value="{{ $transaction->book->isbn }}">
 
                     <label for="tgl_pinjam">Tanggal Peminjaman</label>
                     <input id="tgl_pinjam" type="text" name="tgl_pinjam" required readonly class="form-control"
-                        value="{{ $borrow->tgl_pinjam }}">
+                        value="{{ $transaction->tgl_pinjam }}">
 
                     <label for="tgl_kembali">Batas Pengembalian</label>
                     <input id="tgl_kembali" type="text" name="tgl_kembali" required readonly class="form-control"
-                        value="{{ $borrow->tgl_kembali }}">
+                        value="{{ $transaction->tgl_kembali }}">
 
                     <label for="tgl_kembalikan">Tanggal Dikembalikan</label>
                     <input id="tgl_kembalikan" type="date" name="tgl_kembalikan" required class="form-control">
 
                     <label for="keterlambatan" hidden>Keterlambatan</label>
                     <input id="keterlambatan" type="hidden" name="keterlambatan" required class="form-control"
-                        value="{{ \Carbon\Carbon::parse($borrow->tgl_kembalikan)->diffInDays($borrow->updated_at) }}">
+                        value="{{ \Carbon\Carbon::parse($transaction->tgl_kembalikan)->diffInDays($transaction->updated_at) }}">
 
                     <label for="status">Status</label>
                     <input id="status" type="text" name="status" required readonly class="form-control"

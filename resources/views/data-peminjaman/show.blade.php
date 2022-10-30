@@ -24,31 +24,32 @@
                         </tr>
                         <tr>
                             <th>Nomor Peminjaman</th>
-                            <td>{{ $borrow->borrow_id }}</td>
+                            <td>{{ $transaction->transaction_id }}</td>
                         </tr>
                         <tr>
                             <th>Data Anggota</th>
-                            <td>{{ $borrow->member->no_anggota }}</td>
+                            <td>{{ $transaction->member->no_anggota }}</td>
                         </tr>
                         <tr>
                             <th>Data Buku</th>
-                            <td>{{ $borrow->book->title }}</td>
+                            <td>{{ $transaction->book->judul }}</td>
                         </tr>
                         <tr>
                             <th>Tanggal Dikembalikan</th>
-                            <td>{{ $borrow->tgl_kembalikan }}</td>
+                            <td>{{ $transaction->tgl_kembalikan }}</td>
                         </tr>
                         <tr>
                             <th>Lama Peminjaman</th>
-                            <td>{{ \Carbon\Carbon::parse($borrow->tgl_pinjam)->diffInDays($borrow->tgl_kembalikan) }}</td>
+                            <td>{{ \Carbon\Carbon::parse($transaction->tgl_pinjam)->diffInDays($transaction->tgl_kembalikan) }}
+                            </td>
                         </tr>
                         <tr>
                             <th>Denda</th>
                             <td>
-                                @if (\Carbon\Carbon::parse($borrow->tgl_pinjam)->diffInDays($borrow->tgl_kembalikan) <= 7)
+                                @if (\Carbon\Carbon::parse($transaction->tgl_pinjam)->diffInDays($transaction->tgl_kembalikan) <= 7)
                                     Rp.0,-
                                 @else
-                                    {{ 'Rp.' . (\Carbon\Carbon::parse($borrow->tgl_pinjam)->diffInDays($borrow->tgl_kembalikan) - 7) * 1000 }},-
+                                    {{ 'Rp.' . (\Carbon\Carbon::parse($transaction->tgl_pinjam)->diffInDays($transaction->tgl_kembalikan) - 7) * 1000 }},-
                                 @endif
                             </td>
                         </tr>

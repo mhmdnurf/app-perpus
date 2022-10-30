@@ -43,10 +43,10 @@
             @foreach ($cetakPinjam as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->borrow_id }}</td>
+                    <td>{{ $item->transaction_id }}</td>
                     <td>{{ $item->member->no_anggota }}</td>
                     <td>{{ $item->member->nama }}</td>
-                    <td>{{ $item->book->title }}</td>
+                    <td>{{ $item->book->judul }}</td>
                     <td>{{ \Carbon\Carbon::parse($item->tgl_pinjam)->Format('d-m-Y') }}</td>
                     <td>{{ \Carbon\Carbon::parse($item->tgl_pengembalian)->Format('d-m-Y') }}</td>
                     <td>{{ $item->status }}</td>

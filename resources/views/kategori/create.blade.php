@@ -2,9 +2,9 @@
 @section('container')
     <form action="/kategori" method="POST">
         @csrf
-        <label for="name">Nama Kategori</label>
-        <input id="name" type="text" name="name" required autofocus
-            class="form-control @error('name')
+        <label for="nama">Nama Kategori</label>
+        <input id="nama" type="text" name="nama" required autofocus
+            class="form-control @error('nama')
             is-invalid
         @enderror">
 

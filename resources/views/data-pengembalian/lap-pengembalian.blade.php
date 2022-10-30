@@ -43,10 +43,10 @@
             @foreach ($cetakPengembalian as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->borrow_id }}</td>
+                    <td>{{ $item->transaction_id }}</td>
                     <td>{{ $item->member->no_anggota }}</td>
                     <td>{{ $item->member->nama }}</td>
-                    <td>{{ $item->book->title }}</td>
+                    <td>{{ $item->book->judul }}</td>
                     <td>{{ \Carbon\Carbon::parse($item->tgl_kembalikan)->Format('d-m-Y') }}</td>
                     <td>
                         @if (\Carbon\Carbon::parse($item->tgl_pinjam)->diffInDays($item->tgl_kembalikan) <= 7)

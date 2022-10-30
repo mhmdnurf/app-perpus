@@ -3,12 +3,12 @@
     <form action="/kategori/{{ $category->id }}" method="POST">
         @method('put')
         @csrf
-        <label for="name">Nama Kategori</label>
-        <input id="name" type="text" name="name" required autofocus
-            class="form-control @error('name')
+        <label for="nama">Nama Kategori</label>
+        <input id="nama" type="text" name="nama" required autofocus
+            class="form-control @error('nama')
             is-invalid
         @enderror"
-            value="{{ old('name', $category->name) }}">
+            value="{{ old('nama', $category->nama) }}">
 
         <div class="form-group mt-2">
             <label for="keterangan">Keterangan</label>

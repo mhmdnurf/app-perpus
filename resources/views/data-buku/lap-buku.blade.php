@@ -44,9 +44,9 @@
             @foreach ($cetakBuku as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->title }}</td>
+                    <td>{{ $item->judul }}</td>
                     <td>{{ $item->isbn }}</td>
-                    <td>{{ $item->category->name }}</td>
+                    <td>{{ $item->category->nama }}</td>
                     <td>{{ $item->penerbit }}</td>
                     <td>{{ $item->pengarang }}</td>
                     <td>{{ $item->tahun }}</td>

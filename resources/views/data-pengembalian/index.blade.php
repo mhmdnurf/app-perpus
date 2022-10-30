@@ -33,35 +33,35 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($borrows as $borrow)
+                        @foreach ($transactions as $transaction)
                             <tr class="text-center">
                                 <td class="align-middle">{{ $loop->iteration }}</td>
-                                <td class="align-middle">{{ $borrow->borrow_id }}</td>
-                                <td class="align-middle">{{ $borrow->member->no_anggota }}</td>
-                                <td class="align-middle">{{ $borrow->member->nama }}</td>
-                                <td class="align-middle">{{ $borrow->book->title }}</td>
-                                <td class="align-middle">{{ $borrow->book->isbn }}</td>
+                                <td class="align-middle">{{ $transaction->transaction_id }}</td>
+                                <td class="align-middle">{{ $transaction->member->no_anggota }}</td>
+                                <td class="align-middle">{{ $transaction->member->nama }}</td>
+                                <td class="align-middle">{{ $transaction->book->judul }}</td>
+                                <td class="align-middle">{{ $transaction->book->isbn }}</td>
                                 <td class="align-middle">
-                                    @if ($borrow->tgl_kembalikan == null)
+                                    @if ($transaction->tgl_kembalikan == null)
                                         <p class="text-white text-center bg-warning rounded">Belum dikembalikan</p>
                                     @else
-                                        {{ \Carbon\Carbon::parse($borrow->tgl_kembalikan)->Format('d-m-Y') }}
+                                        {{ \Carbon\Carbon::parse($transaction->tgl_kembalikan)->Format('d-m-Y') }}
                                     @endif
                                 </td>
                                 <td class="align-middle">
-                                    @if ($borrow->status == 'Dipinjam')
+                                    @if ($transaction->status == 'Dipinjam')
                                         <p class="text-white text-center bg-danger rounded">Belum selesai</p>
                                     @else
-                                        {{ $borrow->keterangan }}
+                                        {{ $transaction->keterangan }}
                                     @endif
                                 </td>
                                 <td class="align-middle">
-                                    @if (\Carbon\Carbon::parse($borrow->tgl_pinjam)->diffInDays($borrow->tgl_kembalikan) <= 7 &&
-                                        $borrow->status == 'Selesai')
+                                    @if (\Carbon\Carbon::parse($transaction->tgl_pinjam)->diffInDays($transaction->tgl_kembalikan) <= 7 &&
+                                        $transaction->status == 'Selesai')
                                         Rp.0,-
-                                    @elseif(\Carbon\Carbon::parse($borrow->tgl_pinjam)->diffInDays($borrow->tgl_kembalikan) > 7 &&
-                                        $borrow->status == 'Selesai')
-                                        {{ 'Rp.' . (\Carbon\Carbon::parse($borrow->tgl_pinjam)->diffInDays($borrow->tgl_kembalikan) - 7) * 1000 }},-
+                                    @elseif(\Carbon\Carbon::parse($transaction->tgl_pinjam)->diffInDays($transaction->tgl_kembalikan) > 7 &&
+                                        $transaction->status == 'Selesai')
+                                        {{ 'Rp.' . (\Carbon\Carbon::parse($transaction->tgl_pinjam)->diffInDays($transaction->tgl_kembalikan) - 7) * 1000 }},-
                                     @else
                                         <p class="text-center">-</p>
                                     @endif

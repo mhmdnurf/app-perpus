@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
             'category_id' => '1',
             'rack_id' => '1',
             'isbn' => '123424332323132',
-            'title' => 'Filosofi Teras',
+            'judul' => 'Filosofi Teras',
             'penerbit' => 'Gramedia',
             'pengarang' => 'Muhammad Zakaria',
             'tahun' => '2018',
@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Rack::create([
-            'name' => 'RAK 1',
+            'nama' => 'RAK 1',
             'keterangan' => '-'
         ]);
 
@@ -55,12 +55,12 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         Category::create([
-            'name' => 'Filsafat',
+            'nama' => 'Filsafat',
             'keterangan' => '-'
         ]);
 
         Category::create([
-            'name' => 'Ilmu Sosial',
+            'nama' => 'Ilmu Sosial',
             'keterangan' => '-'
         ]);
 

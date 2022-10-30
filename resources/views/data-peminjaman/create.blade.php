@@ -19,7 +19,7 @@
         <select class="form-control" aria-label="Default select example" name="book_id" id="book_id">
             @foreach ($books as $book)
                 <option></option>
-                <option value="{{ $book->id }}">{{ $book->title }} | {{ $book->isbn }}</option>
+                <option value="{{ $book->id }}">{{ $book->judul }} | {{ $book->isbn }}</option>
             @endforeach
         </select>
         @error('book')
@@ -72,7 +72,7 @@
             </div>
         @enderror
 
-        <a href="/data-peminjaman" class="btn btn-danger float-right">Cancel</a>
-        <button type="submit" class="btn btn-primary float-right mr-2">Submit</button>
+        <a href="/data-peminjaman" class="btn btn-danger float-right mt-2">Cancel</a>
+        <button type="submit" class="btn btn-primary float-right mr-2 mt-2">Submit</button>
     </form>
 @endsection

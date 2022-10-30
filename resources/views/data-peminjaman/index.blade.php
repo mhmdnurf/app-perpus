@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('container')
-    @if (count($borrows) === 0)
+    @if (count($transactions) === 0)
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">{{ $title }} Perpustakaan SD Negeri 017 Senayang</h6>
@@ -35,32 +35,32 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($borrows as $borrow)
+                            @foreach ($transactions as $transaction)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $borrow->borrow_id }}</td>
-                                    <td>{{ $borrow->member->no_anggota }}</td>
-                                    <td>{{ $borrow->member->nama }}</td>
-                                    <td>{{ $borrow->book->title }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($borrow->tgl_pinjam)->Format('d-m-Y') }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($borrow->tgl_kembali)->Format('d-m-Y') }}</td>
+                                    <td>{{ $transaction->transaction_id }}</td>
+                                    <td>{{ $transaction->member->no_anggota }}</td>
+                                    <td>{{ $transaction->member->nama }}</td>
+                                    <td>{{ $transaction->book->judul }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($transaction->tgl_pinjam)->Format('d-m-Y') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($transaction->tgl_kembali)->Format('d-m-Y') }}</td>
                                     <td>
-                                        @if ($borrow->status == 'Dipinjam')
+                                        @if ($transaction->status == 'Dipinjam')
                                             <button type="button" class="btn btn-primary" data-toggle="modal"
                                                 data-target="#ModalEdit">
                                                 Kembalikan
                                             </button>
                                         @else
-                                            <a href="/data-peminjaman/{{ $borrow->id }}" class="btn btn-success"
+                                            <a href="/data-peminjaman/{{ $transaction->id }}" class="btn btn-success"
                                                 class="btn btn-secondary">Selesai</a>
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="/data-peminjaman/{{ $borrow->id }}/edit" class="btn btn-primary mb-2"
+                                        <a href="/data-peminjaman/{{ $transaction->id }}/edit" class="btn btn-primary mb-2"
                                             class="btn btn-secondary"><i class="fas fa-user-edit"></i></a>
                                     </td>
                                     <td>
-                                        <form action="/data-peminjaman/{{ $borrow->id }}" method="POST">
+                                        <form action="/data-peminjaman/{{ $transaction->id }}" method="POST">
                                             @method('delete')
                                             @csrf
                                             <button class="btn btn-danger mb-2" class="btn btn-secondary"
@@ -113,31 +113,31 @@
                         </tr>
                     </thead>
                     <tbody class="text-center">
-                        @foreach ($borrows as $borrow)
+                        @foreach ($transaction as $transaction)
                             <tr>
                                 <td class="align-middle">{{ $loop->iteration }}</td>
-                                <td class="align-middle">{{ $borrow->borrow_id }}</td>
-                                <td class="align-middle">{{ $borrow->member->no_anggota }}</td>
-                                <td class="align-middle">{{ $borrow->member->nama }}</td>
-                                <td class="align-middle">{{ $borrow->book->title }}</td>
+                                <td class="align-middle">{{ $transaction->transaction_id }}</td>
+                                <td class="align-middle">{{ $transaction->member->no_anggota }}</td>
+                                <td class="align-middle">{{ $transaction->member->nama }}</td>
+                                <td class="align-middle">{{ $transaction->book->judul }}</td>
                                 <td class="align-middle">
-                                    {{ \Carbon\Carbon::parse($borrow->tgl_pinjam)->Format('d-m-Y') }}</td>
+                                    {{ \Carbon\Carbon::parse($transaction->tgl_pinjam)->Format('d-m-Y') }}</td>
                                 <td class="align-middle">
-                                    {{ \Carbon\Carbon::parse($borrow->tgl_kembali)->Format('d-m-Y') }}</td>
+                                    {{ \Carbon\Carbon::parse($transaction->tgl_kembali)->Format('d-m-Y') }}</td>
                                 <td class="text-center">
-                                    @if ($borrow->status == 'Dipinjam')
+                                    @if ($transaction->status == 'Dipinjam')
                                         <button type="button" class="btn btn-primary" data-toggle="modal"
                                             data-target="#ModalEdit">
                                             Dipinjam
                                         </button>
                                     @else
-                                        <a href="/data-peminjaman/{{ $borrow->id }}"
+                                        <a href="/data-peminjaman/{{ $transaction->id }}"
                                             class="btn btn-success">Selesai</a>
                                     @endif
                                 </td>
                                 <td class="align-middle">
-                                    <form action="/data-peminjaman/{{ $borrow->id }}" method="POST" class="d-inline"
-                                        class="text-center">
+                                    <form action="/data-peminjaman/{{ $transaction->id }}" method="POST"
+                                        class="d-inline" class="text-center">
                                         @method('delete')
                                         @csrf
                                         <button class="text-danger border-0 bg-transparent"

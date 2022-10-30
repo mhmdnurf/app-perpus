@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Borrow;
+use App\Models\Transaction;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
@@ -25,8 +26,8 @@ class Member extends Model
     public $incrementing = false;
     public $keyType = 'string';
 
-    public function borrows()
+    public function transactions()
     {
-        return $this->hasMany(Borrow::class);
+        return $this->hasMany(Transaction::class);
     }
 }

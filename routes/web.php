@@ -4,12 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\RackController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\BorrowController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ReturnedController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ReportController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +33,7 @@ Route::resource('data-buku', BookController::class)->middleware('auth');
 Route::resource('kategori', CategoryController::class)->middleware('auth');
 Route::resource('rak', RackController::class)->middleware('auth');
 
-Route::resource('data-peminjaman', BorrowController::class)->middleware('auth');
+Route::resource('data-peminjaman', TransactionController::class)->middleware('auth');
 Route::resource('data-pengembalian', ReturnedController::class)->middleware('auth');
 
 Route::get('/anggota/report-cetakAnggota/{tgl_awal}/{tgl_akhir}', [ReportController::class, 'cetakLapAnggota'])->name('report-cetakAnggota')->middleware('auth');
