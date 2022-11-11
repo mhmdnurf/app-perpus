@@ -48,8 +48,8 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         $config = [
-            'table' => 'borrows',
-            'field' => 'transaction_id',
+            'table' => 'transactions',
+            'field' => 'no_transaksi',
             'length' => 8,
             'prefix' => 'TRS-'
         ];
@@ -65,7 +65,7 @@ class TransactionController extends Controller
         ]);
 
         $returned = Transaction::create([
-            'transaction_id' => $id,
+            'no_transaksi' => $id,
             'member_id' => $request->member_id,
             'book_id' => $request->book_id,
             'tgl_pinjam' => $request->tgl_pinjam,
@@ -78,7 +78,7 @@ class TransactionController extends Controller
             return redirect()
                 ->route('data-peminjaman.index')
                 ->with([
-                    'success' => 'New data has been created successfully'
+                    'success' => 'Peminjaman berhasil dilakukan'
                 ]);
         } else {
             return redirect()
@@ -131,7 +131,7 @@ class TransactionController extends Controller
     {
         $transaction = Transaction::find($id);
         $rules = [
-            'transaction_id' => 'required',
+            'no_transaksi' => 'required',
             'member_id' => 'required',
             'book_id' => 'required',
             'tgl_pinjam' => 'required',
@@ -143,7 +143,7 @@ class TransactionController extends Controller
         ];
         // dd($request->all());
         $transaction->update($request->validate($rules));
-        return redirect('/data-peminjaman')->with('success', 'Proses Pengembalian Berhasil');
+        return redirect('/data-pengembalian')->with('success', 'Proses Pengembalian Berhasil');
     }
 
     /**

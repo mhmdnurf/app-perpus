@@ -2,13 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\Book;
-use App\Models\Member;
-use App\Models\Returned;
+use App\Models\Transaction;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Transaction extends Model
+class Returned extends Model
 {
     use HasFactory;
 
@@ -26,8 +24,8 @@ class Transaction extends Model
         return $this->belongsTo(Member::class);
     }
 
-    public function returned()
+    public function transaction()
     {
-        return $this->belongsTo(Returned::class);
+        return $this->hasOne(Transaction::class);
     }
 }

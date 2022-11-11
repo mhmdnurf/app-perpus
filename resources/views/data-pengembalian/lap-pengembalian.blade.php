@@ -21,8 +21,20 @@
 
 <body id="page-top">
 
+    {{-- Header start --}}
+    <img src="img/logo-lingga.png" alt="logo" style="float: left; margin-right: 20px" width="9.3%">
+    <img src="img/logo-dinas.png" alt="logo" style="float: right" width="15%">
+    <h4 class="fw-bold text-center" style="color: black">SD NEGERI 017 SENAYANG</h4>
+    <p style="color: black; font-size: 8pt; text-align: center">TANJUNG LIPAT, KECAMATAN BAKUNG SERUMPUN,
+        KABUPATEN
+        LINGGA,
+        PROVINSI KEPULAUAN RIAU,
+        KODE POS
+        : 29873</s>
+        <hr>
+        {{-- Header end --}}
 
-    <!-- Main Content -->
+        <!-- Main Content -->
     <div class="fw-bold text-center" style="color: black">
         <h3>SD NEGERI 017 SENAYANG</h3>
         <hr style="border: 3px solid black">
@@ -43,7 +55,7 @@
             @foreach ($cetakPengembalian as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->transaction_id }}</td>
+                    <td>{{ $item->no_transaksi }}</td>
                     <td>{{ $item->member->no_anggota }}</td>
                     <td>{{ $item->member->nama }}</td>
                     <td>{{ $item->book->judul }}</td>
@@ -69,6 +81,12 @@
                 </tr>
             @endforeach
         </table>
+    </div>
+    <div class="container" class="text-center" style="margin-top: 3cm; color: black">
+        <p>Tanjung Lipat, {{ \Carbon\Carbon::now()->isoFormat('D MMMM Y') }}</p>
+        <p style="margin-bottom: 2.5cm">Kepala Sekolah</p>
+        <p><u><strong>Khairul Bariyah</strong></u></p>
+        <p><strong>NIP. 197009302008012012</strong></p>
     </div>
 </body>
 

@@ -18,9 +18,6 @@
                 <a href="/data-buku/create" class="btn btn-primary mb-3">
                     <span class="text">Tambah Data Buku</span>
                 </a>
-                <a href="/buku/report" class="btn btn-success mb-3">
-                    <span class="text">Cetak Laporan</span>
-                </a>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead class="text-center">
                         <tr>

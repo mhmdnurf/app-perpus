@@ -47,3 +47,5 @@ Route::get('/pinjam/report', [ReportController::class, 'homeLapPinjam'])->middle
 
 Route::get('/pengembalian/report-cetakPengembalian/{tgl_awal}/{tgl_akhir}', [ReportController::class, 'cetakLapPengembalian'])->name('report-cetakPengembalian')->middleware('auth');
 Route::get('/pengembalian/report', [ReportController::class, 'homeLapPengembalian'])->middleware('auth');
+
+Route::post('/pengembalian/prosesPengembalian', [ReturnedController::class, 'prosesPengembalian'])->name('prosesPengembalian')->middleware('auth');

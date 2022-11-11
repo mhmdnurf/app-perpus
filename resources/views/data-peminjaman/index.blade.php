@@ -94,9 +94,6 @@
                 <a href="/data-peminjaman/create" class="btn btn-primary mb-3">
                     <span class="text">Tambah Data Peminjaman</span>
                 </a>
-                <a href="/pinjam/report" class="btn btn-success mb-3">
-                    <span class="text">Cetak Laporan</span>
-                </a>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead class="text-center">
                         <tr>
@@ -113,10 +110,10 @@
                         </tr>
                     </thead>
                     <tbody class="text-center">
-                        @foreach ($transaction as $transaction)
+                        @foreach ($transactions as $transaction)
                             <tr>
                                 <td class="align-middle">{{ $loop->iteration }}</td>
-                                <td class="align-middle">{{ $transaction->transaction_id }}</td>
+                                <td class="align-middle">{{ $transaction->no_transaksi }}</td>
                                 <td class="align-middle">{{ $transaction->member->no_anggota }}</td>
                                 <td class="align-middle">{{ $transaction->member->nama }}</td>
                                 <td class="align-middle">{{ $transaction->book->judul }}</td>
@@ -124,15 +121,11 @@
                                     {{ \Carbon\Carbon::parse($transaction->tgl_pinjam)->Format('d-m-Y') }}</td>
                                 <td class="align-middle">
                                     {{ \Carbon\Carbon::parse($transaction->tgl_kembali)->Format('d-m-Y') }}</td>
-                                <td class="text-center">
+                                <td class="text-center align-middle">
                                     @if ($transaction->status == 'Dipinjam')
-                                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                            data-target="#ModalEdit">
-                                            Dipinjam
-                                        </button>
+                                        Sedang Dipinjam
                                     @else
-                                        <a href="/data-peminjaman/{{ $transaction->id }}"
-                                            class="btn btn-success">Selesai</a>
+                                        Telah Dikembalikan
                                     @endif
                                 </td>
                                 <td class="align-middle">

@@ -10,11 +10,11 @@
             </div>
             <div class="modal-body">
                 <form action="/data-peminjaman/{{ $transaction->id }}" method="POST">
-                    @method('patch')
+                    @method('put')
                     @csrf
-                    <label for="transaction_id">Nomor Peminjaman</label>
-                    <input id="transaction_id" type="text" name="transaction_id" required readonly
-                        class="form-control" value="{{ $transaction->transaction_id }}">
+                    <label for="no_transaksi">Nomor Peminjaman</label>
+                    <input id="no_transaksi" type="text" name="no_transaksi" required readonly class="form-control"
+                        value="{{ $transaction->no_transaksi }}">
 
                     <label for="member_id" hidden>ID Anggota</label>
                     <input type="hidden" name="member_id" required readonly class="form-control"

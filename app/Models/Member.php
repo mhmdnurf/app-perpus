@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Borrow;
+use App\Models\Returned;
 use App\Models\Transaction;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -29,5 +30,10 @@ class Member extends Model
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
+    }
+
+    public function returneds()
+    {
+        return $this->hasMany(Returned::class);
     }
 }

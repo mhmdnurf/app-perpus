@@ -23,12 +23,18 @@
 
 
     <!-- Main Content -->
-    <div class="container">
-        <div class="fw-bold text-center" style="color: black">
-            <h3>SD NEGERI 017 SENAYANG</h3>
-            <hr style="border: 3px solid black">
-        </div>
-    </div>
+    {{-- Header start --}}
+    <img src="img/logo-lingga.png" alt="logo" style="float: left; margin-right: 20px" width="9.3%">
+    <img src="img/logo-dinas.png" alt="logo" style="float: right" width="15%">
+    <h4 class="fw-bold text-center" style="color: black">SD NEGERI 017 SENAYANG</h4>
+    <p style="color: black; font-size: 8pt; text-align: center">TANJUNG LIPAT, KECAMATAN BAKUNG SERUMPUN,
+        KABUPATEN
+        LINGGA,
+        PROVINSI KEPULAUAN RIAU,
+        KODE POS
+        : 29873</s>
+        <hr>
+        {{-- Header end --}}
     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"
         style="color: black; border: 1px solid black;">
         <tbody>
@@ -63,13 +69,13 @@
     <div style="margin-top: 1cm; color: black">
         <p class="text-center"><b><u>KETENTUAN</b></u></p>
         <ol>
-            <li>Siswa wajib menunjukkan kartu anggota perpustakaan kepada petugas perpustakaan.</li>
-            <li>Kartu anggota tidak boleh dipinjamkan/dipergunakan/diwakilkan oleh siswa lain.</li>
+            <li>Anggota wajib menunjukkan kartu anggota perpustakaan kepada petugas perpustakaan.</li>
+            <li>Kartu anggota tidak boleh dipinjamkan/dipergunakan/diwakilkan oleh anggota lain.</li>
             <li>Peminjaman buku maksimal sebanyak 1 eksemplar selama 1 minggu (7 hari) dengan waktu pengembalian yang
                 sama.</li>
-            <li>Keterlambatan pengembalian akan dikenakan denda sebesar Rp.1000,00 per buku per jumlah hari
+            <li>Keterlambatan pengembalian akan dikenakan denda sebesar Rp.1000 per jumlah hari
                 keterlambatan.</li>
-            <li>Siswa tidak dibenarkan merusak buku yang telah dipinjamkan.</li>
+            <li>Anggota tidak dibenarkan merusak buku yang telah dipinjamkan.</li>
             <li>Apabila buku yang telah dipinjam hilang ataupun rusak karena kelalaian, diwajibkan untuk mengganti buku
                 tersebut dengan buku yang sama atau dengan uang seharga buku yang berlaku terakhir.</li>
         </ol>

@@ -17,9 +17,6 @@
                 <a href="/data-anggota/create" class="btn btn-primary mb-3">
                     <span class="text">Tambah Data Anggota</span>
                 </a>
-                <a href="/anggota/report" class="btn btn-success mb-3">
-                    <span class="text">Cetak Laporan</span>
-                </a>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead class="text-center">
                         <tr>

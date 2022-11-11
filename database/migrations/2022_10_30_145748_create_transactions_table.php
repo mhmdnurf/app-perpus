@@ -15,15 +15,16 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id('id');
-            $table->string('transaction_id')->references('id');
+            $table->string('no_transaksi')->references('id');
             $table->foreignId('member_id');
             $table->foreignId('book_id');
             $table->date('tgl_pinjam')->nullable();
             $table->date('tgl_kembali')->nullable();
             $table->date('tgl_kembalikan')->nullable();
-            $table->bigInteger('keterlambatan')->nullable();
+            $table->string('keterlambatan')->nullable();
             $table->string('status');
             $table->string('keterangan')->nullable();
+            $table->string('denda')->nullable();
             $table->timestamps();
         });
     }

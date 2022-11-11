@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use PDF;
 use App\Models\Book;
-use App\Models\Borrow;
 use App\Models\Member;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Transaction;
 
 class ReportController extends Controller
 {
@@ -21,7 +19,7 @@ class ReportController extends Controller
 
     public function cetakLapAnggota($tgl_awal, $tgl_akhir)
     {
-        $cetakAnggota = Member::whereBetween('created_at', [$tgl_awal, $tgl_akhir])->get();
+        $cetakAnggota = Member::whereDate('created_at', '>=', $tgl_awal)->whereDate('created_at', '<=', $tgl_akhir)->get();
         view()->share('member', $cetakAnggota);
         $pdf = PDF::loadview('data-anggota.lap-anggota', compact('cetakAnggota'))->setPaper('a4', 'portrait');
         return $pdf->stream('kartu-anggota.pdf');
@@ -36,7 +34,7 @@ class ReportController extends Controller
 
     public function cetakLapBuku($tgl_awal, $tgl_akhir)
     {
-        $cetakBuku = Book::whereBetween('created_at', [$tgl_awal, $tgl_akhir])->get();
+        $cetakBuku = Book::whereDate('created_at', '>=', $tgl_awal)->whereDate('created_at', '<=', $tgl_akhir)->get();
         view()->share('book', $cetakBuku);
         $pdf = PDF::loadview('data-buku.lap-buku', compact('cetakBuku'))->setPaper('a4', 'portrait');
         return $pdf->stream('laporan-buku.pdf');
@@ -51,8 +49,8 @@ class ReportController extends Controller
 
     public function cetakLapPinjam($tgl_awal, $tgl_akhir)
     {
-        $cetakPinjam = Borrow::whereBetween('created_at', [$tgl_awal, $tgl_akhir])->get();
-        view()->share('borrow', $cetakPinjam);
+        $cetakPinjam = Transaction::whereDate('created_at', '>=', $tgl_awal)->whereDate('created_at', '<=', $tgl_akhir)->get();
+        view()->share('transaction', $cetakPinjam);
         $pdf = PDF::loadview('data-peminjaman.lap-pinjam', compact('cetakPinjam'))->setPaper('a4', 'portrait');
         return $pdf->stream('laporan-pinjam.pdf');
     }
@@ -66,8 +64,8 @@ class ReportController extends Controller
 
     public function cetakLapPengembalian($tgl_awal, $tgl_akhir)
     {
-        $cetakPengembalian = Borrow::whereBetween('created_at', [$tgl_awal, $tgl_akhir])->get();
-        view()->share('borrow', $cetakPengembalian);
+        $cetakPengembalian = Transaction::whereDate('created_at', '>=', $tgl_awal)->whereDate('created_at', '<=', $tgl_akhir)->get();
+        view()->share('transaction', $cetakPengembalian);
         $pdf = PDF::loadview('data-pengembalian.lap-pengembalian', compact('cetakPengembalian'))->setPaper('a4', 'portrait');
         return $pdf->stream('laporan-pengembalian.pdf');
     }

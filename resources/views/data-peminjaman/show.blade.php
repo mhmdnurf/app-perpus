@@ -24,7 +24,7 @@
                         </tr>
                         <tr>
                             <th>Nomor Peminjaman</th>
-                            <td>{{ $transaction->transaction_id }}</td>
+                            <td>{{ $transaction->no_transaksi }}</td>
                         </tr>
                         <tr>
                             <th>Data Anggota</th>
@@ -36,11 +36,12 @@
                         </tr>
                         <tr>
                             <th>Tanggal Dikembalikan</th>
-                            <td>{{ $transaction->tgl_kembalikan }}</td>
+                            <td>{{ \Carbon\Carbon::parse($transaction->tgl_kembalikan)->Format('d-m-Y') }}</td>
                         </tr>
                         <tr>
                             <th>Lama Peminjaman</th>
                             <td>{{ \Carbon\Carbon::parse($transaction->tgl_pinjam)->diffInDays($transaction->tgl_kembalikan) }}
+                                Hari
                             </td>
                         </tr>
                         <tr>
@@ -56,7 +57,7 @@
                     </tbody>
                 </table>
             </div>
-            <a href="/data-peminjaman/" class="btn btn-primary mt-2 float-right">Kembali</a>
+            <a href="/data-pengembalian/" class="btn btn-primary mt-2 float-right">Kembali</a>
         </div>
     </div>
 @endsection

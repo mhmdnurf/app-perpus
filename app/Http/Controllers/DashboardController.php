@@ -14,7 +14,7 @@ class DashboardController extends Controller
     {
         $books = Book::count();
         $members = Member::count();
-        $transaction = DB::table('borrows')->selectRaw("count(case when status = 'Selesai' then 1 end) as selesai")->selectRaw("count(case when status = 'Dipinjam' then 1 end) as dipinjam")->first();
+        $transaction = DB::table('transactions')->selectRaw("count(case when status = 'Selesai' then 1 end) as selesai")->selectRaw("count(case when status = 'Dipinjam' then 1 end) as dipinjam")->first();
         return view('dashboard.index', compact('books', 'members', 'transaction'), [
             'title' => 'Dashboard',
             'active' => 'dashboard'
