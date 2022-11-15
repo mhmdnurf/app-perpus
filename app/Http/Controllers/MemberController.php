@@ -47,8 +47,8 @@ class MemberController extends Controller
         $config = [
             'table' => 'members',
             'field' => 'no_anggota',
-            'length' => 12,
-            'prefix' => 'APSD017-'
+            'length' => 8,
+            'prefix' => 'AGG-'
         ];
 
         $id = IdGenerator::generate($config);

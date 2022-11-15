@@ -8,7 +8,7 @@ use App\Models\Returned;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Transaction extends Model
+class Borrow extends Model
 {
     use HasFactory;
 
@@ -28,6 +28,6 @@ class Transaction extends Model
 
     public function returned()
     {
-        return $this->belongsTo(Returned::class);
+        return $this->hasOne(Returned::class);
     }
 }

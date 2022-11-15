@@ -6,10 +6,7 @@ use App\Models\Book;
 use App\Models\Borrow;
 use App\Models\Member;
 use App\Models\Returned;
-use App\Models\Transaction;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class ReturnedController extends Controller
 {
@@ -25,37 +22,106 @@ class ReturnedController extends Controller
             'returneds' => Returned::all(),
             'members' => Member::all(),
             'books' => Book::all(),
-            'transactions' => Transaction::all()
+            'borrows' => Borrow::all()
         ]);
     }
 
-    public function prosesPengembalian(Request $request, $id)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Request $request)
+    {
+        return view('data-pengembalian.create', [
+            'title' => 'Proses Pengembalian',
+            'borrows' => Borrow::all()
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
         $request->validate([
-            'no_transaksi' => 'required',
-            'member_id' => 'required',
-            'book_id' => 'required',
-            'tgl_pinjam' => 'required',
-            'tgl_kembali' => 'required',
-            'tgl_kembalikan' => 'required',
-            'keterlambatan' => 'required',
-            'status' => 'required',
-            'keterangan' => 'required'
+            'borrow_id' => 'required',
+            'tgl_kembalikan' => 'required'
         ]);
 
-        Returned::create([
-            'no_transaksi' => $request->no_transaksi,
-            'member_id' => $request->member_id,
-            'book_id' => $request->book_id,
-            'tgl_pinjam' => $request->tgl_pinjam,
-            'tgl_kembali' => $request->tgl_kembali,
+        $returned = Returned::create([
+            'borrow_id' => $request->borrow_id,
             'tgl_kembalikan' => $request->tgl_kembalikan,
-            'keterlambatan' => $request->keterlambatan,
-            'status' => $request->status,
-            'keterangan' => $request->keterangan
+            'keterangan' => $request->keterangan,
+            'denda' => $request->denda
         ]);
 
-        // dd($request->all());
-        return redirect()->route('data-peminjaman.index')->with(['success' => 'Pengembalian berhasil dilakukan']);
+         Borrow::find($request->borrow_id)->update([
+            'status' => 'Selesai',
+        ]);
+
+        if ($returned) {
+            return redirect()
+                ->route('data-pengembalian.index')
+                ->with([
+                    'success' => 'Pengembalian berhasil dilakukan'
+                ]);
+        } else {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with([
+                    'error' => 'Some problem occurred, please try again'
+                ]);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        Returned::destroy($id);
+        return redirect('/data-pengembalian')->with('success', 'Data pengembalian berhasil dihapus');
     }
 }

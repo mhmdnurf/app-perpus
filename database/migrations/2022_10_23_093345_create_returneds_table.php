@@ -15,15 +15,11 @@ class CreateReturnedsTable extends Migration
     {
         Schema::create('returneds', function (Blueprint $table) {
             $table->id('id');
-            $table->string('no_transaksi');
-            $table->foreignId('member_id');
-            $table->foreignId('book_id');
-            $table->date('tgl_pinjam')->nullable();
-            $table->date('tgl_kembali')->nullable();
+            $table->foreignId('borrow_id');
             $table->date('tgl_kembalikan');
-            $table->bigInteger('keterlambatan');
-            $table->string('status');
-            $table->string('keterangan');
+            $table->string('terlambat')->nullable();
+            $table->string('denda');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }

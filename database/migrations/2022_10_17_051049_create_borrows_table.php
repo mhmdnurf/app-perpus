@@ -15,15 +15,12 @@ class CreateBorrowsTable extends Migration
     {
         Schema::create('borrows', function (Blueprint $table) {
             $table->id('id');
-            $table->string('borrow_id')->references('id');
+            $table->string('no_pinjam')->references('id');
             $table->foreignId('member_id');
             $table->foreignId('book_id');
             $table->date('tgl_pinjam')->nullable();
-            $table->date('tgl_kembali')->nullable();
-            $table->date('tgl_kembalikan')->nullable();
-            $table->bigInteger('keterlambatan')->nullable();
+            $table->date('tempo')->nullable();
             $table->string('status');
-            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }

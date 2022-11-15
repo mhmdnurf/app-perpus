@@ -95,6 +95,14 @@
         });
     </script>
 
+    {{-- jQuery for select no_pinjam on returned transaction --}}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#borrow_id').selectize({
+                sortField: 'text'
+            });
+        });
+    </script>
 </body>
 
 </html>

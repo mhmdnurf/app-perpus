@@ -27,9 +27,9 @@ class Member extends Model
     public $incrementing = false;
     public $keyType = 'string';
 
-    public function transactions()
+    public function borrows()
     {
-        return $this->hasMany(Transaction::class);
+        return $this->hasMany(Borrow::class);
     }
 
     public function returneds()

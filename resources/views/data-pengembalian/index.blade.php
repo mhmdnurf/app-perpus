@@ -1,90 +1,9 @@
 @extends('layouts.main')
 @section('container')
-    @if (count($transactions) === 0)
-        <!-- DataTales Example -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">{{ $title }} Perpustakaan SD Negeri 017 Senayang</h6>
-            </div>
-            <div class="card-body">
-                @if (session()->has('success'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('success') }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                @endif
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead class="text-center">
-                            <tr>
-                                <th>No.</th>
-                                <th>No. Transaksi</th>
-                                <th>No. Anggota</th>
-                                <th>Nama</th>
-                                <th>Judul Buku</th>
-                                <th>ISBN</th>
-                                <th>Status</th>
-                                <th>Tanggal Dikembalikan</th>
-                                <th>Keterangan</th>
-                                <th>Denda</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($transactions as $transaction)
-                                <tr class="text-center">
-                                    <td class="align-middle">{{ $loop->iteration }}</td>
-                                    <td class="align-middle">{{ $transaction->no_transaksi }}</td>
-                                    <td class="align-middle">{{ $transaction->member->no_anggota }}</td>
-                                    <td class="align-middle">{{ $transaction->member->nama }}</td>
-                                    <td class="align-middle">{{ $transaction->book->judul }}</td>
-                                    <td class="align-middle">{{ $transaction->book->isbn }}</td>
-                                    <td class="align-middle">
-                                        @if ($transaction->tgl_kembalikan == null)
-                                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                data-target="#ModalEdit">
-                                                Proses Pengembalian
-                                            </button>
-                                        @else
-                                            <a href="/data-peminjaman/{{ $transaction->id }}"
-                                                class="btn btn-success">Selesai</a>
-                                        @endif
-                                    </td>
-                                    <td class="align-middle">
-                                        {{ \Carbon\Carbon::parse($transaction->tgl_kembalikan)->Format('d-m-Y') }}</td>
-                                    <td class="align-middle text-center">
-                                        @if ($transaction->status == 'Dipinjam')
-                                            <p></p>
-                                        @else
-                                            {{ $transaction->keterangan }}
-                                        @endif
-                                    </td>
-                                    <td class="align-middle">
-                                        @if (\Carbon\Carbon::parse($transaction->tgl_pinjam)->diffInDays($transaction->tgl_kembalikan) <= 7 &&
-                                            $transaction->status == 'Selesai')
-                                            Rp.0,-
-                                        @elseif (\Carbon\Carbon::parse($transaction->tgl_pinjam)->diffInDays($transaction->tgl_kembalikan) > 7 &&
-                                            $transaction->status == 'Selesai')
-                                            {{ 'Rp.' . (\Carbon\Carbon::parse($transaction->tgl_pinjam)->diffInDays($transaction->tgl_kembalikan) - 7) * 1000 }},-
-                                        @else
-                                            <p class="text-center"></p>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    @endsection
-@else
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">{{ $title }} Perpustakaan SD Negeri 017 Senayang
-            </h6>
+            <h6 class="m-0 font-weight-bold text-primary">{{ $title }} Perpustakaan SD Negeri 017 Senayang</h6>
         </div>
         <div class="card-body">
             @if (session()->has('success'))
@@ -96,57 +15,41 @@
                 </div>
             @endif
             <div class="table-responsive">
+                <a href="/data-pengembalian/create" class="btn btn-primary mb-3">
+                    <span class="text">Proses Pengembalian</span>
+                </a>
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead class="text-center">
                         <tr>
                             <th>No.</th>
-                            <th>No. Transaksi</th>
-                            <th>No. Anggota</th>
-                            <th>Nama</th>
-                            <th>Judul Buku</th>
-                            <th>ISBN</th>
-                            <th>Proses</th>
-                            <th>Keterangan</th>
+                            <th>No. Peminjaman</th>
+                            <th>Tanggal Peminjaman</th>
+                            <th>Jatuh Tempo</th>
+                            <th>Tanggal Dikembalikan</th>
                             <th>Denda</th>
+                            <th>Keterangan</th>
+                            <th>Hapus</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($transactions as $transaction)
+                        @foreach ($returneds as $returned)
                             <tr class="text-center">
                                 <td class="align-middle">{{ $loop->iteration }}</td>
-                                <td class="align-middle">{{ $transaction->no_transaksi }}</td>
-                                <td class="align-middle">{{ $transaction->member->no_anggota }}</td>
-                                <td class="align-middle">{{ $transaction->member->nama }}</td>
-                                <td class="align-middle">{{ $transaction->book->judul }}</td>
-                                <td class="align-middle">{{ $transaction->book->isbn }}</td>
+                                <td class="align-middle">{{ $returned->borrow->no_pinjam }}</td>
+                                <td class="align-middle">{{ \Carbon\Carbon::parse($returned->borrow->tgl_pinjam)->Format('d-m-Y') }}</td>
+                                <td class="align-middle">{{ \Carbon\Carbon::parse($returned->borrow->tempo)->Format('d-m-Y') }}</td>
+                                <td class="align-middle">{{ \Carbon\Carbon::parse($returned->tgl_kembalikan)->Format('d-m-Y') }}</td>
+                                <td class="align-middle">Rp.{{ $returned->denda }}</td>
+                                <td class="align-middle">{{ $returned->keterangan }}</td>
                                 <td class="align-middle">
-                                    @if ($transaction->tgl_kembalikan == null)
-                                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                            data-target="#ModalEdit">
-                                            Kembalikan
-                                        </button>
-                                    @else
-                                        <a href="/data-peminjaman/{{ $transaction->id }}"
-                                            class="btn btn-success">Selesai</a>
-                                    @endif
-                                </td>
-                                <td class="align-middle text-center">
-                                    @if ($transaction->status == 'Dipinjam')
-                                        <p></p>
-                                    @else
-                                        {{ $transaction->keterangan }}
-                                    @endif
-                                </td>
-                                <td class="align-middle">
-                                    @if (\Carbon\Carbon::parse($transaction->tgl_pinjam)->diffInDays($transaction->tgl_kembalikan) <= 7 &&
-                                        $transaction->status == 'Selesai')
-                                        Rp.0,-
-                                    @elseif (\Carbon\Carbon::parse($transaction->tgl_pinjam)->diffInDays($transaction->tgl_kembalikan) > 7 &&
-                                        $transaction->status == 'Selesai')
-                                        {{ 'Rp.' . (\Carbon\Carbon::parse($transaction->tgl_pinjam)->diffInDays($transaction->tgl_kembalikan) - 7) * 1000 }},-
-                                    @else
-                                        <p class="text-center"></p>
-                                    @endif
+                                    <form action="/data-pengembalian/{{ $returned->id }}" method="POST" class="d-inline"
+                                        class="text-center">
+                                        @method('delete')
+                                        @csrf
+                                        <button class="text-danger border-0 bg-transparent"
+                                            onclick="return confirm('Data akan hilang ketika dihapus, apakah anda yakin?')"><i
+                                                class="fas fa-trash-alt fa-lg"></i></button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
@@ -156,5 +59,3 @@
         </div>
     </div>
 @endsection
-@include('data-peminjaman.partials.returnModal')
-@endif

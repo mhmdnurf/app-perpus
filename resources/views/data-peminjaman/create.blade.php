@@ -39,12 +39,12 @@
             </div>
         @enderror
 
-        <label for="tgl_kembali">Tanggal Pengembalian</label>
-        <input id="tgl_kembali" type="date" name="tgl_kembali"
-            class="form-control @error('tgl_kembali')
+        <label for="tempo">Jatuh Tempo</label>
+        <input id="tempo" type="date" name="tempo"
+            class="form-control @error('tempo')
         is-invalid
     @enderror">
-        @error('tgl_kembali')
+        @error('tempo')
             <div class="invalid-feedback">
                 {{ $message }}
             </div>
@@ -61,16 +61,6 @@
             </div>
         @enderror
 
-        <label for="keterangan" hidden>Status</label>
-        <input id="keterangan" type="hidden" name="keterangan" value=""
-            class="form-control @error('keterangan')
-        is-invalid
-    @enderror">
-        @error('keterangan')
-            <div class="invalid-feedback">
-                {{ $message }}
-            </div>
-        @enderror
 
         <a href="/data-peminjaman" class="btn btn-danger float-right mt-2">Cancel</a>
         <button type="submit" class="btn btn-primary float-right mr-2 mt-2">Submit</button>

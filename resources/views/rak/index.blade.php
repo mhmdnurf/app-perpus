@@ -32,7 +32,7 @@
                         @foreach ($racks as $rack)
                             <tr>
                                 <td class="align-middle">{{ $loop->iteration }}</td>
-                                <td class="align-middle">{{ $rack->name }}</td>
+                                <td class="align-middle">{{ $rack->nama }}</td>
                                 <td class="align-middle">{{ $rack->keterangan }}</td>
                                 <td class="align-middle"><a href="/rak/{{ $rack->id }}/edit"
                                         class="btn btn-default text-primary"><i class="fas fa-user-edit fa-lg"></i></a>

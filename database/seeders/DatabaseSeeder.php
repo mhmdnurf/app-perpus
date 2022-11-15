@@ -48,11 +48,10 @@ class DatabaseSeeder extends Seeder
             'keterangan' => '-'
         ]);
 
-        // Rack::create([
-        //     'name' => 'RAK 2',
-        //     'slug' => 'rak-2',
-        //     'keterangan' => '-'
-        // ]);
+        Rack::create([
+            'nama' => 'RAK 2',
+            'keterangan' => '-'
+        ]);
 
         Category::create([
             'nama' => 'Filsafat',

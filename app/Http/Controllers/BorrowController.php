@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Borrow;
 use App\Models\Member;
-use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
-class TransactionController extends Controller
+class BorrowController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class TransactionController extends Controller
     {
         return view('data-peminjaman.index', [
             'title' => 'Data Peminjaman',
-            'transactions' => Transaction::all(),
+            'borrows' => Borrow::all(),
             'members' => Member::all(),
             'books' => Book::all()
         ]);
@@ -48,10 +48,10 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         $config = [
-            'table' => 'transactions',
-            'field' => 'no_transaksi',
+            'table' => 'borrows',
+            'field' => 'no_pinjam',
             'length' => 8,
-            'prefix' => 'TRS-'
+            'prefix' => 'PNJ-'
         ];
 
         $id = IdGenerator::generate($config);
@@ -60,21 +60,20 @@ class TransactionController extends Controller
             'member_id' => 'required|max:255',
             'book_id' => 'required',
             'tgl_pinjam' => 'required',
-            'tgl_kembali' => 'required',
+            'tempo' => 'required',
             'status' => 'required',
         ]);
 
-        $returned = Transaction::create([
-            'no_transaksi' => $id,
+        $borrow = Borrow::create([
+            'no_pinjam' => $id,
             'member_id' => $request->member_id,
             'book_id' => $request->book_id,
             'tgl_pinjam' => $request->tgl_pinjam,
-            'tgl_kembali' => $request->tgl_kembali,
-            'status' => 'Dipinjam',
-            'keterangan' => $request->keterangan
+            'tempo' => $request->tempo,
+            'status' => 'Dipinjam'
         ]);
 
-        if ($returned) {
+        if ($borrow) {
             return redirect()
                 ->route('data-peminjaman.index')
                 ->with([
@@ -98,15 +97,9 @@ class TransactionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Transaction $transaction, Member $member, Book $book, $id)
+    public function show($id)
     {
-        $transaction = Transaction::find($id);
-        return view('data-peminjaman.show', [
-            'title' => 'Detail Pengembalian Buku',
-            'transaction' => $transaction,
-            'member' => $member,
-            'book' => $book
-        ]);
+        //
     }
 
     /**
@@ -117,7 +110,12 @@ class TransactionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $borrow = Borrow::find($id);
+
+        return view('/data-peminjaman.edit',[
+            'title' => 'Edit Data Peminjaman',
+            'borrows' => Borrow::all()
+        ], compact('borrow'));
     }
 
     /**
@@ -129,21 +127,15 @@ class TransactionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $transaction = Transaction::find($id);
+        $borrow = Borrow::find($id);
         $rules = [
-            'no_transaksi' => 'required',
-            'member_id' => 'required',
-            'book_id' => 'required',
             'tgl_pinjam' => 'required',
-            'tgl_kembali' => 'required',
-            'tgl_kembalikan' => 'required',
-            'keterlambatan' => 'required',
-            'status' => 'required',
-            'keterangan' => 'required'
+            'tempo' => 'required',
+            'status' => 'required'
         ];
-        // dd($request->all());
-        $transaction->update($request->validate($rules));
-        return redirect('/data-pengembalian')->with('success', 'Proses Pengembalian Berhasil');
+        $borrow->update($request->validate($rules));
+
+        return redirect('/data-peminjaman')->with('success', 'Data Peminjaman berhasil diubah');
     }
 
     /**
@@ -154,7 +146,7 @@ class TransactionController extends Controller
      */
     public function destroy($id)
     {
-        Transaction::destroy($id);
+        Borrow::destroy($id);
         return redirect('/data-peminjaman')->with('success', 'Data peminjaman berhasil dihapus');
     }
 }
