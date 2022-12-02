@@ -31,14 +31,13 @@
                 {{ $message }}
             </div>
         @enderror
-
         
-        <label for="denda">Denda</label>
-        <input id="denda" type="text" name="denda"
-            class="form-control @error('denda')
+        <label for="terlambat">Terlambat</label>
+        <input id="terlambat" type="number" name="terlambat"
+            class="form-control @error('terlambat')
         is-invalid
     @enderror">
-        @error('denda')
+        @error('terlambat')
             <div class="invalid-feedback">
                 {{ $message }}
             </div>
@@ -52,7 +51,7 @@
             @enderror" required></textarea>
         </div>
 
-        <a href="/data-peminjaman" class="btn btn-danger float-right mt-2">Cancel</a>
+        <a href="/data-pengembalian" class="btn btn-danger float-right mt-2">Cancel</a>
         <button type="submit" class="btn btn-primary float-right mr-2 mt-2">Submit</button>
     </form>
 @endsection

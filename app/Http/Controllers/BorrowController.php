@@ -73,6 +73,10 @@ class BorrowController extends Controller
             'status' => 'Dipinjam'
         ]);
 
+        $book = Book::find($request->book_id);
+        $book->stok = $book->stok - 1;
+        $book->save();
+
         if ($borrow) {
             return redirect()
                 ->route('data-peminjaman.index')
@@ -87,8 +91,6 @@ class BorrowController extends Controller
                     'error' => 'Some problem occurred, please try again'
                 ]);
         }
-
-        return redirect('/data-peminjaman')->with('success', 'Peminjaman berhasil dilakukan!');
     }
 
     /**
@@ -135,7 +137,7 @@ class BorrowController extends Controller
         ];
         $borrow->update($request->validate($rules));
 
-        return redirect('/data-peminjaman')->with('success', 'Data Peminjaman berhasil diubah');
+        return redirect('/data-peminjaman')->with('success', 'Peminjaman berhasil diubah');
     }
 
     /**
@@ -147,6 +149,6 @@ class BorrowController extends Controller
     public function destroy($id)
     {
         Borrow::destroy($id);
-        return redirect('/data-peminjaman')->with('success', 'Data peminjaman berhasil dihapus');
+        return redirect('/data-peminjaman')->with('success', 'Peminjaman berhasil dihapus');
     }
 }

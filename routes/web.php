@@ -23,7 +23,6 @@ use App\Http\Controllers\DashboardController;
 */
 
 Route::get('/', [DashboardController::class, 'index'])->middleware('auth');
-
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
@@ -32,7 +31,6 @@ Route::resource('data-anggota', MemberController::class)->middleware('auth');
 Route::resource('data-buku', BookController::class)->middleware('auth');
 Route::resource('kategori', CategoryController::class)->middleware('auth');
 Route::resource('rak', RackController::class)->middleware('auth');
-
 Route::resource('data-peminjaman', BorrowController::class)->middleware('auth');
 Route::resource('data-pengembalian', ReturnedController::class)->middleware('auth');
 

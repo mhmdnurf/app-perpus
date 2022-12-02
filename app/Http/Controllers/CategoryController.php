@@ -43,7 +43,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|max:255',
+            'nama' => 'required|max:255',
             'keterangan' => 'max:255'
         ]);
         Category::create($validatedData);
@@ -88,13 +88,13 @@ class CategoryController extends Controller
         $category = Category::find($id);
 
         $rules = [
-            'name' => 'required|max:255',
+            'nama' => 'required|max:255',
             'keterangan' => 'max:255'
         ];
 
         $category->update($request->validate($rules));
 
-        return redirect('/kategori')->with('success', 'Data Kategori berhasil diubah');
+        return redirect('/kategori')->with('success', 'Kategori berhasil diubah');
     }
 
     /**

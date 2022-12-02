@@ -55,29 +55,13 @@
             @foreach ($cetakPengembalian as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->no_transaksi }}</td>
-                    <td>{{ $item->member->no_anggota }}</td>
-                    <td>{{ $item->member->nama }}</td>
-                    <td>{{ $item->book->judul }}</td>
+                    <td>{{ $item->borrow->no_pinjam }}</td>
+                    <td>{{ $item->borrow->member->no_anggota }}</td>
+                    <td>{{ $item->borrow->member->nama }}</td>
+                    <td>{{ $item->borrow->book->judul }}</td>
                     <td>{{ \Carbon\Carbon::parse($item->tgl_kembalikan)->Format('d-m-Y') }}</td>
-                    <td>
-                        @if (\Carbon\Carbon::parse($item->tgl_pinjam)->diffInDays($item->tgl_kembalikan) <= 7)
-                            Tepat waktu
-                        @else
-                            {{ \Carbon\Carbon::parse($item->tgl_pinjam)->diffInDays($item->tgl_kembalikan) }} Hari
-                        @endif
-                    </td>
-                    <td>
-                        @if (\Carbon\Carbon::parse($item->tgl_pinjam)->diffInDays($item->tgl_kembalikan) <= 7 &&
-                            $item->status == 'Selesai')
-                            Rp.0,-
-                        @elseif(\Carbon\Carbon::parse($item->tgl_pinjam)->diffInDays($item->tgl_kembalikan) > 7 &&
-                            $item->status == 'Selesai')
-                            {{ 'Rp.' . (\Carbon\Carbon::parse($item->tgl_pinjam)->diffInDays($item->tgl_kembalikan) - 7) * 1000 }},-
-                        @else
-                            <p>-</p>
-                        @endif
-                    </td>
+                    <td>{{ $item->terlambat }} Hari</td>
+                    <td>Rp.{{ $item->denda }}</td>
                 </tr>
             @endforeach
         </table>

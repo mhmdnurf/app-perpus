@@ -55,7 +55,7 @@ class RackController extends Controller
             return redirect()
                 ->route('rak.index')
                 ->with([
-                    'success' => 'New data has been created successfully'
+                    'success' => 'Rak Buku berhasil ditambah'
                 ]);
         } else {
             return redirect()
@@ -105,14 +105,13 @@ class RackController extends Controller
         $rack = Rack::find($id);
 
         $rules = [
-            'name' => 'required|max:255',
-            'slug' => 'unique:categories',
+            'nama' => 'required|max:255',
             'keterangan' => 'max:255'
         ];
 
         $rack->update($request->validate($rules));
 
-        return redirect('/rak')->with('success', 'Data Rak Buku berhasil diubah');
+        return redirect('/rak')->with('success', 'Rak Buku berhasil diubah');
     }
 
     /**

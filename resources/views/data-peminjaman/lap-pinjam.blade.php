@@ -51,12 +51,12 @@
             @foreach ($cetakPinjam as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $item->no_transaksi }}</td>
+                    <td>{{ $item->no_pinjam }}</td>
                     <td>{{ $item->member->no_anggota }}</td>
                     <td>{{ $item->member->nama }}</td>
                     <td>{{ $item->book->judul }}</td>
                     <td>{{ \Carbon\Carbon::parse($item->tgl_pinjam)->Format('d-m-Y') }}</td>
-                    <td>{{ \Carbon\Carbon::parse($item->tgl_pengembalian)->Format('d-m-Y') }}</td>
+                    <td>{{ \Carbon\Carbon::parse($item->tempo)->Format('d-m-Y') }}</td>
                     <td>{{ $item->status }}</td>
                 </tr>
             @endforeach

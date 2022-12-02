@@ -29,7 +29,7 @@
                             <th>Penerbit</th>
                             <th>Pengarang</th>
                             <th>Tahun</th>
-                            <th>Jumlah</th>
+                            <th>Stok</th>
                             <th>Ubah</th>
                             <th>Hapus</th>
                             </th>
@@ -46,7 +46,7 @@
                                 <td class="align-middle">{{ $book->penerbit }}</td>
                                 <td class="align-middle">{{ $book->pengarang }}</td>
                                 <td class="align-middle">{{ $book->tahun }}</td>
-                                <td class="align-middle">{{ $book->jumlah }}</td>
+                                <td class="align-middle">{{ $book->stok }}</td>
                                 <td class="align-middle">
                                     <a href="/data-buku/{{ $book->id }}/edit" class="btn btn-default text-primary"><i
                                             class="fas fa-user-edit fa-lg"></i></a>

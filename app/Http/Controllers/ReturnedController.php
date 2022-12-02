@@ -55,13 +55,18 @@ class ReturnedController extends Controller
         $returned = Returned::create([
             'borrow_id' => $request->borrow_id,
             'tgl_kembalikan' => $request->tgl_kembalikan,
+            'terlambat' => $request->terlambat,
             'keterangan' => $request->keterangan,
-            'denda' => $request->denda
+            'denda' => $request->terlambat * 1000
         ]);
 
-         Borrow::find($request->borrow_id)->update([
-            'status' => 'Selesai',
-        ]);
+        $book = Book::find($request->borrow_id);
+        $book->stok = $book->stok + 1;
+        $book->save();
+
+        // Borrow::find($request->borrow_id)->update([
+        //     'status' => 'Selesai',
+        // ]);
 
         if ($returned) {
             return redirect()
@@ -122,6 +127,6 @@ class ReturnedController extends Controller
     public function destroy($id)
     {
         Returned::destroy($id);
-        return redirect('/data-pengembalian')->with('success', 'Data pengembalian berhasil dihapus');
+        return redirect('/data-pengembalian')->with('success', 'Pengembalian berhasil dihapus');
     }
 }
