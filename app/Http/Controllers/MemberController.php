@@ -6,6 +6,8 @@ use PDF;
 use App\Models\Member;
 use Illuminate\Http\Request;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Support\Facades\Validator;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class MemberController extends Controller
 {
@@ -18,7 +20,7 @@ class MemberController extends Controller
     {
         return view('data-anggota.index', [
             'title' => 'Data Anggota',
-            'members' => Member::all()
+            'members' => Member::all(),
         ]);
     }
 
@@ -53,37 +55,42 @@ class MemberController extends Controller
 
         $id = IdGenerator::generate($config);
 
-        $request->validate([
-            'nama' => 'required|max:255',
-            'nis' => 'unique:members',
-            'tempat_lahir' => 'required|max:255',
-            'tanggal_lahir' => 'required',
-            'jenis_kelamin' => 'required',
-            'alamat' => 'required|max:255'
-        ]);
-        $member = Member::create([
-            'no_anggota' => $id,
-            'nama' => $request->nama,
-            'nis' => $request->nis,
-            'tempat_lahir' => $request->tempat_lahir,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'alamat' => $request->alamat
-        ]);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'nama' => 'required|max:255',
+                'nis' => 'unique:members',
+                'tempat_lahir' => 'required|max:255',
+                'tanggal_lahir' => 'required',
+                'jenis_kelamin' => 'required',
+                'alamat' => 'required|max:255',
+                'kelas' => 'required'
+            ],
+            [
+                'nis.unique' => 'Silahkan cek data anggota terlebih dahulu'
+            ]
+        );
 
-        if ($member) {
-            return redirect()
-                ->route('data-anggota.index')
-                ->with([
-                    'success' => 'Data Anggota berhasil ditambah'
-                ]);
-        } else {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->with([
-                    'error' => 'Some problem occurred, please try again'
-                ]);
+        if ($validator->fails()) {
+            return redirect()->back()->with('errorMember', $validator->errors()->getMessages())->withInput();
+        }
+        try {
+            Member::create([
+                'no_anggota' => $id,
+                'nama' => $request->nama,
+                'nis' => $request->nis,
+                'tempat_lahir' => $request->tempat_lahir,
+                'tanggal_lahir' => $request->tanggal_lahir,
+                'jenis_kelamin' => $request->jenis_kelamin,
+                'alamat' => $request->alamat,
+                'kelas' => $request->kelas
+            ]);
+
+            Alert::toast('Data Anggota berhasil ditambah!', 'success')->position('top')->autoClose(5000)->timerProgressBar()->hideCloseButton();
+            return redirect('data-anggota');
+        } catch (\Exception $e) {
+            Alert::toast('Data Anggota gagal ditambah!', 'error')->position('top')->autoClose(5000)->timerProgressBar()->hideCloseButton();
+            return redirect()->back();
         }
     }
 
@@ -134,13 +141,10 @@ class MemberController extends Controller
             'jenis_kelamin' => 'required',
             'alamat' => 'required|max:255'
         ];
-        if ($request->nis != $member->nis) {
-            $rules['nis'] = 'unique:members';
-        }
 
         $member->update($request->validate($rules));
-
-        return redirect('/data-anggota')->with('success', 'Data Anggota berhasil diubah');
+        Alert::toast('Data Anggota berhasil diubah!', 'success')->position('top')->autoClose(5000)->timerProgressBar()->hideCloseButton();
+        return redirect('/data-anggota');
     }
 
     /**
@@ -151,7 +155,9 @@ class MemberController extends Controller
      */
     public function destroy($id)
     {
+
         Member::destroy($id);
-        return redirect('/data-anggota')->with('success', 'Data anggota berhasil dihapus');
+        Alert::toast('Data Anggota berhasil dihapus!', 'success')->position('top')->autoClose(5000)->timerProgressBar()->hideCloseButton();
+        return redirect('/data-anggota');
     }
 }

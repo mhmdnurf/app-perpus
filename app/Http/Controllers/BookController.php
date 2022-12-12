@@ -7,6 +7,8 @@ use App\Models\Rack;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Validator;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class BookController extends Controller
@@ -47,19 +49,44 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'judul' => 'required|max:255',
-            'isbn' => 'unique:books',
-            'category_id' => 'required',
-            'rack_id' => 'required',
-            'penerbit' => 'required|max:255',
-            'pengarang' => 'required|max:255',
-            'tahun' => 'required|max:255',
-            'jumlah' => 'required'
-        ]);
-        Book::create($validatedData);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'judul' => 'required|max:255',
+                'isbn' => 'unique:books',
+                'category_id' => 'required',
+                'rack_id' => 'required',
+                'penerbit' => 'required|max:255',
+                'pengarang' => 'required|max:255',
+                'tahun' => 'required|max:255',
+                'jumlah' => 'required'
+            ],
+            [
+                'isbn.unique' => 'Silahkan cek data buku terlebih dahulu'
+            ]
+        );
 
-        return redirect('/data-buku')->with('success', 'Buku berhasil ditambah!');
+        if ($validator->fails()) {
+            return redirect()->back()->with('errorBook', $validator->errors()->getMessages())->withInput();
+        }
+
+        try {
+            Book::create([
+                'judul' => $request->judul,
+                'isbn' => $request->isbn,
+                'category_id' => $request->category_id,
+                'rack_id' => $request->rack_id,
+                'penerbit' => $request->penerbit,
+                'pengarang' => $request->pengarang,
+                'tahun' => $request->tahun,
+                'jumlah' => $request->jumlah,
+                'stok' => $request->jumlah
+            ]);
+
+            return redirect('data-buku')->with('success', 'Data Buku berhasil ditambah!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error during the creation');
+        }
     }
 
     /**
@@ -107,15 +134,16 @@ class BookController extends Controller
             'penerbit' => 'required|max:255',
             'pengarang' => 'required|max:255',
             'tahun' => 'required|max:255',
-            'jumlah' => 'required'
+            'jumlah' => 'required',
+            'stok' => 'required'
         ];
         if ($request->isbn != $book->isbn) {
             $rules['isbn'] = 'unique:books';
         }
 
         $book->update($request->validate($rules));
-
-        return redirect('/data-buku')->with('success', 'Data Buku berhasil diubah');
+        Alert::toast('Data Buku berhasil diubah!', 'success')->position('top')->autoClose(5000)->timerProgressBar()->hideCloseButton();
+        return redirect('/data-buku');
     }
 
     /**
@@ -127,6 +155,7 @@ class BookController extends Controller
     public function destroy($id)
     {
         Book::destroy($id);
-        return redirect('/data-buku')->with('success', 'Data buku berhasil dihapus');
+        Alert::toast('Data Buku berhasil dihapus!', 'success')->position('top')->autoClose(5000)->timerProgressBar()->hideCloseButton();
+        return redirect('/data-buku');
     }
 }

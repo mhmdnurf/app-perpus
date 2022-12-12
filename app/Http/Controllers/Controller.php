@@ -14,13 +14,53 @@ class Controller extends BaseController
 
     public function __construct()
     {
-        $this->middleware(function($request,$next){
+        $this->middleware(function ($request, $next) {
             if (session('success')) {
                 Alert::success(session('success'));
             }
 
             if (session('error')) {
                 Alert::error(session('error'));
+            }
+
+            if (session('errorCategory')) {
+                $html = "<ul style='list-style: none;'>";
+                foreach (session('errorCategory') as $error) {
+                    $html .= "<li>$error[0]</li>";
+                }
+                $html .= "</ul>";
+
+                Alert::html('Nama Kategori Buku telah terdaftar', $html, 'error');
+            }
+
+            if (session('errorRack')) {
+                $html = "<ul style='list-style: none;'>";
+                foreach (session('errorRack') as $error) {
+                    $html .= "<li>$error[0]</li>";
+                }
+                $html .= "</ul>";
+
+                Alert::toast('Nama Rak Buku telah terdaftar', 'error')->position('top')->autoClose(5000)->timerProgressBar()->hideCloseButton();
+            }
+
+            if (session('errorMember')) {
+                $html = "<ul style='list-style: none;'>";
+                foreach (session('errorMember') as $error) {
+                    $html .= "<li>$error[0]</li>";
+                }
+                $html .= "</ul>";
+
+                Alert::html('NIS telah terdaftar', $html, 'error');
+            }
+
+            if (session('errorBook')) {
+                $html = "<ul style='list-style: none;'>";
+                foreach (session('errorBook') as $error) {
+                    $html .= "<li>$error[0]</li>";
+                }
+                $html .= "</ul>";
+
+                Alert::html('Nomor ISBN telah terdaftar', $html, 'error');
             }
 
             return $next($request);

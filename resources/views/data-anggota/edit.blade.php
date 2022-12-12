@@ -16,7 +16,7 @@
         @enderror
 
         <label for="nis" class="mt-2">NIS</label>
-        <input id="nis" type="text" name="nis" required
+        <input id="nis" type="text" name="nis" readonly
             class="form-control @error('nis')
             is-invalid
         @enderror"
@@ -75,7 +75,7 @@
             @enderror" required>{{ $member->alamat }}</textarea>
         </div>
 
-        <a href="/data-anggota" class="btn btn-danger float-right">Cancel</a>
-        <button type="submit" class="btn btn-primary float-right mr-2">Update</button>
+        <a href="/data-anggota" class="btn btn-danger float-right">Batal</a>
+        <button type="submit" class="btn btn-primary float-right mr-2">Ubah</button>
     </form>
 @endsection

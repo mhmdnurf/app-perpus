@@ -18,7 +18,7 @@
             @enderror"> {{ old('keterangan', $category->keterangan) }}</textarea>
         </div>
 
-        <a href="/kategori" class="btn btn-danger float-right">Cancel</a>
-        <button type="submit" class="btn btn-primary float-right mr-2">Update</button>
+        <a href="/kategori" class="btn btn-danger float-right">Batal</a>
+        <button type="submit" class="btn btn-primary float-right mr-2">Ubah</button>
     </form>
 @endsection

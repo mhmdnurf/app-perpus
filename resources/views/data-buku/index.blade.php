@@ -29,6 +29,7 @@
                             <th>Penerbit</th>
                             <th>Pengarang</th>
                             <th>Tahun</th>
+                            <th>Jumlah</th>
                             <th>Stok</th>
                             <th>Ubah</th>
                             <th>Hapus</th>
@@ -46,7 +47,15 @@
                                 <td class="align-middle">{{ $book->penerbit }}</td>
                                 <td class="align-middle">{{ $book->pengarang }}</td>
                                 <td class="align-middle">{{ $book->tahun }}</td>
-                                <td class="align-middle">{{ $book->stok }}</td>
+                                <td class="align-middle">{{ $book->jumlah }}</td>
+                                <td class="align-middle">
+                                    @if ($book->stok == 0)
+                                        <span class="border border-danger rounded bg-danger text-light p-1">
+                                            Habis
+                                        @else
+                                            {{ $book->stok }}
+                                    @endif
+                                </td>
                                 <td class="align-middle">
                                     <a href="/data-buku/{{ $book->id }}/edit" class="btn btn-default text-primary"><i
                                             class="fas fa-user-edit fa-lg"></i></a>
@@ -56,8 +65,7 @@
                                         class="text-center">
                                         @method('delete')
                                         @csrf
-                                        <button class="text-danger border-0 bg-transparent"
-                                            onclick="return confirm('Data akan hilang ketika dihapus, apakah anda yakin?')"><i
+                                        <button class="text-danger border-0 bg-transparent delete-buku"><i
                                                 class="fas fa-trash-alt fa-lg"></i></button>
                                     </form>
                                 </td>
@@ -69,4 +77,28 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        $('.delete-buku').click(function() {
+            var form = $(this).closest('form');
+            var id = $(this).data('id');
+            event.preventDefault();
+            Swal.fire({
+                title: 'Apakah anda yakin untuk menghapus data?',
+                text: "Data akan hilang saat dihapus dan tidak dapat dikembalikan",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Hapus'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
 @endsection

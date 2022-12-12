@@ -100,7 +100,30 @@
             </div>
         @enderror
 
-        <button type="submit" class="btn btn-primary mb-2 mt-2">Submit</button>
-        <a href="/data-buku" class="btn btn-danger">Cancel</a>
+        <a href="/data-buku" class="btn btn-danger float-right mb-2 mt-2">Batal</a>
+        <button type="submit" class="btn btn-primary mb-2 mt-2 float-right mr-2 tambah-buku">Tambah</button>
     </form>
+@endsection
+
+@section('script')
+    <script>
+        $('.tambah-buku').click(function() {
+            var form = $(this).closest('form');
+            event.preventDefault();
+            Swal.fire({
+                title: 'Apakah anda yakin data yang di-input sudah benar?',
+                text: "Pastikan Nomor ISBN sudah benar karena tidak dapat diubah!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Proses'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
 @endsection

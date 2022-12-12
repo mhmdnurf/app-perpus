@@ -2,21 +2,26 @@
 @section('container')
     <form action="/rak" method="POST">
         @csrf
-        <label for="name">Nama Rak</label>
-        <input id="name" type="text" name="name" required autofocus
-            class="form-control @error('name')
+        <label for="nama">Nama Rak</label>
+        <input id="nama" type="text" name="nama" required autofocus
+            class="form-control @error('nama')
             is-invalid
         @enderror">
+        @error('nama')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
 
         <div class="form-group mt-2">
             <label for="keterangan">Keterangan</label>
-            <textarea id="keterangan" name="keterangan" rows="2"
+            <textarea id="keterangan" name="keterangan" rows="2" placeholder="(Opsional, boleh dikosongkan)"
                 class="form-control @error('keterangan')
                 is-invalid
             @enderror"></textarea>
         </div>
 
-        <a href="/rak" class="btn btn-danger float-right">Cancel</a>
-        <button type="submit" class="btn btn-primary float-right mr-2">Create</button>
+        <a href="/rak" class="btn btn-danger float-right">Batal</a>
+        <button type="submit" class="btn btn-primary float-right mr-2">Tambah</button>
     </form>
 @endsection

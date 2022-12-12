@@ -80,15 +80,18 @@
             <h6 class="m-0 font-weight-bold text-primary">Sistem Informasi Perpustakaan SD Negeri 017 Senayang</h6>
         </div>
         <div class="card-body">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et consequuntur maxime consequatur commodi
-                architecto quae beatae eos animi alias sunt, asperiores voluptas dicta quidem ex eaque voluptatibus
-                explicabo suscipit a iusto. Consequatur iusto sunt optio veniam, temporibus obcaecati consectetur hic iure
-                est ducimus praesentium. Exercitationem ratione vero minima eligendi perferendis iste quae eos nam tempora
-                rerum cupiditate pariatur autem assumenda, animi labore corrupti itaque incidunt aperiam molestias quam.</p>
-            <p>Autem quae, libero eveniet, dolore dolor sit delectus nemo neque consequuntur dicta corrupti quas placeat
-                repellendus amet atque nesciunt animi aspernatur qui deserunt hic unde odio modi mollitia! Ducimus odio esse
-                facere.</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius itaque, quisquam blanditiis quas ad earum.</p>
+            <p class="align-middle text-center h5">JANGAN LUPA UNTUK LOGOUT SETELAH DIGUNAKAN</p>
+            <p class="mt-3">Aturan Peminjaman dan Pengembalian Buku :</p>
+            <ul>
+                <li>Setiap anggota yang ingin meminjam dan mengembalikan buku wajib membawa kartu anggota dan menunjukkannya
+                    kepada pustakawan dan tidak boleh diwakilkan.</li>
+                <li>Anggota hanya boleh meminjam buku sebanyak 1 eksemplar dengan jangka waktu paling lama satu minggu.</li>
+                <li>Peminjaman hanya boleh dilakukan jika anggota tidak sedang meminjam buku.</li>
+                <li>Apabila buku yang dipinjam dirusak ataupun hilang, maka pustakawan berhak meminta peminjam untuk
+                    mengganti buku yang sama ataupun dengan uang seharga buku yang berlaku.</li>
+                <li>Denda keterlambatan sebesar Rp.1000 per jumlah hari keterlambatan.</li>
+                <li>Jangan lupa untuk melihat ketersediaan buku sebelum melakukan proses peminjaman.</li>
+            </ul>
         </div>
     </div>
 @endsection

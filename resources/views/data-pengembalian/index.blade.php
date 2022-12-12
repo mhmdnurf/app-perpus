@@ -23,9 +23,11 @@
                         <tr>
                             <th>No.</th>
                             <th>No. Peminjaman</th>
+                            <th>Nama</th>
                             <th>Tanggal Peminjaman</th>
                             <th>Jatuh Tempo</th>
                             <th>Tanggal Dikembalikan</th>
+                            <th>Terlambat</th>
                             <th>Denda</th>
                             <th>Keterangan</th>
                             <th>Hapus</th>
@@ -36,10 +38,15 @@
                             <tr class="text-center">
                                 <td class="align-middle">{{ $loop->iteration }}</td>
                                 <td class="align-middle">{{ $returned->borrow->no_pinjam }}</td>
-                                <td class="align-middle">{{ \Carbon\Carbon::parse($returned->borrow->tgl_pinjam)->Format('d-m-Y') }}</td>
-                                <td class="align-middle">{{ \Carbon\Carbon::parse($returned->borrow->tempo)->Format('d-m-Y') }}</td>
-                                <td class="align-middle">{{ \Carbon\Carbon::parse($returned->tgl_kembalikan)->Format('d-m-Y') }}</td>
-                                <td class="align-middle">Rp.{{ $returned->denda }}</td>
+                                <td class="align-middle">{{ $returned->borrow->member->nama }}</td>
+                                <td class="align-middle">
+                                    {{ \Carbon\Carbon::parse($returned->borrow->tgl_pinjam)->Format('d-m-Y') }}</td>
+                                <td class="align-middle">
+                                    {{ \Carbon\Carbon::parse($returned->borrow->tempo)->Format('d-m-Y') }}</td>
+                                <td class="align-middle">
+                                    {{ \Carbon\Carbon::parse($returned->tgl_kembalikan)->Format('d-m-Y') }}</td>
+                                <td class="align-middle">{{ $returned->terlambat }} Hari</td>
+                                <td class="align-middle">{{ $returned->denda }}</td>
                                 <td class="align-middle">{{ $returned->keterangan }}</td>
                                 <td class="align-middle">
                                     <form action="/data-pengembalian/{{ $returned->id }}" method="POST" class="d-inline"

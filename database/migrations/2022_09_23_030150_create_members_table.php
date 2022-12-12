@@ -22,6 +22,7 @@ class CreateMembersTable extends Migration
             $table->date('tanggal_lahir')->nullable();
             $table->string('jenis_kelamin');
             $table->string('alamat');
+            $table->string('kelas');
             $table->rememberToken();
             $table->timestamps();
         });

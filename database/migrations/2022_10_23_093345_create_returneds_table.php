@@ -17,7 +17,7 @@ class CreateReturnedsTable extends Migration
             $table->id('id');
             $table->foreignId('borrow_id');
             $table->date('tgl_kembalikan');
-            $table->string('terlambat')->nullable();
+            $table->string('terlambat');
             $table->string('denda');
             $table->string('keterangan')->nullable();
             $table->timestamps();

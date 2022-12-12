@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Rack;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Validator;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class RackController extends Controller
@@ -42,28 +44,28 @@ class RackController extends Controller
      */
     public function store(Request $request)
     {
-
-        $request->validate([
-            'name' => 'required|max:255'
-        ]);
-        $rack = Rack::create([
-            'name' => $request->name,
-            'keterangan' => $request->keterangan
+        $validator = Validator::make($request->all(), [
+            'nama' => 'unique:racks',
+        ], [
+            'nama.unique' => 'Silahkan cek data rak terlebih dahulu'
         ]);
 
-        if ($rack) {
-            return redirect()
-                ->route('rak.index')
-                ->with([
-                    'success' => 'Rak Buku berhasil ditambah'
-                ]);
-        } else {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->with([
-                    'error' => 'Some problem occurred, please try again'
-                ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->with('errorRack', $validator->errors()->getMessages())
+                ->withInput();
+        }
+
+        try {
+            Rack::create([
+                'nama' => $request->nama,
+                'keterangan' => $request->keterangan
+            ]);
+            Alert::toast('Data Rak Buku berhasil ditambah!', 'success')->position('top')->autoClose(5000)->timerProgressBar()->hideCloseButton();
+            return redirect('rak');
+        } catch (\Exception $e) {
+            Alert::toast('Data Rak Buku gagal ditambah!', 'error')->position('top')->autoClose(5000)->timerProgressBar()->hideCloseButton();
+            return redirect()->back();
         }
     }
 
@@ -103,15 +105,17 @@ class RackController extends Controller
     public function update(Request $request, $id)
     {
         $rack = Rack::find($id);
-
-        $rules = [
-            'nama' => 'required|max:255',
-            'keterangan' => 'max:255'
-        ];
+        $rules = ['nama' => 'required'];
+        if ($request->nama != $rack->nama) {
+            $rules = [
+                'nama' => 'unique:racks',
+            ];
+        }
 
         $rack->update($request->validate($rules));
 
-        return redirect('/rak')->with('success', 'Rak Buku berhasil diubah');
+        Alert::toast('Data Rak Buku berhasil diubah!', 'success')->position('top')->autoClose(5000)->timerProgressBar()->hideCloseButton();
+        return redirect('/rak');
     }
 
     /**
@@ -123,6 +127,7 @@ class RackController extends Controller
     public function destroy($id)
     {
         Rack::destroy($id);
-        return redirect('/rak')->with('success', 'Rak Buku berhasil dihapus');
+        Alert::toast('Data Rak Buku berhasil dihapus!', 'success')->position('top')->autoClose(5000)->timerProgressBar()->hideCloseButton();
+        return redirect('rak');
     }
 }

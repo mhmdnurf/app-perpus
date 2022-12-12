@@ -7,16 +7,21 @@
             class="form-control @error('nama')
             is-invalid
         @enderror">
+        @error('nama')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
 
         <div class="form-group mt-2">
             <label for="keterangan">Keterangan</label>
-            <textarea id="keterangan" name="keterangan" rows="2"
+            <textarea id="keterangan" name="keterangan" rows="2" placeholder="(Opsional, boleh dikosongkan)"
                 class="form-control @error('keterangan')
                 is-invalid
             @enderror"></textarea>
         </div>
 
-        <a href="/kategori" class="btn btn-danger float-right">Cancel</a>
-        <button type="submit" class="btn btn-primary float-right mr-2">Submit</button>
+        <a href="/kategori" class="btn btn-danger float-right">Batal</a>
+        <button type="submit" class="btn btn-primary float-right mr-2">Tambah</button>
     </form>
 @endsection

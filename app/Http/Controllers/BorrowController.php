@@ -7,6 +7,7 @@ use App\Models\Borrow;
 use App\Models\Member;
 use Illuminate\Http\Request;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Alert;
 
 class BorrowController extends Controller
 {
@@ -114,7 +115,7 @@ class BorrowController extends Controller
     {
         $borrow = Borrow::find($id);
 
-        return view('/data-peminjaman.edit',[
+        return view('/data-peminjaman.edit', [
             'title' => 'Edit Data Peminjaman',
             'borrows' => Borrow::all()
         ], compact('borrow'));

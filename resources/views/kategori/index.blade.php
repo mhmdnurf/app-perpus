@@ -44,8 +44,7 @@
                                         class="text-center">
                                         @method('delete')
                                         @csrf
-                                        <button class="text-danger border-0 bg-transparent"
-                                            onclick="return confirm('Data akan hilang ketika dihapus, apakah anda yakin?')"><i
+                                        <button class="text-danger border-0 bg-transparent delete-kategori"><i
                                                 class="fas fa-trash-alt fa-lg"></i></button>
                                     </form>
                                 </td>
@@ -58,4 +57,28 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        $('.delete-kategori').click(function() {
+            var form = $(this).closest('form');
+            var id = $(this).data('id');
+            event.preventDefault();
+            Swal.fire({
+                title: 'Apakah anda yakin untuk menghapus data?',
+                text: "Data akan hilang saat dihapus dan tidak dapat dikembalikan",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Hapus'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
 @endsection

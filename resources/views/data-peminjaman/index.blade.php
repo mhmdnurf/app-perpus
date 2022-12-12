@@ -47,25 +47,21 @@
                                     {{ \Carbon\Carbon::parse($borrow->tempo)->Format('d-m-Y') }}</td>
                                 <td class="text-center align-middle">
                                     @if ($borrow->status != 'Dipinjam')
-                                    <span class="border border-success rounded bg-success text-light p-1">
-                                        Selesai
-                                    </span>
+                                        <span class="border border-success rounded bg-success text-light p-1">
+                                            Selesai
+                                        </span>
                                     @elseif (\Carbon\Carbon::parse($borrow->tgl_pinjam)->diffInDays(\Carbon\Carbon::today()) > 7)
                                         <span class="border border-primary rounded bg-primary text-light p-1">
                                             Dipinjam
-                                    </span>
-                                        <span class="text-danger">
-                                        {{ 'Denda: Rp.' . (\Carbon\Carbon::parse($borrow->tgl_pinjam)->diffInDays(\Carbon\Carbon::today()) - 7) * 1000 }},-
-                                        </span>
-                                    @else
-                                    <span class="border border-primary rounded bg-primary text-light p-1">
-                                        {{ $borrow->status }}
-                                        </span>
+                                        @else
+                                            <span class="border border-primary rounded bg-primary text-light p-1">
+                                                {{ $borrow->status }}
+                                            </span>
                                     @endif
                                 </td>
                                 <td class="align-middle">
-                                    <a href="/data-peminjaman/{{ $borrow->id }}/edit" class="btn btn-default text-primary"><i
-                                            class="fas fa-user-edit fa-lg"></i></a>
+                                    <a href="/data-peminjaman/{{ $borrow->id }}/edit"
+                                        class="btn btn-default text-primary"><i class="fas fa-user-edit fa-lg"></i></a>
                                 </td>
                                 <td class="align-middle">
                                     <form action="/data-peminjaman/{{ $borrow->id }}" method="POST" class="d-inline"

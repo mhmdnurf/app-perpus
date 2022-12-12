@@ -7,6 +7,7 @@ use App\Models\Borrow;
 use App\Models\Member;
 use App\Models\Returned;
 use Illuminate\Http\Request;
+use DateTime;
 
 class ReturnedController extends Controller
 {
@@ -35,7 +36,7 @@ class ReturnedController extends Controller
     {
         return view('data-pengembalian.create', [
             'title' => 'Proses Pengembalian',
-            'borrows' => Borrow::all()
+            'borrows' => Borrow::with('book', 'member')->get(),
         ]);
     }
 
@@ -52,21 +53,40 @@ class ReturnedController extends Controller
             'tgl_kembalikan' => 'required'
         ]);
 
-        $returned = Returned::create([
-            'borrow_id' => $request->borrow_id,
-            'tgl_kembalikan' => $request->tgl_kembalikan,
-            'terlambat' => $request->terlambat,
-            'keterangan' => $request->keterangan,
-            'denda' => $request->terlambat * 1000
-        ]);
 
-        $book = Book::find($request->borrow_id);
-        $book->stok = $book->stok + 1;
+
+        $book = Book::find($request->book_id);
+        $book->stok += 1;
         $book->save();
 
-        // Borrow::find($request->borrow_id)->update([
-        //     'status' => 'Selesai',
-        // ]);
+        $fdate = $request->tgl_pinjam;
+        $tdate = $request->tgl_kembalikan;
+        $datetime1 = new DateTime($fdate);
+        $datetime2 = new DateTime($tdate);
+        $interval = $datetime1->diff($datetime2);
+        $days = $interval->format('%a');
+
+        if ($days > 7) {
+            $returned = Returned::create([
+                'borrow_id' => $request->borrow_id,
+                'tgl_kembalikan' => $request->tgl_kembalikan,
+                'keterangan' => $request->keterangan,
+                'terlambat' => ($days - 7),
+                'denda' => 'Rp.' . "" . ($days - 7) * 1000
+            ]);
+        } else {
+            $returned = Returned::create([
+                'borrow_id' => $request->borrow_id,
+                'tgl_kembalikan' => $request->tgl_kembalikan,
+                'keterangan' => $request->keterangan,
+                'terlambat' => '-',
+                'denda' => '-'
+            ]);
+        }
+
+        Borrow::find($request->borrow_id)->update([
+            'status' => 'Selesai',
+        ]);
 
         if ($returned) {
             return redirect()

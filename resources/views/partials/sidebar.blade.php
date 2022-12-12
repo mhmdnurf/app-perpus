@@ -29,9 +29,9 @@
                 <span>Buku</span></a>
             <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="/data-buku">Data Buku</a>
-                    <a class="collapse-item" href="/kategori">Kategori</a>
                     <a class="collapse-item" href="/rak">Rak Buku</a>
+                    <a class="collapse-item" href="/kategori">Kategori</a>
+                    <a class="collapse-item" href="/data-buku">Data Buku</a>
                 </div>
             </div>
         </li>

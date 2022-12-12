@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Cviebrock\EloquentSluggable\Services\SlugService;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -42,12 +43,29 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'nama' => 'required|max:255',
-            'keterangan' => 'max:255'
+        $validator = Validator::make($request->all(), [
+            'nama' => 'unique:categories',
+        ], [
+            'nama.unique' => 'Silahkan cek data kategori terlebih dahulu'
         ]);
-        Category::create($validatedData);
-        return redirect('/kategori')->with('success', 'Kategori berhasil ditambah!');
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->with('errorCategory', $validator->errors()->getMessages())
+                ->withInput();
+        }
+
+        try {
+            Category::create([
+                'nama' => $request->nama,
+                'keterangan' => $request->keterangan
+            ]);
+            Alert::toast('Data Kategori Buku berhasil ditambah!', 'success')->position('top')->autoClose(5000)->timerProgressBar()->hideCloseButton();
+            return redirect('/kategori');
+        } catch (\Exception $e) {
+            Alert::toast('Data Kategori Buku gagal ditambah!', 'error')->position('top')->autoClose(5000)->timerProgressBar()->hideCloseButton();
+            return redirect()->back();
+        }
     }
 
     /**
@@ -87,14 +105,17 @@ class CategoryController extends Controller
     {
         $category = Category::find($id);
 
-        $rules = [
-            'nama' => 'required|max:255',
-            'keterangan' => 'max:255'
-        ];
+        $rules = ['nama' => 'required'];
+        if ($request->nama != $category->nama) {
+            $rules = [
+                'nama' => 'unique:categories',
+            ];
+        }
 
         $category->update($request->validate($rules));
 
-        return redirect('/kategori')->with('success', 'Kategori berhasil diubah');
+        Alert::toast('Data Kategori Buku berhasil diubah!', 'success')->position('top')->autoClose(5000)->timerProgressBar()->hideCloseButton();
+        return redirect('/kategori');
     }
 
     /**

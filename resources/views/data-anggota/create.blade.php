@@ -8,7 +8,7 @@
             is-invalid
         @enderror">
 
-        <label for="nis" class="mt-2">NIS</label>
+        <label for="nis" class="mt-1">NIS</label>
         <input id="nis" type="text" name="nis" required
             class="form-control @error('nis')
             is-invalid
@@ -19,16 +19,16 @@
             </div>
         @enderror
 
-        <label for="tempat_lahir" class="mt-2">Tempat Lahir</label>
+        <label for="tempat_lahir" class="mt-1">Tempat Lahir</label>
         <input id="tempat_lahir" type="text" name="tempat_lahir" required
             class="form-control @error('tempat_lahir')
             is-invalid
         @enderror">
 
-        <label for="tanggal_lahir" class="mt-2">Tanggal Lahir</label>
+        <label for="tanggal_lahir" class="mt-1">Tanggal Lahir</label>
         <input type="date" id="tanggal_lahir" name="tanggal_lahir" required class="form-control">
 
-        <label for="jenis_kelamin" class="mt-2">Jenis Kelamin</label>
+        <label for="jenis_kelamin" class="mt-1">Jenis Kelamin</label>
         <div class="form-check">
             <input type="radio" name="jenis_kelamin" value="Laki-laki" checked
                 class="form-check-input @error('jenis_kelamin')
@@ -46,15 +46,50 @@
             </label>
         </div>
 
-        <div class="form-group">
-            <label for="alamat">Alamat</label>
-            <textarea id="alamat" name="alamat" rows="2"
-                class="form-control @error('alamat')
+
+        <label for="alamat" class="mt-1">Alamat</label>
+        <textarea id="alamat" name="alamat" rows="2"
+            class="form-control @error('alamat')
                 is-invalid
             @enderror" required></textarea>
-        </div>
 
-        <a href="/data-anggota" class="btn btn-danger float-right">Cancel</a>
-        <button type="submit" class="btn btn-primary float-right mr-2">Submit</button>
+
+
+        <label for="kelas" class="mt-1">Kelas</label>
+        <select class="form-control" name="kelas">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+        </select>
+
+        <div class="mt-3">
+            <a href="/data-anggota" class="btn btn-danger float-right">Batal</a>
+            <button type="submit" class="btn btn-primary float-right mr-2 tambah-anggota">Tambah</button>
+        </div>
     </form>
+@endsection
+@section('script')
+    <script>
+        $('.tambah-anggota').click(function() {
+            var form = $(this).closest('form');
+            event.preventDefault();
+            Swal.fire({
+                title: 'Apakah anda yakin data yang di-input sudah benar?',
+                text: "Pastikan NIS sudah benar karena tidak dapat diubah!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Proses'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
 @endsection

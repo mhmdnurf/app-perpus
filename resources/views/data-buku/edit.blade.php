@@ -15,7 +15,7 @@
         @enderror
 
         <label for="isbn">ISBN</label>
-        <input id="isbn" type="text" name="isbn" required autofocus
+        <input id="isbn" type="text" name="isbn" required readonly autofocus
             class="form-control @error('isbn')
         is-invalid
     @enderror" value="{{ old('isbn', $book->isbn) }}">
@@ -91,11 +91,24 @@
             </div>
         @enderror
 
-        <label for="stok" class="mt-2">Stok</label>
+        <label for="jumlah" class="mt-2">Jumlah</label>
+        <input type="text" id="jumlah" name="jumlah" required
+            class="form-control @error('jumlah')
+        is-invalid
+    @enderror"
+            value="{{ old('jumlah', $book->jumlah) }}">
+
+        @error('jumlah')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+        @enderror
+
+        <label for="stok" class="mt-2">Jumlah</label>
         <input type="text" id="stok" name="stok" required
             class="form-control @error('stok')
         is-invalid
-    @enderror" value="{{ old('stok', $book->jumlah) }}">
+    @enderror" value="{{ old('stok', $book->stok) }}">
 
         @error('stok')
             <div class="invalid-feedback">
@@ -103,7 +116,7 @@
             </div>
         @enderror
 
-        <a href="/data-buku" class="btn btn-danger float-right">Cancel</a>
-        <button type="submit" class="btn btn-primary float-right mr-2">Update</button>
+        <a href="/data-buku" class="btn btn-danger float-right mt-2">Batal</a>
+        <button type="submit" class="btn btn-primary float-right mr-2 mt-2">Ubah</button>
     </form>
 @endsection
