@@ -61,7 +61,7 @@
                     <td>{{ $item->borrow->book->judul }}</td>
                     <td>{{ \Carbon\Carbon::parse($item->tgl_kembalikan)->Format('d-m-Y') }}</td>
                     <td>{{ $item->terlambat }} Hari</td>
-                    <td>Rp.{{ $item->denda }}</td>
+                    <td>{{ $item->denda }}</td>
                 </tr>
             @endforeach
         </table>
