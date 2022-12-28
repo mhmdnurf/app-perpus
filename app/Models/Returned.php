@@ -31,4 +31,12 @@ class Returned extends Model
     {
         return $this->belongsTo(Borrow::class);
     }
+
+    public static function boot()
+    {
+        parent::boot();
+        static::deleting(function ($returned) {
+            $returned->borrow()->delete();
+        });
+    }
 }

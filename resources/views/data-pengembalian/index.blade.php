@@ -45,16 +45,27 @@
                                     {{ \Carbon\Carbon::parse($returned->borrow->tempo)->Format('d-m-Y') }}</td>
                                 <td class="align-middle">
                                     {{ \Carbon\Carbon::parse($returned->tgl_kembalikan)->Format('d-m-Y') }}</td>
-                                <td class="align-middle">{{ $returned->terlambat }} Hari</td>
-                                <td class="align-middle">{{ $returned->denda }}</td>
+                                <td class="align-middle">
+                                    @if ($returned->terlambat == 0)
+                                        {{ $returned->terlambat }}
+                                    @else
+                                        {{ $returned->terlambat }} Hari
+                                    @endif
+                                </td>
+                                <td class="align-middle">
+                                    @if ($returned->denda == 0)
+                                        {{ $returned->denda }}
+                                    @else
+                                        Rp.{{ $returned->denda }}
+                                    @endif
+                                </td>
                                 <td class="align-middle">{{ $returned->keterangan }}</td>
                                 <td class="align-middle">
                                     <form action="/data-pengembalian/{{ $returned->id }}" method="POST" class="d-inline"
                                         class="text-center">
                                         @method('delete')
                                         @csrf
-                                        <button class="text-danger border-0 bg-transparent"
-                                            onclick="return confirm('Data akan hilang ketika dihapus, apakah anda yakin?')"><i
+                                        <button class="text-danger border-0 bg-transparent delete-kembali"><i
                                                 class="fas fa-trash-alt fa-lg"></i></button>
                                     </form>
                                 </td>
@@ -65,4 +76,27 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script>
+        $('.delete-kembali').click(function() {
+            var form = $(this).closest('form');
+            var id = $(this).data('id');
+            event.preventDefault();
+            Swal.fire({
+                title: 'Apakah anda yakin untuk menghapus data?',
+                text: "Data akan hilang saat dihapus dan tidak dapat dikembalikan",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Hapus'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
 @endsection

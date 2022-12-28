@@ -24,10 +24,7 @@
                             <th>No. Anggota</th>
                             <th>Nama</th>
                             <th>NIS</th>
-                            <th>Tempat Lahir</th>
-                            <th>Tanggal Lahir</th>
                             <th>Jenis Kelamin</th>
-                            <th>Alamat</th>
                             <th>Kelas</th>
                             <th>Ubah</th>
                             <th>Hapus</th>
@@ -41,16 +38,12 @@
                                 <td class="align-middle">{{ $member->no_anggota }}</td>
                                 <td class="align-middle">{{ $member->nama }}</td>
                                 <td class="align-middle">{{ $member->nis }}</td>
-                                <td class="align-middle">{{ $member->tempat_lahir }}</td>
-                                <td class="align-middle">
-                                    {{ \Carbon\Carbon::parse($member->tanggal_lahir)->Format('d-m-Y') }}</td>
                                 @if ($member->jenis_kelamin == 'Laki-laki')
                                     <td class="align-middle">L</td>
                                 @endif
                                 @if ($member->jenis_kelamin == 'Perempuan')
                                     <td class="align-middle">P</td>
                                 @endif
-                                <td class="align-middle">{{ $member->alamat }}</td>
                                 <td class="align-middle">{{ $member->kelas }}</td>
                                 <td class="align-middle">
                                     <a href="/data-anggota/{{ $member->id }}/edit"

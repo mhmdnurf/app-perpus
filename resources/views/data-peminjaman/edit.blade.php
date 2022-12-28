@@ -16,7 +16,7 @@
         @enderror
 
         <label for="tempo" class="mt-2">Tempo</label>
-        <input id="tempo" type="date" name="tempo" required
+        <input id="tempo" type="date" name="tempo" required readonly 
             class="form-control @error('tempo')
             is-invalid
         @enderror"
@@ -37,4 +37,15 @@
         <a href="/data-peminjaman" class="btn btn-danger float-right mt-2">Cancel</a>
         <button type="submit" class="btn btn-primary float-right mr-2 mt-2">Update</button>
     </form>
+@endsection
+@section('script')
+    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+    <script>
+        document.getElementById("tgl_pinjam").onchange = function() {
+            let startdate = document.getElementById("tgl_pinjam").value;
+            let new_date = moment(startdate, "YYYY-MM-DD");
+            let tempo = new_date.add(7, 'days').format('YYYY-MM-DD');
+            document.getElementById("tempo").value = tempo;
+        }
+    </script>
 @endsection

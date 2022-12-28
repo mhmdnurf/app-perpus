@@ -103,16 +103,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'nama' => 'required|unique:categories,nama,' . $id,
+            'keterangan' => 'max:255'
+        ], [
+            'nama.unique' => 'Kategori telah terdaftar!'
+        ]);
+
         $category = Category::find($id);
-
-        $rules = ['nama' => 'required'];
-        if ($request->nama != $category->nama) {
-            $rules = [
-                'nama' => 'unique:categories',
-            ];
-        }
-
-        $category->update($request->validate($rules));
+        $category->fill($request->all());
+        $category->save();
 
         Alert::toast('Data Kategori Buku berhasil diubah!', 'success')->position('top')->autoClose(5000)->timerProgressBar()->hideCloseButton();
         return redirect('/kategori');

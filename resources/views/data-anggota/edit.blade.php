@@ -27,26 +27,7 @@
             </div>
         @enderror
 
-        <label for="tempat_lahir" class="mt-2">Tempat Lahir</label>
-        <input id="tempat_lahir" type="text" name="tempat_lahir" required
-            class="form-control @error('tempat_lahir')
-            is-invalid
-        @enderror"
-            value="{{ old('tempat_lahir', $member->tempat_lahir) }}">
-        @error('tempat_lahir')
-            <div class="invalid-feedback">
-                {{ $message }}
-            </div>
-        @enderror
-        <label for="tanggal_lahir" class="mt-2">Tanggal Lahir</label>
-        <input type="date" id="tanggal_lahir" name="tanggal_lahir" required
-            class="form-control @error('tanggal_lahir')
-            is-invalid
-        @enderror"
-            value="{{ old('tanggal_lahir', $member->tanggal_lahir) }}">
-        @error('tanggal_lahir')
-            {{ $message }}
-        @enderror
+
         <label for="jenis_kelamin" class="mt-2">Jenis Kelamin</label>
         <div class="form-check">
             <input value="Laki-laki" type="radio" name="jenis_kelamin"
@@ -68,11 +49,16 @@
         </div>
 
         <div class="form-group">
-            <label for="alamat">Alamat</label>
-            <textarea id="alamat" name="alamat" rows="2"
-                class="form-control @error('alamat')
-                is-invalid
-            @enderror" required>{{ $member->alamat }}</textarea>
+            <label for="kelas" class="mt-2">Kelas</label>
+        <select class="form-control" name="kelas">
+            <option value="{{ $member->kelas }}" disabled selected>{{ $member->kelas }}</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+        </select>
         </div>
 
         <a href="/data-anggota" class="btn btn-danger float-right">Batal</a>

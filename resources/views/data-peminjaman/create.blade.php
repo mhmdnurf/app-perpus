@@ -18,8 +18,12 @@
         <label for="book">Data Buku</label>
         <select class="form-control" aria-label="Default select example" name="book_id" id="book_id">
             @foreach ($books as $book)
-                <option></option>
-                <option value="{{ $book->id }}">{{ $book->judul }} | {{ $book->isbn }}</option>
+                @if ($book->stok >= 1)
+                    <option></option>
+                    <option value="{{ $book->id }}">{{ $book->judul }} | {{ $book->isbn }}</option>
+                @else
+                    @continue ($book->stok == 0)
+                @endif
             @endforeach
         </select>
         @error('book')

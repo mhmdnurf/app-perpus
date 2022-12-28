@@ -19,18 +19,9 @@
             </div>
         @enderror
 
-        <label for="tempat_lahir" class="mt-1">Tempat Lahir</label>
-        <input id="tempat_lahir" type="text" name="tempat_lahir" required
-            class="form-control @error('tempat_lahir')
-            is-invalid
-        @enderror">
-
-        <label for="tanggal_lahir" class="mt-1">Tanggal Lahir</label>
-        <input type="date" id="tanggal_lahir" name="tanggal_lahir" required class="form-control">
-
         <label for="jenis_kelamin" class="mt-1">Jenis Kelamin</label>
         <div class="form-check">
-            <input type="radio" name="jenis_kelamin" value="Laki-laki" checked
+            <input type="radio" name="jenis_kelamin" value="Laki-laki"
                 class="form-check-input @error('jenis_kelamin')
                 is-invalid
             @enderror">
@@ -46,17 +37,9 @@
             </label>
         </div>
 
-
-        <label for="alamat" class="mt-1">Alamat</label>
-        <textarea id="alamat" name="alamat" rows="2"
-            class="form-control @error('alamat')
-                is-invalid
-            @enderror" required></textarea>
-
-
-
         <label for="kelas" class="mt-1">Kelas</label>
         <select class="form-control" name="kelas">
+            <option disabled selected>-- Pilih Kelas --</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>

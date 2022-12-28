@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Rack;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RackRequest extends FormRequest
@@ -13,7 +15,7 @@ class RackRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +23,19 @@ class RackRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules($id)
+    {
+        // $rack = Rack::find($id);
+        // return [
+        //     'nama' => 'required|unique:racks', Rule::unique('racks')->ignore($rack),
+        //     'keterangan' => 'max:255'
+        // ];
+    }
+
+    public function messages()
     {
         return [
-            'nama' => 'unique:racks'
+            'nama.unique' => 'Nama rak telah digunakan!',
         ];
     }
 }

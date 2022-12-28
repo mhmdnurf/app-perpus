@@ -110,7 +110,6 @@
         document.getElementById("borrow_id").onchange = function() {
             const id = document.getElementById("borrow_id").value;
             const data = datas.find(data => data.id == id);
-
             judul.value = data.book.judul;
             isbn.value = data.book.isbn;
             nama.value = data.member.nama;

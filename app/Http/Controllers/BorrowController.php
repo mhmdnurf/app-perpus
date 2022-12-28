@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Borrow;
 use App\Models\Member;
+use App\Models\Returned;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
-use Alert;
 
 class BorrowController extends Controller
 {
@@ -149,7 +151,11 @@ class BorrowController extends Controller
      */
     public function destroy($id)
     {
-        Borrow::destroy($id);
+        $borrow = Borrow::find($id);
+        $book = Book::find($borrow->book_id);
+        $book->stok = $book->stok += 1;
+        $book->save();
+        $borrow->delete();
         return redirect('/data-peminjaman')->with('success', 'Peminjaman berhasil dihapus');
     }
 }

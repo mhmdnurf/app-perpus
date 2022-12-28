@@ -28,7 +28,6 @@
                             <th>Tanggal Peminjaman</th>
                             <th>Jatuh Tempo</th>
                             <th>Status</th>
-                            <th>Ubah</th>
                             <th>Hapus</th>
                             </th>
                         </tr>
@@ -51,28 +50,30 @@
                                             Selesai
                                         </span>
                                     @elseif (\Carbon\Carbon::parse($borrow->tgl_pinjam)->diffInDays(\Carbon\Carbon::today()) > 7)
-                                        <span class="border border-primary rounded bg-primary text-light p-1">
-                                            Dipinjam
+                                        <span class="border border-danger rounded bg-danger text-light p-1">
+                                            Terlambat
                                         @else
                                             <span class="border border-primary rounded bg-primary text-light p-1">
                                                 {{ $borrow->status }}
                                             </span>
                                     @endif
                                 </td>
-                                <td class="align-middle">
-                                    <a href="/data-peminjaman/{{ $borrow->id }}/edit"
-                                        class="btn btn-default text-primary"><i class="fas fa-user-edit fa-lg"></i></a>
-                                </td>
-                                <td class="align-middle">
-                                    <form action="/data-peminjaman/{{ $borrow->id }}" method="POST" class="d-inline"
-                                        class="text-center">
-                                        @method('delete')
-                                        @csrf
-                                        <button class="text-danger border-0 bg-transparent"
-                                            onclick="return confirm('Data akan hilang ketika dihapus, apakah anda yakin?')"><i
-                                                class="fas fa-trash-alt fa-lg"></i></button>
-                                    </form>
-                                </td>
+                                @if ($borrow->status == 'Dipinjam')
+                                    <td class="align-middle">
+                                        <form action="/data-peminjaman/{{ $borrow->id }}" method="POST" class="d-inline"
+                                            class="text-center">
+                                            @method('delete')
+                                            @csrf
+                                            <button class="text-danger border-0 bg-transparent delete-pinjam"><i
+                                                    class="fas fa-trash-alt fa-lg"></i></button>
+                                        </form>
+                                    </td>
+                                @else
+                                    <td class="align-middle"><button
+                                            class="text-danger border-0 bg-transparent alert-pinjam"><i
+                                                class="fas fa-trash-alt fa-lg"></i></button></td>
+                                    @continue($borrow->status == 'Selesai')
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>
@@ -80,4 +81,37 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script>
+        $('.delete-pinjam').click(function() {
+            var form = $(this).closest('form');
+            var id = $(this).data('id');
+            event.preventDefault();
+            Swal.fire({
+                title: 'Apakah anda yakin untuk menghapus data?',
+                text: "Data akan hilang saat dihapus dan tidak dapat dikembalikan",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Hapus'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+
+        $('.alert-pinjam').click(function() {
+            var form = $(this).closest('form');
+            event.preventDefault();
+            Swal.fire({
+                title: 'Hapus tidak dapat dilakukan!',
+                text: 'Data peminjaman telah selesai, silahkan hapus pada data pengembalian',
+                icon: 'error',
+            })
+        });
+    </script>
 @endsection

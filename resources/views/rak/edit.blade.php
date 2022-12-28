@@ -3,12 +3,12 @@
     <form action="/rak/{{ $rack->id }}" method="POST">
         @method('put')
         @csrf
-        <label for="name">Nama Rak Buku</label>
-        <input id="name" type="text" name="nama" required autofocus
+        <label for="nama">Nama Rak Buku</label>
+        <input id="nama" type="text" name="nama" required autofocus
             class="form-control @error('nama')
             is-invalid
         @enderror"
-            value="{{ old('name', $rack->nama) }}">
+            value="{{ old('nama', $rack->nama) }}">
 
         <div class="form-group mt-2">
             <label for="keterangan">Keterangan</label>

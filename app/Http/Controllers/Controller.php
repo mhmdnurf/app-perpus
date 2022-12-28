@@ -50,7 +50,7 @@ class Controller extends BaseController
                 }
                 $html .= "</ul>";
 
-                Alert::html('NIS telah terdaftar', $html, 'error');
+                Alert::html('Data Gagal Di-input, karena:', $html, 'error');
             }
 
             if (session('errorBook')) {

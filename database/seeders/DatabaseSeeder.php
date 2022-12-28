@@ -32,6 +32,13 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('admin')
         ]);
 
+        User::create([
+            'name' => 'Admin',
+            'username' => 'admin',
+            'email' => 'zaldes@gmail.com',
+            'password' => bcrypt('admin')
+        ]);
+
         Book::create([
             'category_id' => '1',
             'rack_id' => '1',
@@ -45,12 +52,12 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Rack::create([
-            'nama' => 'RAK 1',
+            'nama' => 'RAK-1',
             'keterangan' => '-'
         ]);
 
         Rack::create([
-            'nama' => 'RAK 2',
+            'nama' => 'RAK-2',
             'keterangan' => '-'
         ]);
 

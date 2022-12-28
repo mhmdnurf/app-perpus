@@ -15,7 +15,7 @@ class CreateReturnedsTable extends Migration
     {
         Schema::create('returneds', function (Blueprint $table) {
             $table->id('id');
-            $table->foreignId('borrow_id');
+            $table->foreignId('borrow_id')->onDelete('cascade');
             $table->date('tgl_kembalikan');
             $table->string('terlambat');
             $table->string('denda');

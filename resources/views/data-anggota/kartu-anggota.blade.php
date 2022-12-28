@@ -17,9 +17,31 @@
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="/code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
 </head>
 
 <body id="page-top">
+    <style>
+        .page-break {
+            page-break-after: always;
+        }
+
+
+        .tabel .table.table-bordered {
+            border: 1px solid black;
+        }
+
+        .tabel .table.table-bordered>thead>tr>th {
+            border: 1px solid black;
+            color: black;
+            background-color: yellow;
+        }
+
+        .tabel .table.table-bordered>tbody>tr>td {
+            border: 1px solid black;
+        }
+    </style>
+
 
 
     <!-- Main Content -->
@@ -61,8 +83,8 @@
                 <td>{{ $member->jenis_kelamin }}</td>
             </tr>
             <tr>
-                <th>Alamat</th>
-                <td>{{ $member->alamat }}</td>
+                <th>Kelas</th>
+                <td>{{ $member->kelas }}</td>
             </tr>
         </tbody>
     </table>
@@ -77,7 +99,7 @@
                 keterlambatan.</li>
             <li>Anggota tidak dibenarkan merusak buku yang telah dipinjamkan.</li>
             <li>Apabila buku yang telah dipinjam hilang ataupun rusak karena kelalaian, diwajibkan untuk mengganti buku
-                tersebut dengan buku yang sama atau dengan uang seharga buku yang berlaku terakhir.</li>
+                tersebut dengan buku yang sama atau dalam bentuk fotocopy.</li>
         </ol>
     </div>
 
@@ -85,6 +107,34 @@
         <p>Perpustakaan SDN 017 Senayang</p>
         <p>Ttd</p>
         <p>Kepala Sekolah SDN 017 Senayang</p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h5 class="bg-dark text-light text-center">RIWAYAT DENDA</h5>
+    <div class="tabel">
+        <table class="table table-bordered text-center ">
+            <thead>
+                <tr class="text-center" style="border: 1px solid black;">
+                    <th>Tanggal Pinjam</th>
+                    <th>Tanggal Kembali</th>
+                    <th>Telat</th>
+                    <th>Denda</th>
+                    <th>TTD</th>
+                </tr>
+            </thead>
+            <tbody class="text-light">
+                @for ($i = 0; $i < 18; $i++)
+                    <tr>
+                        <td>A</td>
+                        <td>A</td>
+                        <td>A</td>
+                        <td>A</td>
+                        <td>A</td>
+                    </tr>
+                @endfor
+            </tbody>
+        </table>
     </div>
 
     <!-- Bootstrap core JavaScript-->

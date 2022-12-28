@@ -72,15 +72,15 @@ class ReturnedController extends Controller
                 'tgl_kembalikan' => $request->tgl_kembalikan,
                 'keterangan' => $request->keterangan,
                 'terlambat' => ($days - 7),
-                'denda' => 'Rp.' . "" . ($days - 7) * 1000
+                'denda' => ($days - 7) * 1000
             ]);
         } else {
             $returned = Returned::create([
                 'borrow_id' => $request->borrow_id,
                 'tgl_kembalikan' => $request->tgl_kembalikan,
                 'keterangan' => $request->keterangan,
-                'terlambat' => '-',
-                'denda' => '-'
+                'terlambat' => '',
+                'denda' => ''
             ]);
         }
 

@@ -59,15 +59,16 @@ class MemberController extends Controller
             $request->all(),
             [
                 'nama' => 'required|max:255',
-                'nis' => 'unique:members',
-                'tempat_lahir' => 'required|max:255',
-                'tanggal_lahir' => 'required',
+                'nis' => 'required|unique:members',
                 'jenis_kelamin' => 'required',
-                'alamat' => 'required|max:255',
                 'kelas' => 'required'
             ],
             [
-                'nis.unique' => 'Silahkan cek data anggota terlebih dahulu'
+                'nis.required' => 'NIS tidak boleh kosong!',
+                'nis.unique' => 'NIS telah digunakan!',
+                'nama.required' => 'Nama tidak boleh kosong!',
+                'jenis_kelamin.required' => 'Jenis kelamin tidak boleh kosong!',
+                'kelas.required' => 'Kelas tidak boleh kosong'
             ]
         );
 
@@ -79,10 +80,7 @@ class MemberController extends Controller
                 'no_anggota' => $id,
                 'nama' => $request->nama,
                 'nis' => $request->nis,
-                'tempat_lahir' => $request->tempat_lahir,
-                'tanggal_lahir' => $request->tanggal_lahir,
                 'jenis_kelamin' => $request->jenis_kelamin,
-                'alamat' => $request->alamat,
                 'kelas' => $request->kelas
             ]);
 
@@ -136,10 +134,8 @@ class MemberController extends Controller
 
         $rules = [
             'nama' => 'required|max:255',
-            'tempat_lahir' => 'required|max:255',
-            'tanggal_lahir' => 'required',
             'jenis_kelamin' => 'required',
-            'alamat' => 'required|max:255'
+            'kelas' => 'required'
         ];
 
         $member->update($request->validate($rules));

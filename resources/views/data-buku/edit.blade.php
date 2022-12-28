@@ -104,7 +104,7 @@
             </div>
         @enderror
 
-        <label for="stok" class="mt-2">Jumlah</label>
+        <label for="stok" class="mt-2">Stok</label>
         <input type="text" id="stok" name="stok" required
             class="form-control @error('stok')
         is-invalid

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Rack;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use App\Http\Requests\RackRequest;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
@@ -104,15 +106,16 @@ class RackController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $rack = Rack::find($id);
-        $rules = ['nama' => 'required'];
-        if ($request->nama != $rack->nama) {
-            $rules = [
-                'nama' => 'unique:racks',
-            ];
-        }
+        $request->validate([
+            'nama' => 'required|unique:racks,nama,' . $id,
+            'keterangan' => 'max:255'
+        ], [
+            'nama.unique' => 'Nama Rak telah terdaftar!'
+        ]);
 
-        $rack->update($request->validate($rules));
+        $rack = Rack::find($id);
+        $rack->fill($request->all());
+        $rack->save();
 
         Alert::toast('Data Rak Buku berhasil diubah!', 'success')->position('top')->autoClose(5000)->timerProgressBar()->hideCloseButton();
         return redirect('/rak');

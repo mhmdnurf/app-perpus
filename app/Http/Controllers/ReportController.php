@@ -22,8 +22,8 @@ class ReportController extends Controller
     {
         $cetakAnggota = Member::whereDate('created_at', '>=', $tgl_awal)->whereDate('created_at', '<=', $tgl_akhir)->get();
         view()->share('member', $cetakAnggota);
-        $pdf = PDF::loadview('data-anggota.lap-anggota', compact('cetakAnggota'))->setPaper('a4', 'portrait');
-        return $pdf->stream('kartu-anggota.pdf');
+        $pdf = PDF::loadview('data-anggota.lap-anggota', compact('cetakAnggota'))->setPaper('a4', 'landscape');
+        return $pdf->stream('laporan-anggota.pdf');
     }
 
     public function homeLapBuku()
@@ -37,7 +37,7 @@ class ReportController extends Controller
     {
         $cetakBuku = Book::whereDate('created_at', '>=', $tgl_awal)->whereDate('created_at', '<=', $tgl_akhir)->get();
         view()->share('book', $cetakBuku);
-        $pdf = PDF::loadview('data-buku.lap-buku', compact('cetakBuku'))->setPaper('a4', 'portrait');
+        $pdf = PDF::loadview('data-buku.lap-buku', compact('cetakBuku'))->setPaper('a4', 'landscape');
         return $pdf->stream('laporan-buku.pdf');
     }
 
@@ -50,9 +50,9 @@ class ReportController extends Controller
 
     public function cetakLapPinjam($tgl_awal, $tgl_akhir)
     {
-        $cetakPinjam = Borrow::whereDate('created_at', '>=', $tgl_awal)->whereDate('created_at', '<=', $tgl_akhir)->get();
+        $cetakPinjam = Borrow::whereDate('tgl_pinjam', '>=', $tgl_awal)->whereDate('tgl_pinjam', '<=', $tgl_akhir)->get();
         view()->share('borrow', $cetakPinjam);
-        $pdf = PDF::loadview('data-peminjaman.lap-pinjam', compact('cetakPinjam'))->setPaper('a4', 'portrait');
+        $pdf = PDF::loadview('data-peminjaman.lap-pinjam', compact('cetakPinjam'))->setPaper('a4', 'landscape');
         return $pdf->stream('laporan-pinjam.pdf');
     }
 
@@ -65,9 +65,9 @@ class ReportController extends Controller
 
     public function cetakLapPengembalian($tgl_awal, $tgl_akhir)
     {
-        $cetakPengembalian = Returned::whereDate('created_at', '>=', $tgl_awal)->whereDate('created_at', '<=', $tgl_akhir)->get();
+        $cetakPengembalian = Returned::whereDate('tgl_kembalikan', '>=', $tgl_awal)->whereDate('tgl_kembalikan', '<=', $tgl_akhir)->get();
         view()->share('returned', $cetakPengembalian);
-        $pdf = PDF::loadview('data-pengembalian.lap-pengembalian', compact('cetakPengembalian'))->setPaper('a4', 'portrait');
+        $pdf = PDF::loadview('data-pengembalian.lap-pengembalian', compact('cetakPengembalian'))->setPaper('a4', 'landscape');
         return $pdf->stream('laporan-pengembalian.pdf');
     }
 }
