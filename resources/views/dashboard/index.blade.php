@@ -77,7 +77,7 @@
 
     <div class="card shadow mb-4 mt-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Sistem Informasi Perpustakaan SD Negeri 017 Senayang</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Sistem Informasi Perpustakaan</h6>
         </div>
         <div class="card-body">
             <p class="align-middle text-center h5">JANGAN LUPA UNTUK LOGOUT SETELAH DIGUNAKAN</p>
