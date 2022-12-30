@@ -15,8 +15,10 @@ class CreateBooksTable extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id('id');
-            $table->foreignId('category_id');
-            $table->foreignId('rack_id');
+            $table->unsignedBigInteger('rack_id');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('rack_id')->references('id')->on('racks');
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->string('isbn');
             $table->string('judul');
             $table->string('penerbit');

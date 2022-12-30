@@ -7,6 +7,7 @@ use App\Models\Rack;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
@@ -53,7 +54,7 @@ class BookController extends Controller
             $request->all(),
             [
                 'judul' => 'required|max:255',
-                'isbn' => 'unique:books',
+                'isbn' => 'required|unique:books',
                 'category_id' => 'required',
                 'rack_id' => 'required',
                 'penerbit' => 'required|max:255',
@@ -62,7 +63,13 @@ class BookController extends Controller
                 'jumlah' => 'required'
             ],
             [
-                'isbn.unique' => 'Silahkan cek data buku terlebih dahulu'
+                'judul.required' => 'Judul tidak boleh kosong!',
+                'isbn.required' => 'Nomor ISBN tidak boleh kosong!',
+                'isbn.unique' => 'Nomor ISBN telah terdaftar!',
+                'penerbit.required' => 'Penerbit tidak boleh kosong!',
+                'pengarang.required' => 'Pengarang tidak boleh kosong!',
+                'tahun.required' => 'Tahun tidak boleh kosong!',
+                'jumlah.required' => 'Jumlah tidak boleh kosong!'
             ]
         );
 
@@ -83,7 +90,8 @@ class BookController extends Controller
                 'stok' => $request->jumlah
             ]);
 
-            return redirect('data-buku')->with('success', 'Data Buku berhasil ditambah!');
+            Alert::toast('Data Buku berhasil ditambah!', 'success')->position('top')->autoClose(5000)->timerProgressBar()->hideCloseButton();
+            return redirect('data-buku');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error during the creation');
         }
@@ -154,7 +162,17 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        Book::destroy($id);
+        $book = Book::find($id);
+
+        try {
+            $book->delete();
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() == 23000) {
+                //SQLSTATE[23000]: Integrity constraint violation
+                Session::flash('error', 'Buku tidak dapat dihapus karena terhubung dengan data peminjaman!');
+                return back();
+            }
+        }
         Alert::toast('Data Buku berhasil dihapus!', 'success')->position('top')->autoClose(5000)->timerProgressBar()->hideCloseButton();
         return redirect('/data-buku');
     }

@@ -59,13 +59,21 @@ class BorrowController extends Controller
 
         $id = IdGenerator::generate($config);
 
-        $request->validate([
-            'member_id' => 'required|max:255',
-            'book_id' => 'required',
-            'tgl_pinjam' => 'required',
-            'tempo' => 'required',
-            'status' => 'required',
-        ]);
+        $request->validate(
+            [
+                'member_id' => 'required|max:255',
+                'book_id' => 'required',
+                'tgl_pinjam' => 'required',
+                'tempo' => 'required',
+                'status' => 'required',
+            ],
+            [
+                'member_id.required' => 'Nomor/Nama Anggota tidak boleh kosong!',
+                'book_id.required' => 'Nomor ISBN/Judul Buku tidak boleh kosong!',
+                'tgl_pinjam.required' => 'Tanggal Peminjaman tidak boleh kosong!',
+                'tempo.required' => 'Silahkan masukkan tanggal peminjaman agar tempo tidak kosong!',
+            ]
+        );
 
         $borrow = Borrow::create([
             'no_pinjam' => $id,
@@ -76,16 +84,14 @@ class BorrowController extends Controller
             'status' => 'Dipinjam'
         ]);
 
+
         $book = Book::find($request->book_id);
         $book->stok = $book->stok - 1;
         $book->save();
 
         if ($borrow) {
-            return redirect()
-                ->route('data-peminjaman.index')
-                ->with([
-                    'success' => 'Peminjaman berhasil dilakukan'
-                ]);
+            Alert::toast('Peminjaman berhasil dilakukan!', 'success')->position('top')->autoClose(5000)->timerProgressBar()->hideCloseButton();
+            return redirect('/data-peminjaman');
         } else {
             return redirect()
                 ->back()
@@ -156,6 +162,7 @@ class BorrowController extends Controller
         $book->stok = $book->stok += 1;
         $book->save();
         $borrow->delete();
-        return redirect('/data-peminjaman')->with('success', 'Peminjaman berhasil dihapus');
+        Alert::toast('Peminjaman berhasil dihapus!', 'success')->position('top')->autoClose(5000)->timerProgressBar()->hideCloseButton();
+        return redirect('/data-peminjaman');
     }
 }

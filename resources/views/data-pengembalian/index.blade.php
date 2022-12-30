@@ -47,19 +47,25 @@
                                     {{ \Carbon\Carbon::parse($returned->tgl_kembalikan)->Format('d-m-Y') }}</td>
                                 <td class="align-middle">
                                     @if ($returned->terlambat == 0)
-                                        {{ $returned->terlambat }}
+                                        -
                                     @else
                                         {{ $returned->terlambat }} Hari
                                     @endif
                                 </td>
                                 <td class="align-middle">
                                     @if ($returned->denda == 0)
-                                        {{ $returned->denda }}
+                                        -
                                     @else
                                         Rp.{{ $returned->denda }}
                                     @endif
                                 </td>
-                                <td class="align-middle">{{ $returned->keterangan }}</td>
+                                <td class="align-middle">
+                                    @if ($returned->keterangan == null)
+                                        -
+                                    @else
+                                        {{ $returned->keterangan }}
+                                    @endif
+                                </td>
                                 <td class="align-middle">
                                     <form action="/data-pengembalian/{{ $returned->id }}" method="POST" class="d-inline"
                                         class="text-center">
@@ -85,7 +91,7 @@
             event.preventDefault();
             Swal.fire({
                 title: 'Apakah anda yakin untuk menghapus data?',
-                text: "Data akan hilang saat dihapus dan tidak dapat dikembalikan",
+                text: "Data akan hilang saat dihapus dan tidak dapat dikembalikan serta data pada peminjaman juga akan hilang",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',

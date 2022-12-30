@@ -6,6 +6,7 @@ use App\Models\Rack;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Requests\RackRequest;
+use Illuminate\Support\Facades\Session;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
@@ -129,8 +130,18 @@ class RackController extends Controller
      */
     public function destroy($id)
     {
-        Rack::destroy($id);
+        $rack = Rack::find($id);
+
+        try {
+            $rack->delete();
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() == 23000) {
+                //SQLSTATE[23000]: Integrity constraint violation
+                Session::flash('error', 'Rak tidak dapat dihapus karena terhubung dengan data buku!');
+                return back();
+            }
+        }
         Alert::toast('Data Rak Buku berhasil dihapus!', 'success')->position('top')->autoClose(5000)->timerProgressBar()->hideCloseButton();
-        return redirect('rak');
+        return redirect('/rak');
     }
 }

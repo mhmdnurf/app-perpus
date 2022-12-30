@@ -40,12 +40,12 @@
                         @foreach ($books as $book)
                             <tr>
                                 <td class="align-middle">{{ $loop->iteration }}</td>
-                                <td class="align-middle">{{ $book->judul }}</td>
+                                <td class="align-middle text-capitalize">{{ $book->judul }}</td>
                                 <td class="align-middle">{{ $book->isbn }}</td>
-                                <td class="align-middle">{{ $book->rack->nama }}</td>
-                                <td class="align-middle">{{ $book->category->nama }}</td>
-                                <td class="align-middle">{{ $book->penerbit }}</td>
-                                <td class="align-middle">{{ $book->pengarang }}</td>
+                                <td class="align-middle text-uppercase">{{ $book->rack->nama }}</td>
+                                <td class="align-middle text-capitalize">{{ $book->category->nama }}</td>
+                                <td class="align-middle text-capitalize">{{ $book->penerbit }}</td>
+                                <td class="align-middle text-capitalize">{{ $book->pengarang }}</td>
                                 <td class="align-middle">{{ $book->tahun }}</td>
                                 <td class="align-middle">{{ $book->jumlah }}</td>
                                 <td class="align-middle">

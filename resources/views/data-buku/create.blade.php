@@ -14,7 +14,7 @@
         @enderror
 
         <label for="isbn">ISBN</label>
-        <input id="isbn" type="text" name="isbn" required autofocus
+        <input id="isbn" type="number" name="isbn" required autofocus
             class="form-control @error('isbn')
         is-invalid
     @enderror">
@@ -25,7 +25,7 @@
         @enderror
 
         <label for="category" class="mt-2">Kategori</label>
-        <select class="form-control" name="category_id">
+        <select class="form-control text-capitalize" name="category_id">
             @foreach ($categories as $category)
                 @if (old('category_id') == $category->id)
                     <option value="{{ $category->id }}" selected>{{ $category->nama }}</option>
@@ -37,7 +37,7 @@
         </select>
 
         <label for="rack" class="mt-2">Rak</label>
-        <select class="form-control" aria-label="Default select example" name="rack_id">
+        <select class="form-control text-uppercase" aria-label="Default select example" name="rack_id">
             @foreach ($racks as $rack)
                 @if (old('rack_id') == $rack->id)
                     <option value="{{ $rack->id }}" selected>{{ $rack->nama }}</option>
@@ -77,7 +77,7 @@
         @enderror
 
         <label for="tahun" class="mt-2">Tahun</label>
-        <input type="text" id="tahun" name="tahun" required
+        <input type="number" id="tahun" name="tahun" required
             class="form-control @error('tahun')
         is-invalid
     @enderror">
@@ -89,7 +89,7 @@
         @enderror
 
         <label for="jumlah" class="mt-2">Jumlah</label>
-        <input type="text" id="jumlah" name="jumlah" required
+        <input type="number" id="jumlah" name="jumlah" required
             class="form-control @error('jumlah')
         is-invalid
     @enderror">

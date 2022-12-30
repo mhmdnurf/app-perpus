@@ -53,11 +53,11 @@
                 @foreach ($cetakBuku as $item)
                     <tr>
                         <td class="align-middle">{{ $loop->iteration }}</td>
-                        <td class="align-middle">{{ $item->judul }}</td>
+                        <td class="align-middle text-capitalize">{{ $item->judul }}</td>
                         <td class="align-middle">{{ $item->isbn }}</td>
-                        <td class="align-middle">{{ $item->category->nama }}</td>
-                        <td class="align-middle">{{ $item->penerbit }}</td>
-                        <td class="align-middle">{{ $item->pengarang }}</td>
+                        <td class="align-middle text-capitalize">{{ $item->category->nama }}</td>
+                        <td class="align-middle text-capitalize">{{ $item->penerbit }}</td>
+                        <td class="align-middle text-capitalize">{{ $item->pengarang }}</td>
                         <td class="align-middle">{{ $item->tahun }}</td>
                         <td class="align-middle">{{ $item->jumlah }}</td>
                         <td class="align-middle">{{ \Carbon\Carbon::parse($item->created_at)->Format('d-m-Y') }}</td>

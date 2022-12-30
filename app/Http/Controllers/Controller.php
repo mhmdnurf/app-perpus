@@ -50,7 +50,7 @@ class Controller extends BaseController
                 }
                 $html .= "</ul>";
 
-                Alert::html('Data Gagal Di-input, karena:', $html, 'error');
+                Alert::html('Data Gagal Di-input', $html, 'error');
             }
 
             if (session('errorBook')) {
@@ -60,7 +60,7 @@ class Controller extends BaseController
                 }
                 $html .= "</ul>";
 
-                Alert::html('Nomor ISBN telah terdaftar', $html, 'error');
+                Alert::html('Data Gagal Di-input', $html, 'error');
             }
 
             return $next($request);

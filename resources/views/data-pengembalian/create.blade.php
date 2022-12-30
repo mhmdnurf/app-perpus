@@ -99,7 +99,7 @@
         </div>
 
         <a href="/data-pengembalian" class="btn btn-danger float-right mt-2">Cancel</a>
-        <button type="submit" class="btn btn-primary float-right mr-2 mt-2">Submit</button>
+        <button type="submit" class="btn btn-primary float-right mr-2 mt-2 proses-pengembalian">Submit</button>
     </form>
 @endsection
 
@@ -117,5 +117,24 @@
             tgl_pinjam.value = data.tgl_pinjam;
             document.getElementsByClassName('book_id')[0].value = data.book.id;
         }
+
+        $('.proses-pengembalian').click(function() {
+            var form = $(this).closest('form');
+            event.preventDefault();
+            Swal.fire({
+                title: 'Apakah anda yakin data yang di-input sudah benar?',
+                text: "Pastikan Anggota telah membawa kartu anggota dan buku yang sesuai!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Proses'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
     </script>
 @endsection

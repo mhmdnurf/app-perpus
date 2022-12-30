@@ -34,8 +34,14 @@
                         @foreach ($categories as $category)
                             <tr>
                                 <td class="align-middle">{{ $loop->iteration }}</td>
-                                <td class="align-middle">{{ $category->nama }}</td>
-                                <td class="align-middle">{{ $category->keterangan }}</td>
+                                <td class="align-middle text-capitalize">{{ $category->nama }}</td>
+                                <td class="align-middle">
+                                    @if ($category->keterangan == null)
+                                        -
+                                    @else
+                                        {{ $category->keterangan }}
+                                    @endif
+                                </td>
                                 <td class="align-middle"><a href="/kategori/{{ $category->id }}/edit"
                                         class="btn btn-default text-primary"><i class="fas fa-user-edit fa-lg"></i></a>
                                 </td>

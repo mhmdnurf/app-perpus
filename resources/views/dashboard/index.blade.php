@@ -88,7 +88,7 @@
                 <li>Anggota hanya boleh meminjam buku sebanyak 1 eksemplar dengan jangka waktu paling lama satu minggu.</li>
                 <li>Peminjaman hanya boleh dilakukan jika anggota tidak sedang meminjam buku.</li>
                 <li>Apabila buku yang dipinjam dirusak ataupun hilang, maka pustakawan berhak meminta peminjam untuk
-                    mengganti buku yang sama ataupun dengan uang seharga buku yang berlaku.</li>
+                    mengganti buku yang sama ataupun buku yang telah difotokopi.</li>
                 <li>Denda keterlambatan sebesar Rp.1000 per jumlah hari keterlambatan.</li>
                 <li>Jangan lupa untuk melihat ketersediaan buku sebelum melakukan proses peminjaman.</li>
             </ul>

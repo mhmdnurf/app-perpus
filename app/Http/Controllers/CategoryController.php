@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
 
@@ -126,7 +127,19 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        Category::destroy($id);
-        return redirect('/kategori')->with('success', 'Kategori berhasil dihapus');
+        $category = Category::find($id);
+
+        try {
+            $category->delete();
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() == 23000) {
+                //SQLSTATE[23000]: Integrity constraint violation
+                Session::flash('error', 'Kategori tidak dapat dihapus karena terhubung dengan data buku!');
+                return back();
+            }
+        }
+
+        Alert::toast('Kategori Buku berhasil dihapus!', 'success')->position('top')->autoClose(5000)->timerProgressBar()->hideCloseButton();
+        return redirect('/kategori');
     }
 }

@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use PDF;
 use App\Models\Member;
 use Illuminate\Http\Request;
-use Haruncpi\LaravelIdGenerator\IdGenerator;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Validator;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class MemberController extends Controller
 {
@@ -135,7 +136,7 @@ class MemberController extends Controller
         $rules = [
             'nama' => 'required|max:255',
             'jenis_kelamin' => 'required',
-            'kelas' => 'required'
+            'kelas' => 'max:255'
         ];
 
         $member->update($request->validate($rules));
@@ -152,7 +153,17 @@ class MemberController extends Controller
     public function destroy($id)
     {
 
-        Member::destroy($id);
+        $member = Member::find($id);
+
+        try {
+            $member->delete();
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() == 23000) {
+                //SQLSTATE[23000]: Integrity constraint violation
+                Session::flash('error', 'Data Anggota tidak dapat dihapus karena terhubung dengan data peminjaman!');
+                return back();
+            }
+        }
         Alert::toast('Data Anggota berhasil dihapus!', 'success')->position('top')->autoClose(5000)->timerProgressBar()->hideCloseButton();
         return redirect('/data-anggota');
     }

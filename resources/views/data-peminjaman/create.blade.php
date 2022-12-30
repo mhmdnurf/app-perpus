@@ -16,7 +16,7 @@
         @enderror
 
         <label for="book">Data Buku</label>
-        <select class="form-control" aria-label="Default select example" name="book_id" id="book_id">
+        <select class="form-control text-capitalize" aria-label="Default select example" name="book_id" id="book_id">
             @foreach ($books as $book)
                 @if ($book->stok >= 1)
                     <option></option>
@@ -67,7 +67,7 @@
 
 
         <a href="/data-peminjaman" class="btn btn-danger float-right mt-2">Batal</a>
-        <button type="submit" class="btn btn-primary float-right mr-2 mt-2">Tambah</button>
+        <button type="submit" class="btn btn-primary float-right mr-2 mt-2 tambah-pinjam">Tambah</button>
     </form>
 @endsection
 @section('script')
@@ -78,9 +78,25 @@
             let new_date = moment(startdate, "YYYY-MM-DD");
             let tempo = new_date.add(7, 'days').format('YYYY-MM-DD');
             document.getElementById("tempo").value = tempo;
-
-
-
         }
+
+        $('.tambah-pinjam').click(function() {
+            var form = $(this).closest('form');
+            event.preventDefault();
+            Swal.fire({
+                title: 'Apakah anda yakin data yang di-input sudah benar?',
+                text: "Pastikan Anggota sedang tidak meminjam buku dan telah mengembalikan buku!",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Proses'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
     </script>
 @endsection

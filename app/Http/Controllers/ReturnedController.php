@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use App\Models\Book;
 use App\Models\Borrow;
 use App\Models\Member;
 use App\Models\Returned;
 use Illuminate\Http\Request;
-use DateTime;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ReturnedController extends Controller
 {
@@ -79,8 +80,8 @@ class ReturnedController extends Controller
                 'borrow_id' => $request->borrow_id,
                 'tgl_kembalikan' => $request->tgl_kembalikan,
                 'keterangan' => $request->keterangan,
-                'terlambat' => '',
-                'denda' => ''
+                'terlambat' => 0,
+                'denda' => 0
             ]);
         }
 
@@ -89,11 +90,8 @@ class ReturnedController extends Controller
         ]);
 
         if ($returned) {
-            return redirect()
-                ->route('data-pengembalian.index')
-                ->with([
-                    'success' => 'Pengembalian berhasil dilakukan'
-                ]);
+            Alert::toast('Pengembalian berhasil dilakukan!', 'success')->position('top')->autoClose(5000)->timerProgressBar()->hideCloseButton();
+            return redirect('/data-pengembalian');
         } else {
             return redirect()
                 ->back()
@@ -147,6 +145,7 @@ class ReturnedController extends Controller
     public function destroy($id)
     {
         Returned::destroy($id);
-        return redirect('/data-pengembalian')->with('success', 'Pengembalian berhasil dihapus');
+        Alert::toast('Pengembalian berhasil dihapus!', 'success')->position('top')->autoClose(5000)->timerProgressBar()->hideCloseButton();
+        return redirect('/data-pengembalian');
     }
 }

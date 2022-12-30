@@ -9,7 +9,7 @@
         @enderror">
 
         <label for="nis" class="mt-1">NIS</label>
-        <input id="nis" type="text" name="nis" required
+        <input id="nis" type="number" name="nis" required
             class="form-control @error('nis')
             is-invalid
         @enderror">
